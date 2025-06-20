@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Header from './Header';
 import Sidebar from './Sidebar';
-import Footer from './Footer'; // Import the new Footer
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -33,7 +32,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           {children}
         </main>
 
-        <Footer /> {/* Add the footer here */}
+        {/* <Footer />  */}
       </div>
     </div>
   );

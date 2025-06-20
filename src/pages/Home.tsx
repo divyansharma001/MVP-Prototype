@@ -6,6 +6,8 @@ import Button from '../components/UI/Button';
 
 import Logo from '../components/UI/Logo';
 import { useToast } from '../components/UI/Toast';
+import Footer from '../components/Layout/Footer';
+
 
 // A new, dedicated header for the marketing page
 const MarketingHeader = () => {
@@ -274,36 +276,7 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="border-t border-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="col-span-2 md:col-span-1">
-              <Logo />
-              <p className="mt-4 text-sm text-gray-400">The last website builder you'll ever need.</p>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold text-white tracking-wider uppercase">Product</h3>
-              <ul className="mt-4 space-y-2">
-                <li><a href="#" className="text-base text-gray-400 hover:text-white">Features</a></li>
-                <li><a href="#" className="text-base text-gray-400 hover:text-white">Templates</a></li>
-                <li><a href="#" className="text-base text-gray-400 hover:text-white">Pricing</a></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold text-white tracking-wider uppercase">Company</h3>
-              <ul className="mt-4 space-y-2">
-                <li><a href="#" className="text-base text-gray-400 hover:text-white">About Us</a></li>
-                <li><a href="#" className="text-base text-gray-400 hover:text-white">Careers</a></li>
-                <li><a href="#" className="text-base text-gray-400 hover:text-white">Contact</a></li>
-              </ul>
-            </div>
-          </div>
-          <div className="mt-8 border-t border-gray-800 pt-8 text-center text-sm text-gray-500">
-            <p>© {new Date().getFullYear()} WebCraft. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
+     <Footer/>
     </div>
   );
 };

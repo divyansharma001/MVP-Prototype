@@ -67,8 +67,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children, size = 
                   onClick={onClose}
                   icon={X}
                   className="!p-2 hover:bg-gray-700/50"
-                  aria-label="Close modal"
-                />
+                  aria-label="Close modal" children={undefined}                />
               </div>
               
               <motion.div

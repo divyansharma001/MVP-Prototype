@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout/Layout';
 import Home from './pages/Home';
@@ -6,11 +5,14 @@ import Dashboard from './pages/Dashboard';
 import Templates from './pages/Templates';
 import Builder from './pages/Builder';
 import { ToastProvider } from './components/UI/Toast';
-import { ThemeProvider } from './contexts/ThemeContext'; 
+import { ThemeProvider } from './contexts/ThemeContext';
+import { WebsiteProvider } from './contexts/WebsiteContext'; 
 
 function App() {
   return (
        <ThemeProvider>
+        <WebsiteProvider>
+
     <ToastProvider>
       <Router>
         <div className="min-h-screen bg-gray-900 text-gray-100">
@@ -36,6 +38,7 @@ function App() {
         </div>
       </Router>
     </ToastProvider>
+    </WebsiteProvider>
     </ThemeProvider>
   );
 }
