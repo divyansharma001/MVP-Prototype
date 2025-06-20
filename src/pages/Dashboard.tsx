@@ -25,6 +25,7 @@ const Dashboard: React.FC = () => {
     setTimeout(() => navigate('/builder'), 1000);
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleDeleteRequest = (id: string, name: string) => {
       const site = websites.find(s => s.id === id);
       if (site) {
