@@ -6,9 +6,11 @@ import Dashboard from './pages/Dashboard';
 import Templates from './pages/Templates';
 import Builder from './pages/Builder';
 import { ToastProvider } from './components/UI/Toast';
+import { ThemeProvider } from './contexts/ThemeContext'; 
 
 function App() {
   return (
+       <ThemeProvider>
     <ToastProvider>
       <Router>
         <div className="min-h-screen bg-gray-900 text-gray-100">
@@ -34,6 +36,7 @@ function App() {
         </div>
       </Router>
     </ToastProvider>
+    </ThemeProvider>
   );
 }
 

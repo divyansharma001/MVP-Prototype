@@ -15,7 +15,7 @@ The content is organized as follows:
 2. Repository information
 3. Directory structure
 4. Repository files (if enabled)
-4. Repository files, each consisting of:
+5. Multiple file entries, each consisting of:
   - File path as an attribute
   - Full contents of the file
 </file_format>
@@ -37,10 +37,6 @@ The content is organized as follows:
 - Files are sorted by Git change count (files with more changes are at the bottom)
 </notes>
 
-<additional_info>
-
-</additional_info>
-
 </file_summary>
 
 <directory_structure>
@@ -50,13 +46,16 @@ index.html
 package.json
 postcss.config.js
 src/App.tsx
+src/components/Layout/Footer.tsx
 src/components/Layout/Header.tsx
 src/components/Layout/Layout.tsx
 src/components/Layout/Sidebar.tsx
 src/components/UI/Button.tsx
 src/components/UI/Card.tsx
+src/components/UI/Logo.tsx
 src/components/UI/Modal.tsx
 src/components/UI/Toast.tsx
+src/contexts/ThemeContext.tsx
 src/index.css
 src/main.tsx
 src/pages/Builder.tsx
@@ -73,6 +72,159 @@ vite.config.ts
 
 <files>
 This section contains the contents of the repository's files.
+
+<file path="src/components/Layout/Footer.tsx">
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Globe, Heart, Facebook, Twitter, Linkedin, Youtube, Accessibility } from 'lucide-react';
+
+const Footer: React.FC = () => {
+  const socialIcons = [
+    { icon: Facebook, href: '#' },
+    { icon: Twitter, href: '#' },
+    { icon: Linkedin, href: '#' },
+    { icon: Youtube, href: '#' },
+  ];
+
+  return (
+    <footer className="bg-background text-foreground border-t border-border">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
+          {/* Column 1 */}
+          <div>
+            <h3 className="text-sm font-semibold tracking-wider uppercase text-muted-foreground">Product</h3>
+            <ul className="mt-4 space-y-3">
+              <li><a href="#" className="text-base hover:text-primary transition-colors">AI Builder</a></li>
+              <li><a href="#" className="text-base hover:text-primary transition-colors">Templates</a></li>
+              <li><a href="#" className="text-base hover:text-primary transition-colors">Hosting</a></li>
+            </ul>
+          </div>
+          {/* Column 2 */}
+          <div>
+            <h3 className="text-sm font-semibold tracking-wider uppercase text-muted-foreground">Company</h3>
+            <ul className="mt-4 space-y-3">
+              <li><a href="#" className="text-base hover:text-primary transition-colors">About Us</a></li>
+              <li><a href="#" className="text-base hover:text-primary transition-colors">Careers</a></li>
+              <li><a href="#" className="text-base hover:text-primary transition-colors">Contact</a></li>
+            </ul>
+          </div>
+          {/* Column 3 */}
+          <div>
+            <h3 className="text-sm font-semibold tracking-wider uppercase text-muted-foreground">Resources</h3>
+            <ul className="mt-4 space-y-3">
+              <li><a href="#" className="text-base hover:text-primary transition-colors">Blog</a></li>
+              <li><a href="#" className="text-base hover:text-primary transition-colors">Help Center</a></li>
+              <li><a href="#" className="text-base hover:text-primary transition-colors">API Docs</a></li>
+            </ul>
+          </div>
+          {/* Column 4 */}
+          <div>
+            <h3 className="text-sm font-semibold tracking-wider uppercase text-muted-foreground">Compare</h3>
+            <ul className="mt-4 space-y-3">
+              <li><a href="#" className="text-base hover:text-primary transition-colors">vs. Wix</a></li>
+              <li><a href="#" className="text-base hover:text-primary transition-colors">vs. Webflow</a></li>
+              <li><a href="#" className="text-base hover:text-primary transition-colors">vs. Squarespace</a></li>
+            </ul>
+          </div>
+          {/* Column 5 */}
+          <div className="col-span-2 md:col-span-1">
+             <div className="relative inline-flex">
+                <select className="bg-secondary border border-border rounded-md appearance-none pl-10 pr-4 py-2 text-sm">
+                    <option>English</option>
+                    <option>Español</option>
+                </select>
+                <Globe className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+             </div>
+             <div className="flex items-center space-x-2 mt-4 text-sm">
+                <Heart className="w-5 h-5 text-red-500 fill-current" />
+                <span>Proudly Built with WebCraft</span>
+             </div>
+          </div>
+        </div>
+
+        <div className="relative w-full overflow-hidden mt-16">
+            <motion.div
+                className="whitespace-nowrap"
+                animate={{ x: ['0%', '-25%'] }}
+                transition={{ duration: 20, repeat: Infinity, repeatType: 'mirror', ease: 'linear' }}
+            >
+                <h2 className="text-[140px] font-extrabold tracking-tighter inline-block">
+                    Build with WebCraft
+                </h2>
+                <h2 className="text-[140px] font-extrabold tracking-tighter inline-block ml-8">
+                    Build with WebCraft
+                </h2>
+            </motion.div>
+        </div>
+      </div>
+      
+      <div className="bg-secondary/50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
+            <div className="flex space-x-6 text-sm text-muted-foreground">
+                <p>© {new Date().getFullYear()} WebCraft</p>
+                <a href="#" className="hover:text-primary">Privacy</a>
+                <a href="#" className="hover:text-primary">Terms</a>
+            </div>
+            <div className="flex items-center space-x-4">
+                {socialIcons.map((social, index) => (
+                    <a key={index} href={social.href} className="text-muted-foreground hover:text-primary">
+                        <social.icon className="w-5 h-5" />
+                    </a>
+                ))}
+                <button className="p-2 rounded-full bg-primary text-primary-foreground">
+                    <Accessibility className="w-5 h-5" />
+                </button>
+            </div>
+          </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;
+</file>
+
+<file path="src/contexts/ThemeContext.tsx">
+import React, { createContext, useContext, useState, useEffect, useMemo } from 'react';
+
+type Theme = 'light' | 'dark';
+
+interface ThemeContextType {
+  theme: Theme;
+  toggleTheme: () => void;
+}
+
+const ThemeContext = createContext<ThemeContextType | null>(null);
+
+export const useTheme = () => {
+  const context = useContext(ThemeContext);
+  if (!context) {
+    throw new Error('useTheme must be used within a ThemeProvider');
+  }
+  return context;
+};
+
+export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [theme, setTheme] = useState<Theme>(() => {
+    return (localStorage.getItem('theme') as Theme) || 'dark';
+  });
+
+  useEffect(() => {
+    const root = window.document.documentElement;
+    root.classList.remove('light', 'dark');
+    root.classList.add(theme);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
+  };
+
+  const value = useMemo(() => ({ theme, toggleTheme }), [theme]);
+
+  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
+};
+</file>
 
 <file path=".gitignore">
 # Logs
@@ -205,23 +357,37 @@ import Dashboard from './pages/Dashboard';
 import Templates from './pages/Templates';
 import Builder from './pages/Builder';
 import { ToastProvider } from './components/UI/Toast';
+import { ThemeProvider } from './contexts/ThemeContext'; 
 
 function App() {
   return (
+       <ThemeProvider>
     <ToastProvider>
       <Router>
         <div className="min-h-screen bg-gray-900 text-gray-100">
-          <Layout>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/templates" element={<Templates />} />
-              <Route path="/builder" element={<Builder />} />
-            </Routes>
-          </Layout>
+          <Routes>
+            {/* Route for the homepage, which does not use the main layout */}
+            <Route path="/" element={<Home />} />
+            
+            {/* Routes for the rest of the app, which use the main layout */}
+            <Route
+              path="/*"
+              element={
+                <Layout>
+                  <Routes>
+                    <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/templates" element={<Templates />} />
+                    <Route path="/builder" element={<Builder />} />
+                    {/* Add other dashboard-related routes here */}
+                  </Routes>
+                </Layout>
+              }
+            />
+          </Routes>
         </div>
       </Router>
     </ToastProvider>
+    </ThemeProvider>
   );
 }
 
@@ -230,10 +396,11 @@ export default App;
 
 <file path="src/components/Layout/Header.tsx">
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Menu, Globe, User, Bell, Sparkles } from 'lucide-react';
+import { Menu, User, Bell, Sparkles } from 'lucide-react';
 import Button from '../UI/Button';
+import Logo from '../UI/Logo';
 
 interface HeaderProps {
   onMenuClick: () => void;
@@ -245,92 +412,66 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick, showMenuButton }) => {
 
   return (
     <motion.header
-      className="bg-gray-800/80 backdrop-blur-xl border-b border-gray-700/50 px-4 py-3 sm:px-6 sticky top-0 z-40"
+      className="bg-gray-900/70 backdrop-blur-xl border-b border-gray-800 px-4 py-3 sm:px-6 sticky top-0 z-40"
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      transition={{ type: "spring", damping: 25, stiffness: 300 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
     >
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-4">
           {showMenuButton && (
             <motion.button
               onClick={onMenuClick}
-              className="lg:hidden p-2 text-gray-400 hover:text-white hover:bg-gray-700/50 rounded-xl transition-all duration-200"
+              className="lg:hidden p-2 text-gray-400 hover:text-white hover:bg-gray-700/50 rounded-xl transition-colors"
               aria-label="Open sidebar"
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
             >
               <Menu className="h-5 w-5" />
             </motion.button>
           )}
           
-          <Link to="/" className="flex items-center space-x-3 group">
-            <motion.div
-              className="bg-gradient-to-br from-teal-500 to-blue-500 p-2 rounded-xl group-hover:shadow-lg group-hover:shadow-teal-500/25 transition-all duration-300"
-              whileHover={{ rotate: 5, scale: 1.05 }}
-            >
-              <Globe className="h-6 w-6 text-white" />
-            </motion.div>
-            <motion.span
-              className="text-xl font-bold text-white hidden sm:block"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.2 }}
-            >
-              WebCraft
-            </motion.span>
-          </Link>
+          <div className="hidden lg:block">
+            <Logo />
+          </div>
         </div>
 
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-2 sm:space-x-4">
+          <Button
+            variant="gradient"
+            size="sm"
+            onClick={() => navigate('/builder')}
+            icon={Sparkles}
+          >
+            <span className="hidden sm:inline">AI Builder</span>
+            <span className="inline sm:hidden">Build</span>
+          </Button>
+
           <motion.button
-            className="p-2 text-gray-400 hover:text-white hover:bg-gray-700/50 rounded-xl transition-all duration-200 relative"
+            className="p-2 text-gray-400 hover:text-white hover:bg-gray-700/50 rounded-xl transition-colors relative"
             aria-label="Notifications"
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
           >
             <Bell className="h-5 w-5" />
             <motion.span
-              className="absolute -top-1 -right-1 bg-gradient-to-r from-teal-500 to-blue-500 text-xs rounded-full h-5 w-5 flex items-center justify-center text-white font-medium"
+              className="absolute -top-1 -right-1 bg-indigo-500 text-xs rounded-full h-4 w-4 flex items-center justify-center text-white font-medium"
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
-              transition={{ delay: 0.5, type: "spring" }}
+              transition={{ delay: 0.5, type: 'spring' }}
             >
               3
             </motion.span>
           </motion.button>
           
-          <div className="flex items-center space-x-3">
-            <Button
-              variant="gradient"
-              size="sm"
-              onClick={() => navigate('/builder')}
-              icon={Sparkles}
-            >
-              AI Builder
-            </Button>
-            
-            <Button
-              variant="secondary"
-              size="sm"
-              onClick={() => navigate('/dashboard')}
-            >
-              Dashboard
-            </Button>
-            
-            <motion.div
-              className="flex items-center space-x-2"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.3 }}
-            >
-              <div className="bg-gradient-to-br from-gray-700 to-gray-600 p-2 rounded-xl">
-                <User className="h-4 w-4 text-gray-300" />
-              </div>
-              <span className="text-sm text-gray-300 hidden sm:block">
-                John Doe
-              </span>
-            </motion.div>
+          <div className="flex items-center space-x-3 bg-gray-800 hover:bg-gray-700/80 transition-colors cursor-pointer px-3 py-1.5 rounded-xl">
+            <div className="bg-gray-700 p-1.5 rounded-lg">
+              <User className="h-4 w-4 text-gray-300" />
+            </div>
+            <div className="hidden sm:block">
+              <p className="text-sm font-medium text-white">John Doe</p>
+              <p className="text-xs text-gray-400">Pro Plan</p>
+            </div>
           </div>
         </div>
       </div>
@@ -346,6 +487,7 @@ import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Header from './Header';
 import Sidebar from './Sidebar';
+import Footer from './Footer'; // Import the new Footer
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -358,7 +500,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const showSidebar = location.pathname !== '/';
 
   return (
-    <div className="flex h-screen bg-gray-900">
+    <div className={`flex h-screen bg-background ${showSidebar ? 'lg:pl-64' : ''}`}>
       {showSidebar && (
         <Sidebar 
           isOpen={sidebarOpen} 
@@ -366,7 +508,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         />
       )}
       
-      <div className={`flex-1 flex flex-col overflow-hidden ${showSidebar ? 'lg:ml-64' : ''}`}>
+      <div className="flex-1 flex flex-col overflow-hidden">
         <Header 
           onMenuClick={() => setSidebarOpen(true)} 
           showMenuButton={showSidebar}
@@ -375,6 +517,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         <main className="flex-1 overflow-x-hidden overflow-y-auto">
           {children}
         </main>
+
+        <Footer /> {/* Add the footer here */}
       </div>
     </div>
   );
@@ -387,7 +531,9 @@ export default Layout;
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { LayoutDashboard, BookTemplate as Template, Paintbrush, Settings, HelpCircle, X, Globe, BarChart3, Users, Sparkles } from 'lucide-react';
+import { LayoutDashboard, BookTemplate as Template, Sparkles, Settings, HelpCircle, X, BarChart3, Users, ChevronRight } from 'lucide-react';
+import Logo from '../UI/Logo';
+import Button from '../UI/Button';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -395,19 +541,21 @@ interface SidebarProps {
 }
 
 const navigation = [
-  { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard, color: 'text-blue-400' },
-  { name: 'AI Builder', href: '/builder', icon: Sparkles, color: 'text-teal-400' },
-  { name: 'Templates', href: '/templates', icon: Template, color: 'text-purple-400' },
-  { name: 'Analytics', href: '/analytics', icon: BarChart3, color: 'text-green-400' },
-  { name: 'Team', href: '/team', icon: Users, color: 'text-orange-400' },
-  { name: 'Settings', href: '/settings', icon: Settings, color: 'text-gray-400' },
-  { name: 'Help & Support', href: '/help', icon: HelpCircle, color: 'text-pink-400' },
+  { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
+  { name: 'AI Builder', href: '/builder', icon: Sparkles },
+  { name: 'Templates', href: '/templates', icon: Template },
+  { name: 'Analytics', href: '/analytics', icon: BarChart3 },
+  { name: 'Team', href: '/team', icon: Users },
 ];
+
+const bottomNav = [
+  { name: 'Settings', href: '/settings', icon: Settings },
+  { name: 'Help & Support', href: '/help', icon: HelpCircle },
+]
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
   return (
     <>
-      {/* Mobile backdrop */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -421,104 +569,82 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
         )}
       </AnimatePresence>
 
-      {/* Sidebar */}
       <motion.div
-        className={`
-          fixed top-0 left-0 z-30 w-64 h-full bg-gray-800/95 backdrop-blur-xl border-r border-gray-700/50 transform transition-transform duration-300 ease-in-out
-          lg:translate-x-0 lg:static lg:inset-0
-          ${isOpen ? 'translate-x-0' : '-translate-x-full'}
-        `}
-        initial={{ x: -256 }}
-        animate={{ x: isOpen ? 0 : -256 }}
-        transition={{ type: "spring", damping: 25, stiffness: 300 }}
+        className={`fixed top-0 left-0 z-30 w-64 h-full bg-gray-900 border-r border-gray-800 flex flex-col transition-transform duration-300 ease-in-out lg:translate-x-0 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
       >
-        <div className="flex items-center justify-between p-4 border-b border-gray-700/50 lg:hidden">
-          <motion.div
-            className="flex items-center space-x-2"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-          >
-            <div className="bg-gradient-to-br from-teal-500 to-blue-500 p-2 rounded-xl">
-              <Globe className="h-5 w-5 text-white" />
-            </div>
-            <span className="text-lg font-semibold text-white">WebCraft</span>
-          </motion.div>
-          <motion.button
+        {/* Sidebar Header */}
+        <div className="flex items-center justify-between p-4 h-[77px] border-b border-gray-800">
+          <Logo />
+          <button
             onClick={onClose}
-            className="p-2 text-gray-400 hover:text-white hover:bg-gray-700/50 rounded-xl transition-all duration-200"
+            className="lg:hidden p-2 text-gray-400 hover:text-white hover:bg-gray-700/50 rounded-xl"
             aria-label="Close sidebar"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
           >
             <X className="h-5 w-5" />
-          </motion.button>
+          </button>
         </div>
 
-        <nav className="mt-8 px-4">
-          <ul className="space-y-2">
-            {navigation.map((item, index) => (
-              <motion.li
-                key={item.name}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.1 }}
+        {/* Navigation */}
+        <nav className="flex-1 px-4 py-6 space-y-2">
+          {navigation.map((item, index) => (
+            <motion.div
+              key={item.name}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: index * 0.05 }}
+            >
+              <NavLink
+                to={item.href}
+                onClick={onClose}
+                className={({ isActive }) => `
+                  flex items-center space-x-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors duration-200 group
+                  ${isActive 
+                    ? 'bg-gray-800 text-white' 
+                    : 'text-gray-400 hover:text-white hover:bg-gray-800/50'
+                  }
+                `}
               >
-                <NavLink
-                  to={item.href}
-                  className={({ isActive }) => `
-                    flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 group
-                    ${isActive 
-                      ? 'bg-gradient-to-r from-teal-500/20 to-blue-500/20 text-white border border-teal-500/30 shadow-lg shadow-teal-500/10' 
-                      : 'text-gray-300 hover:text-white hover:bg-gray-700/50'
-                    }
-                  `}
-                  onClick={() => onClose()}
-                >
-                  <motion.div
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    transition={{ type: "spring", stiffness: 400 }}
-                  >
-                    <item.icon className={`h-5 w-5 ${item.color}`} />
-                  </motion.div>
-                  <span>{item.name}</span>
-                  {item.name === 'AI Builder' && (
-                    <motion.div
-                      className="ml-auto bg-gradient-to-r from-teal-500 to-blue-500 text-xs px-2 py-1 rounded-full text-white font-medium"
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ delay: 0.5 }}
-                    >
-                      New
-                    </motion.div>
-                  )}
-                </NavLink>
-              </motion.li>
-            ))}
-          </ul>
+                <item.icon className={`h-5 w-5 flex-shrink-0 ${item.name === 'AI Builder' ? 'text-indigo-400' : 'text-gray-500 group-hover:text-gray-300'}`} />
+                <span>{item.name}</span>
+                {item.name === 'AI Builder' && (
+                  <span className="ml-auto bg-indigo-500/20 text-indigo-400 text-xs px-2 py-0.5 rounded-full font-semibold">
+                    New
+                  </span>
+                )}
+              </NavLink>
+            </motion.div>
+          ))}
         </nav>
 
-        <motion.div
-          className="absolute bottom-4 left-4 right-4"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8 }}
-        >
-          <div className="bg-gradient-to-br from-gray-700/50 to-gray-800/50 backdrop-blur-sm rounded-xl p-4 border border-gray-600/30">
-            <h3 className="text-sm font-medium text-white mb-2">
-              Upgrade to Pro
-            </h3>
-            <p className="text-xs text-gray-400 mb-3">
-              Unlock advanced AI features and unlimited websites
-            </p>
-            <motion.button
-              className="w-full bg-gradient-to-r from-teal-500 to-blue-500 hover:from-teal-400 hover:to-blue-400 text-white text-xs font-medium py-2 px-4 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl"
-              whileHover={{ scale: 1.02, y: -1 }}
-              whileTap={{ scale: 0.98 }}
+        {/* Bottom Section */}
+        <div className="px-4 pb-6">
+            <div className="space-y-2">
+                {bottomNav.map((item) => (
+                     <NavLink
+                        key={item.name}
+                        to={item.href}
+                        onClick={onClose}
+                        className="flex items-center space-x-3 px-3 py-2.5 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-gray-800/50 transition-colors"
+                    >
+                        <item.icon className="h-5 w-5 text-gray-500" />
+                        <span>{item.name}</span>
+                    </NavLink>
+                ))}
+            </div>
+
+            <motion.div
+              className="mt-6 bg-gray-800/50 rounded-lg p-4 text-center border border-gray-700/50"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5 }}
             >
-              Upgrade Now
-            </motion.button>
-          </div>
-        </motion.div>
+              <h3 className="text-sm font-semibold text-white mb-1">Upgrade to Pro</h3>
+              <p className="text-xs text-gray-400 mb-3">Unlock all features and build unlimited sites.</p>
+              <Button size="sm" variant="secondary" className="w-full !bg-gray-700 hover:!bg-gray-600">
+                Upgrade Now <ChevronRight className="w-4 h-4 ml-1" />
+              </Button>
+          </motion.div>
+        </div>
       </motion.div>
     </>
   );
@@ -615,26 +741,16 @@ import { motion } from 'framer-motion';
 interface CardProps {
   children: React.ReactNode;
   className?: string;
-  hover?: boolean;
   delay?: number;
 }
 
-const Card: React.FC<CardProps> = ({ children, className = '', hover = false, delay = 0 }) => {
-  const baseClasses = 'bg-gray-800/50 backdrop-blur-sm rounded-2xl border border-gray-700/50 shadow-xl';
-  const hoverClasses = hover ? 'cursor-pointer' : '';
-  
+const Card: React.FC<CardProps> = ({ children, className = '', delay = 0 }) => {
   return (
     <motion.div
-      className={`${baseClasses} ${hoverClasses} ${className}`}
+      className={`bg-card text-card-foreground border border-border rounded-lg shadow-sm ${className}`}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay }}
-      whileHover={hover ? { 
-        y: -8, 
-        scale: 1.02,
-        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(20, 184, 166, 0.1)'
-      } : {}}
-      whileTap={hover ? { scale: 0.98 } : {}}
     >
       {children}
     </motion.div>
@@ -642,6 +758,46 @@ const Card: React.FC<CardProps> = ({ children, className = '', hover = false, de
 };
 
 export default Card;
+</file>
+
+<file path="src/components/UI/Logo.tsx">
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { Globe } from 'lucide-react';
+
+interface LogoProps {
+  className?: string;
+}
+
+const Logo: React.FC<LogoProps> = ({ className }) => {
+  const navigate = useNavigate();
+
+  return (
+    <motion.div
+      onClick={() => navigate('/')}
+      className={`flex items-center space-x-3 group cursor-pointer ${className}`}
+      whileHover={{ scale: 1.02 }}
+    >
+      <motion.div
+        className="bg-white p-2 rounded-xl group-hover:shadow-lg group-hover:shadow-indigo-500/25 transition-all duration-300"
+        whileHover={{ rotate: -10, scale: 1.1 }}
+      >
+        <Globe className="h-6 w-6 text-black" />
+      </motion.div>
+      <motion.span
+        className="text-xl font-bold text-white hidden sm:block"
+        initial={{ opacity: 0, x: -10 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 0.1 }}
+      >
+        WebCraft
+      </motion.span>
+    </motion.div>
+  );
+};
+
+export default Logo;
 </file>
 
 <file path="src/components/UI/Modal.tsx">
@@ -861,6 +1017,64 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+ 
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+ 
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+ 
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+ 
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+ 
+    --radius: 0.75rem;
+  }
+ 
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+ 
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+ 
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+ 
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+ 
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+ 
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+ 
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-background text-foreground;
+  }
+}
 </file>
 
 <file path="src/main.tsx">
@@ -1455,6 +1669,7 @@ export default Builder;
 </file>
 
 <file path="src/pages/Dashboard.tsx">
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Globe, BarChart3, Settings, Trash2, ExternalLink, Sparkles, TrendingUp, Users, Clock } from 'lucide-react';
@@ -1477,7 +1692,6 @@ interface Website {
 const Dashboard: React.FC = () => {
   const { showToast } = useToast();
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-  const [selectedWebsite, setSelectedWebsite] = useState<string | null>(null);
   const [websites] = useState<Website[]>([
     {
       id: '1',
@@ -1486,7 +1700,7 @@ const Dashboard: React.FC = () => {
       status: 'live',
       visits: 1247,
       lastUpdated: '2 hours ago',
-      thumbnail: 'https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=300',
+      thumbnail: 'https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=400',
       growth: 12.5
     },
     {
@@ -1496,7 +1710,7 @@ const Dashboard: React.FC = () => {
       status: 'draft',
       visits: 0,
       lastUpdated: '1 day ago',
-      thumbnail: 'https://images.pexels.com/photos/356056/pexels-photo-356056.jpeg?auto=compress&cs=tinysrgb&w=300',
+      thumbnail: 'https://images.pexels.com/photos/356056/pexels-photo-356056.jpeg?auto=compress&cs=tinysrgb&w=400',
       growth: 0
     },
     {
@@ -1506,35 +1720,68 @@ const Dashboard: React.FC = () => {
       status: 'live',
       visits: 892,
       lastUpdated: '5 hours ago',
-      thumbnail: 'https://images.pexels.com/photos/416778/pexels-photo-416778.jpeg?auto=compress&cs=tinysrgb&w=300',
+      thumbnail: 'https://images.pexels.com/photos/416778/pexels-photo-416778.jpeg?auto=compress&cs=tinysrgb&w=400',
       growth: 8.3
     }
   ]);
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'live': return 'bg-green-500';
-      case 'draft': return 'bg-yellow-500';
-      case 'maintenance': return 'bg-red-500';
-      default: return 'bg-gray-500';
+      case 'live': return 'bg-green-500/80';
+      case 'draft': return 'bg-yellow-500/80';
+      case 'maintenance': return 'bg-red-500/80';
+      default: return 'bg-gray-500/80';
     }
   };
 
   const handleCreateWebsite = () => {
     setIsCreateModalOpen(false);
     showToast('success', 'Redirecting to AI website builder...');
+    // In a real app, you would navigate here, e.g., using useNavigate()
   };
 
   const handleDeleteWebsite = (name: string) => {
     showToast('error', `${name} has been deleted`);
+    // In a real app, you would filter the websites state here
   };
 
   const totalVisits = websites.reduce((sum, site) => sum + site.visits, 0);
   const liveWebsites = websites.filter(site => site.status === 'live').length;
-  const avgGrowth = websites.reduce((sum, site) => sum + site.growth, 0) / websites.length;
+  const avgGrowth = websites.length > 0 ? websites.reduce((sum, site) => sum + site.growth, 0) / websites.length : 0;
+
+  const stats = [
+    { 
+      title: 'Total Websites', 
+      value: websites.length, 
+      icon: Globe, 
+      color: 'from-teal-500 to-cyan-500',
+      change: '+2 this month'
+    },
+    { 
+      title: 'Total Visits', 
+      value: totalVisits.toLocaleString(), 
+      icon: BarChart3, 
+      color: 'from-blue-500 to-indigo-500',
+      change: `+${avgGrowth.toFixed(1)}%`
+    },
+    { 
+      title: 'Live Websites', 
+      value: liveWebsites, 
+      icon: TrendingUp, 
+      color: 'from-green-500 to-emerald-500',
+      change: 'All operational'
+    },
+    { 
+      title: 'Active Users', 
+      value: '2.4K', 
+      icon: Users, 
+      color: 'from-purple-500 to-pink-500',
+      change: '+18%'
+    }
+  ];
 
   return (
-    <div className="p-6 max-w-7xl mx-auto">
+    <div className="p-4 sm:p-6 max-w-7xl mx-auto">
       {/* Header */}
       <motion.div
         className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8"
@@ -1542,91 +1789,33 @@ const Dashboard: React.FC = () => {
         animate={{ opacity: 1, y: 0 }}
       >
         <div>
-          <h1 className="text-3xl font-bold text-white mb-2">Dashboard</h1>
-          <p className="text-gray-400">Manage your websites and track performance</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-white">Dashboard</h1>
+          <p className="text-gray-400 mt-1">Welcome back, John. Here's your website overview.</p>
         </div>
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.2 }}
+        <Button
+          variant="gradient"
+          icon={Plus}
+          onClick={() => setIsCreateModalOpen(true)}
+          className="mt-4 sm:mt-0"
         >
-          <Button
-            variant="gradient"
-            icon={Plus}
-            onClick={() => setIsCreateModalOpen(true)}
-            className="mt-4 sm:mt-0"
-          >
-            Create New Website
-          </Button>
-        </motion.div>
+          Create Website
+        </Button>
       </motion.div>
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        {[
-          { 
-            title: 'Total Websites', 
-            value: websites.length, 
-            icon: Globe, 
-            color: 'from-teal-500 to-cyan-500',
-            change: '+2 this month'
-          },
-          { 
-            title: 'Total Visits', 
-            value: totalVisits.toLocaleString(), 
-            icon: BarChart3, 
-            color: 'from-blue-500 to-indigo-500',
-            change: `+${avgGrowth.toFixed(1)}% this week`
-          },
-          { 
-            title: 'Live Websites', 
-            value: liveWebsites, 
-            icon: TrendingUp, 
-            color: 'from-green-500 to-emerald-500',
-            change: 'All systems operational'
-          },
-          { 
-            title: 'Active Users', 
-            value: '2.4K', 
-            icon: Users, 
-            color: 'from-purple-500 to-pink-500',
-            change: '+18% from last month'
-          }
-        ].map((stat, index) => (
-          <Card key={stat.title} className="p-6" delay={index * 0.1}>
-            <div className="flex items-center justify-between mb-4">
-              <div>
-                <p className="text-gray-400 text-sm font-medium">{stat.title}</p>
-                <motion.p
-                  className="text-2xl font-bold text-white mt-1"
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ delay: 0.3 + index * 0.1, type: "spring" }}
-                >
-                  {stat.value}
-                </motion.p>
-                <p className="text-xs text-gray-500 mt-1">{stat.change}</p>
-              </div>
-              <motion.div
-                className={`bg-gradient-to-br ${stat.color} bg-opacity-20 p-3 rounded-xl`}
-                whileHover={{ scale: 1.1, rotate: 5 }}
-              >
+        {stats.map((stat, index) => (
+          <Card key={stat.title} className="p-5" delay={index * 0.05}>
+            <div className="flex items-center justify-between">
+              <div className={`p-2.5 rounded-lg bg-gradient-to-br ${stat.color} opacity-80`}>
                 <stat.icon className="h-6 w-6 text-white" />
-              </motion.div>
+              </div>
+              <span className="text-xs font-medium text-green-400">{stat.change}</span>
             </div>
-            <motion.div
-              className={`h-2 bg-gray-700 rounded-full overflow-hidden`}
-              initial={{ width: 0 }}
-              animate={{ width: '100%' }}
-              transition={{ delay: 0.5 + index * 0.1 }}
-            >
-              <motion.div
-                className={`h-full bg-gradient-to-r ${stat.color} rounded-full`}
-                initial={{ width: '0%' }}
-                animate={{ width: '75%' }}
-                transition={{ delay: 0.7 + index * 0.1, duration: 1 }}
-              />
-            </motion.div>
+            <div className="mt-4">
+              <p className="text-2xl font-bold text-white">{stat.value}</p>
+              <p className="text-sm text-gray-400">{stat.title}</p>
+            </div>
           </Card>
         ))}
       </div>
@@ -1634,10 +1823,10 @@ const Dashboard: React.FC = () => {
       {/* Websites Grid */}
       <div>
         <motion.h2
-          className="text-xl font-semibold text-white mb-6"
+          className="text-xl font-semibold text-white mb-4"
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.5 }}
+          transition={{ delay: 0.3 }}
         >
           Your Websites
         </motion.h2>
@@ -1657,108 +1846,50 @@ const Dashboard: React.FC = () => {
               {websites.map((website, index) => (
                 <motion.div
                   key={website.id}
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -50 }}
-                  transition={{ delay: index * 0.1 }}
                   layout
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -30 }}
+                  transition={{ delay: index * 0.05 }}
                 >
-                  <Card hover className="overflow-hidden group">
+                  <Card className="overflow-hidden group flex flex-col h-full">
                     <div className="aspect-video bg-gray-700 relative overflow-hidden">
-                      <motion.img
+                      <img
                         src={website.thumbnail}
                         alt={`${website.name} thumbnail`}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                        whileHover={{ scale: 1.1 }}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                      
-                      {/* Status Badge */}
-                      <motion.div
-                        className="absolute top-3 right-3"
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ delay: 0.3 + index * 0.1 }}
-                      >
-                        <div className={`flex items-center space-x-1 px-3 py-1 rounded-full text-xs font-medium text-white backdrop-blur-sm ${getStatusColor(website.status)}`}>
-                          <motion.div
-                            className="w-1.5 h-1.5 bg-white rounded-full"
-                            animate={{ scale: [1, 1.2, 1] }}
-                            transition={{ duration: 2, repeat: Infinity }}
-                          />
-                          <span className="capitalize">{website.status}</span>
-                        </div>
-                      </motion.div>
-
-                      {/* Growth Indicator */}
-                      {website.growth > 0 && (
-                        <motion.div
-                          className="absolute top-3 left-3 bg-green-500/20 backdrop-blur-sm border border-green-500/30 px-2 py-1 rounded-full text-xs text-green-400 font-medium"
-                          initial={{ opacity: 0, x: -20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: 0.5 + index * 0.1 }}
-                        >
-                          +{website.growth}%
-                        </motion.div>
-                      )}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                     </div>
                     
-                    <div className="p-6">
-                      <div className="flex items-start justify-between mb-3">
-                        <div className="flex-1">
-                          <h3 className="font-semibold text-white text-lg mb-1 group-hover:text-teal-400 transition-colors">
+                    <div className="p-5 flex flex-col flex-grow">
+                      <div className="flex-grow">
+                        <div className="flex justify-between items-start mb-2">
+                          <h3 className="font-semibold text-white text-lg group-hover:text-indigo-400 transition-colors">
                             {website.name}
                           </h3>
-                          <p className="text-teal-400 text-sm">{website.url}</p>
+                           <div className={`flex items-center space-x-1.5 px-2.5 py-1 rounded-full text-xs font-medium text-white ${getStatusColor(website.status)}`}>
+                            <div className="w-1.5 h-1.5 bg-white rounded-full" />
+                            <span className="capitalize">{website.status}</span>
+                          </div>
                         </div>
-                        <div className="flex space-x-1">
-                          <motion.button
-                            className="p-2 text-gray-400 hover:text-white hover:bg-gray-700/50 rounded-xl transition-all duration-200"
-                            aria-label="Open website"
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9 }}
-                          >
-                            <ExternalLink className="h-4 w-4" />
-                          </motion.button>
-                          <motion.button
-                            onClick={() => handleDeleteWebsite(website.name)}
-                            className="p-2 text-gray-400 hover:text-red-400 hover:bg-gray-700/50 rounded-xl transition-all duration-200"
-                            aria-label="Delete website"
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9 }}
-                          >
-                            <Trash2 className="h-4 w-4" />
-                          </motion.button>
-                        </div>
+                        <a href={`//${website.url}`} target="_blank" rel="noopener noreferrer" className="text-sm text-gray-400 hover:text-indigo-400 flex items-center space-x-1">
+                          <span>{website.url}</span>
+                          <ExternalLink className="w-3.5 h-3.5" />
+                        </a>
                       </div>
                       
-                      <div className="flex items-center justify-between text-sm text-gray-400 mb-4">
-                        <div className="flex items-center space-x-1">
-                          <BarChart3 className="h-4 w-4" />
+                      <div className="border-t border-gray-800 my-4"></div>
+
+                      <div className="flex justify-between text-sm text-gray-400">
+                        <div className="flex items-center space-x-1.5">
+                          <BarChart3 className="w-4 h-4" />
                           <span>{website.visits.toLocaleString()} visits</span>
                         </div>
-                        <div className="flex items-center space-x-1">
-                          <Clock className="h-4 w-4" />
-                          <span>Updated {website.lastUpdated}</span>
+                        <div className="flex items-center space-x-1.5">
+                          <Clock className="w-4 h-4" />
+                          <span>{website.lastUpdated}</span>
                         </div>
-                      </div>
-
-                      {/* Action Buttons */}
-                      <div className="flex space-x-2">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="flex-1"
-                        >
-                          Edit
-                        </Button>
-                        <Button
-                          variant="secondary"
-                          size="sm"
-                          className="flex-1"
-                        >
-                          Analytics
-                        </Button>
                       </div>
                     </div>
                   </Card>
@@ -1769,11 +1900,10 @@ const Dashboard: React.FC = () => {
         )}
       </div>
 
-      {/* Create Website Modal */}
       <Modal
         isOpen={isCreateModalOpen}
         onClose={() => setIsCreateModalOpen(false)}
-        title="Create New Website"
+        title="Create a New Website"
         size="md"
       >
         <div className="space-y-6">
@@ -1784,54 +1914,32 @@ const Dashboard: React.FC = () => {
           <div className="space-y-4">
             <motion.button
               onClick={handleCreateWebsite}
-              className="w-full p-6 text-left border border-gray-600/50 rounded-xl hover:border-teal-500/50 hover:bg-gray-700/30 transition-all duration-300 group"
-              whileHover={{ scale: 1.02, y: -2 }}
-              whileTap={{ scale: 0.98 }}
+              className="w-full p-6 text-left border border-gray-700/80 rounded-xl hover:border-indigo-500/50 hover:bg-gray-800/50 transition-all duration-300 group"
+              whileHover={{ y: -2 }}
             >
               <div className="flex items-center space-x-4">
-                <motion.div
-                  className="bg-gradient-to-br from-teal-500 to-blue-500 bg-opacity-20 p-3 rounded-xl group-hover:bg-opacity-30 transition-all duration-300"
-                  whileHover={{ rotate: 5 }}
-                >
-                  <Sparkles className="h-6 w-6 text-teal-400" />
-                </motion.div>
+                <div className="p-3 rounded-xl bg-gradient-to-br from-teal-500 to-blue-500">
+                  <Sparkles className="h-6 w-6 text-white" />
+                </div>
                 <div>
                   <h3 className="font-medium text-white mb-1">AI Website Generator</h3>
-                  <p className="text-sm text-gray-400">Let AI create a website based on your business description</p>
+                  <p className="text-sm text-gray-400">Answer a few questions and let AI do the rest.</p>
                 </div>
-                <motion.div
-                  className="ml-auto text-teal-400"
-                  initial={{ x: 0 }}
-                  whileHover={{ x: 5 }}
-                >
-                  →
-                </motion.div>
               </div>
             </motion.button>
             
             <motion.button
-              className="w-full p-6 text-left border border-gray-600/50 rounded-xl hover:border-gray-500/50 hover:bg-gray-700/30 transition-all duration-300 group"
-              whileHover={{ scale: 1.02, y: -2 }}
-              whileTap={{ scale: 0.98 }}
+              className="w-full p-6 text-left border border-gray-700/80 rounded-xl hover:border-indigo-500/50 hover:bg-gray-800/50 transition-all duration-300 group"
+              whileHover={{ y: -2 }}
             >
               <div className="flex items-center space-x-4">
-                <motion.div
-                  className="bg-gradient-to-br from-purple-500 to-pink-500 bg-opacity-20 p-3 rounded-xl group-hover:bg-opacity-30 transition-all duration-300"
-                  whileHover={{ rotate: 5 }}
-                >
-                  <Globe className="h-6 w-6 text-purple-400" />
-                </motion.div>
-                <div>
-                  <h3 className="font-medium text-white mb-1">Choose Template</h3>
-                  <p className="text-sm text-gray-400">Start with a professionally designed template</p>
+                <div className="p-3 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500">
+                  <Globe className="h-6 w-6 text-white" />
                 </div>
-                <motion.div
-                  className="ml-auto text-purple-400"
-                  initial={{ x: 0 }}
-                  whileHover={{ x: 5 }}
-                >
-                  →
-                </motion.div>
+                <div>
+                  <h3 className="font-medium text-white mb-1">Start with a Template</h3>
+                  <p className="text-sm text-gray-400">Choose from a library of professional designs.</p>
+                </div>
               </div>
             </motion.button>
           </div>
@@ -1847,400 +1955,310 @@ export default Dashboard;
 <file path="src/pages/Home.tsx">
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Sparkles, Zap, Shield, Globe, ArrowRight, Play, Star, TrendingUp, Users, Award } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Sparkles, ShieldCheck, Globe, Zap, Palette, ArrowRight, Award, Users, TrendingUp, ChevronLeft, ChevronRight, MessageSquare } from 'lucide-react';
 import Button from '../components/UI/Button';
-import Card from '../components/UI/Card';
-import Modal from '../components/UI/Modal';
+
+import Logo from '../components/UI/Logo';
 import { useToast } from '../components/UI/Toast';
+
+// A new, dedicated header for the marketing page
+const MarketingHeader = () => {
+  const navigate = useNavigate();
+  return (
+    <header className="absolute top-0 left-0 right-0 z-20 py-6 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto flex justify-between items-center">
+        <div className="flex items-center space-x-8">
+          <Logo />
+          <nav className="hidden md:flex items-center space-x-6 text-sm">
+            <a href="#" className="text-gray-300 hover:text-white transition-colors">Product</a>
+            <a href="#" className="text-gray-300 hover:text-white transition-colors">Tools</a>
+            <a href="#" className="text-gray-300 hover:text-white transition-colors">Pricing</a>
+            <div className="flex items-center space-x-2">
+              <a href="#" className="text-gray-300 hover:text-white transition-colors">API</a>
+              <span className="bg-indigo-500 text-white text-xs font-semibold px-2 py-0.5 rounded-md">New</span>
+            </div>
+          </nav>
+        </div>
+        <div className="flex items-center space-x-4">
+          <Button variant="ghost" size="sm" onClick={() => navigate('/dashboard')}>Log in</Button>
+          <Button variant="primary" size="sm" className="!bg-white !text-black hover:!bg-gray-200" onClick={() => navigate('/dashboard')}>Get Started for Free</Button>
+        </div>
+      </div>
+    </header>
+  );
+};
+
+// Data for the showcase grid on the right
+const showcaseItems = {
+  main: { image: 'https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?auto=compress&cs=tinysrgb&w=600', title: 'Look good, feel amazing', cta: 'SHOP NOW' },
+  sideTop: { image: 'https://images.pexels.com/photos/1287145/pexels-photo-1287145.jpeg?auto=compress&cs=tinysrgb&w=600' },
+  bottom: { image: 'https://images.pexels.com/photos/994523/pexels-photo-994523.jpeg?auto=compress&cs=tinysrgb&w=600' }
+};
+
+const testimonials = [
+    {
+        quote: "I actually decided to not go with Shopify because it was just too daunting and complicated. I am not experienced at all with website building, but everything I needed help with was addressed pretty clearly and I didn't get discouraged.",
+        name: "Shannon Weitzel",
+        role: "WebCraft User",
+        avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=200",
+    },
+    {
+        quote: "The AI builder is a game-changer. What used to take me days of coding now takes minutes. The platform is intuitive, fast, and the results are incredibly professional. Highly recommended for any small business.",
+        name: "Marcus Holloway",
+        role: "Tech Entrepreneur",
+        avatar: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?q=80&w=200",
+    },
+    {
+        quote: "As a designer, I'm picky about aesthetics. WebCraft's AI generates such beautiful, well-balanced layouts that I can confidently use them for my clients. It's an essential tool in my workflow now.",
+        name: "Elena Rodriguez",
+        role: "Freelance Designer",
+        avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=200",
+    }
+];
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const { showToast } = useToast();
-  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+   const [currentTestimonial, setCurrentTestimonial] = useState(0);
+
+  const handleGenerateWebsite = () => {
+    showToast('success', 'Redirecting to the AI Website Builder!');
+    setTimeout(() => navigate('/builder'), 1500);
+  };
+
+   const nextTestimonial = () => {
+        setCurrentTestimonial((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1));
+    };
+
+      const prevTestimonial = () => {
+        setCurrentTestimonial((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
+    };
+
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 100 } }
+  };
 
   const features = [
-    {
-      icon: Sparkles,
-      title: 'AI-Powered Generation',
-      description: 'Create stunning websites in minutes with our advanced AI technology',
-      color: 'from-teal-500 to-cyan-500'
-    },
-    {
-      icon: Zap,
-      title: 'Lightning Fast',
-      description: 'Optimized for speed with cutting-edge performance optimization',
-      color: 'from-yellow-500 to-orange-500'
-    },
-    {
-      icon: Shield,
-      title: 'Enterprise Security',
-      description: 'Bank-level security with SSL certificates and DDoS protection',
-      color: 'from-green-500 to-emerald-500'
-    },
-    {
-      icon: Globe,
-      title: 'Global CDN',
-      description: 'Worldwide content delivery for blazing fast load times',
-      color: 'from-blue-500 to-indigo-500'
-    }
+    { icon: Sparkles, title: 'AI-Powered Content', description: 'Just provide a prompt, and our AI generates compelling text and finds the perfect images for you.', color: 'text-indigo-400' },
+    { icon: Palette, title: 'Intelligent Design', description: 'Our AI understands design principles, creating balanced, beautiful, and professional layouts automatically.', color: 'text-teal-400' },
+    { icon: Zap, title: 'Optimized for Speed', description: 'Every website generated is built for performance, ensuring lightning-fast load times and a great user experience.', color: 'text-yellow-400' },
   ];
 
   const stats = [
-    { icon: Users, value: '50K+', label: 'Active Users', color: 'text-blue-400' },
-    { icon: Globe, value: '100K+', label: 'Websites Created', color: 'text-teal-400' },
-    { icon: TrendingUp, value: '99.9%', label: 'Uptime', color: 'text-green-400' },
-    { icon: Award, value: '4.9/5', label: 'User Rating', color: 'text-yellow-400' },
+    { icon: Users, value: '50K+', label: 'Happy Customers' },
+    { icon: Globe, value: '100K+', label: 'Websites Created' },
+    { icon: TrendingUp, value: '99.9%', label: 'Uptime Guarantee' },
+    { icon: Award, value: '4.9/5', label: 'User Rating' },
   ];
-
-  const showcaseWebsites = [
-    {
-      id: 1,
-      title: 'Folie Restaurant',
-      category: 'Restaurant',
-      image: 'https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=600',
-      gradient: 'from-orange-500 to-pink-500'
-    },
-    {
-      id: 2,
-      title: 'AURA Tech Store',
-      category: 'E-commerce',
-      image: 'https://images.pexels.com/photos/356056/pexels-photo-356056.jpeg?auto=compress&cs=tinysrgb&w=600',
-      gradient: 'from-purple-500 to-indigo-500'
-    },
-    {
-      id: 3,
-      title: 'Elevate Fitness',
-      category: 'Fitness',
-      image: 'https://images.pexels.com/photos/416778/pexels-photo-416778.jpeg?auto=compress&cs=tinysrgb&w=600',
-      gradient: 'from-green-500 to-teal-500'
-    },
-    {
-      id: 4,
-      title: 'NavBar Agency',
-      category: 'Agency',
-      image: 'https://images.pexels.com/photos/3184306/pexels-photo-3184306.jpeg?auto=compress&cs=tinysrgb&w=600',
-      gradient: 'from-blue-500 to-cyan-500'
-    }
-  ];
-
-  const handleGenerateWebsite = () => {
-    showToast('success', 'Redirecting to AI website generator...');
-    setTimeout(() => navigate('/builder'), 1000);
-  };
 
   return (
-    <div className="min-h-screen bg-gray-900 overflow-hidden">
-      {/* Animated background */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-teal-500/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '4s' }} />
-      </div>
+    <div className="min-h-screen bg-black text-white overflow-hidden relative">
+      <MarketingHeader />
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden">
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              className="space-y-8"
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <div className="space-y-6">
-                <motion.p
-                  className="text-teal-400 font-medium text-sm uppercase tracking-wide flex items-center space-x-2"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
-                >
-                  <Star className="h-4 w-4" />
-                  <span>From vision to growing business</span>
-                </motion.p>
-                
-                <motion.h1
-                  className="text-4xl lg:text-6xl font-bold text-white leading-tight"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 }}
-                >
-                  One AI platform to{' '}
-                  <motion.span
-                    className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-blue-400"
-                    animate={{ 
-                      backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
-                    }}
-                    transition={{ duration: 3, repeat: Infinity }}
-                  >
-                    build, host and scale
-                  </motion.span>{' '}
-                  your website.
-                </motion.h1>
-                
-                <motion.p
-                  className="text-xl text-gray-300 leading-relaxed"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 }}
-                >
-                  Generate stunning websites, host them on the most reliable platform, 
-                  and scale with one intelligent AI solution.
-                </motion.p>
-              </div>
-              
-              <motion.div
-                className="flex flex-col sm:flex-row gap-4"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
-              >
-                <Button
-                  variant="gradient"
-                  size="lg"
-                  onClick={handleGenerateWebsite}
-                  icon={Sparkles}
-                  className="text-lg px-8 py-4"
-                >
-                  Generate AI Website
-                </Button>
-                <Button
-                  variant="secondary"
-                  size="lg"
-                  onClick={() => setIsVideoModalOpen(true)}
-                  icon={Play}
-                  className="text-lg px-8 py-4"
-                >
-                  Watch Demo
-                </Button>
-              </motion.div>
-              
-              <motion.div
-                className="flex items-center space-x-8 text-sm text-gray-400"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.6 }}
-              >
-                <div className="flex items-center space-x-2">
-                  <motion.div
-                    className="w-2 h-2 bg-green-400 rounded-full"
-                    animate={{ scale: [1, 1.2, 1] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                  />
-                  <span>No coding required</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <motion.div
-                    className="w-2 h-2 bg-teal-400 rounded-full"
-                    animate={{ scale: [1, 1.2, 1] }}
-                    transition={{ duration: 2, repeat: Infinity, delay: 1 }}
-                  />
-                  <span>30-day free trial</span>
-                </div>
-              </motion.div>
+      <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-40 pb-20 lg:pt-48 lg:pb-28">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          {/* Left Side: Hero Text */}
+          <motion.div className="text-center lg:text-left" variants={containerVariants} initial="hidden" animate="visible">
+            <motion.p variants={itemVariants} className="text-lg text-gray-400">From vision to growing business</motion.p>
+            <motion.h1 variants={itemVariants} className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight">One AI platform to build, host and scale your website.</motion.h1>
+            <motion.p variants={itemVariants} className="mt-6 text-lg text-gray-300 max-w-xl mx-auto lg:mx-0">Generate stunning websites, host them on the most reliable platform, and scale with one intelligent AI solution.</motion.p>
+            <motion.div variants={itemVariants} className="mt-8">
+              <Button size="lg" onClick={handleGenerateWebsite} className="!bg-indigo-600 hover:!bg-indigo-500 !text-white !text-base !font-semibold !px-8 !py-4">Generate AI Website</Button>
             </motion.div>
+          </motion.div>
 
-            {/* Website Showcase */}
-            <motion.div
-              className="relative"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              <div className="grid grid-cols-2 gap-4">
-                {showcaseWebsites.map((site, index) => (
-                  <motion.div
-                    key={site.id}
-                    initial={{ opacity: 0, y: 50 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5 + index * 0.1 }}
-                  >
-                    <Card
-                      hover
-                      className={`relative overflow-hidden ${
-                        index % 2 === 0 ? 'transform translate-y-8' : ''
-                      }`}
-                    >
-                      <div className={`absolute inset-0 bg-gradient-to-br ${site.gradient} opacity-90`} />
-                      <div 
-                        className="relative h-48 bg-cover bg-center"
-                        style={{ backgroundImage: `url(${site.image})` }}
-                      >
-                        <div className="absolute inset-0 bg-black bg-opacity-40" />
-                        <motion.div
-                          className="absolute bottom-4 left-4 right-4"
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.8 + index * 0.1 }}
-                        >
-                          <h3 className="text-white font-semibold text-lg mb-1">
-                            {site.title}
-                          </h3>
-                          <p className="text-gray-200 text-sm">
-                            {site.category}
-                          </p>
-                        </motion.div>
-                      </div>
-                    </Card>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          </div>
+          {/* Right Side: Showcase Grid */}
+          <motion.div className="relative h-[500px]" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.7, delay: 0.3, ease: 'easeOut' }}>
+            <div className="absolute inset-0 grid grid-cols-5 grid-rows-3 gap-4">
+              <motion.div className="col-span-2 row-span-2 rounded-2xl bg-gray-900/50 border border-gray-800 overflow-hidden" whileHover={{ scale: 1.05, zIndex: 10 }}><img src={showcaseItems.sideTop.image} alt="Side Top" className="w-full h-full object-cover" /></motion.div>
+              <motion.div className="col-span-3 row-span-2 rounded-2xl bg-gray-900/50 border border-gray-800 overflow-hidden relative" whileHover={{ scale: 1.05, zIndex: 10 }}><img src={showcaseItems.main.image} alt="Main" className="w-full h-full object-cover" /><div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex flex-col justify-end p-4"><h3 className="text-white font-bold text-lg">{showcaseItems.main.title}</h3><button className="mt-2 text-xs font-bold bg-white/90 text-black px-4 py-2 rounded-md self-start">{showcaseItems.main.cta}</button></div></motion.div>
+              <div className="col-span-2 row-span-1 flex flex-col gap-4"><motion.div className="flex-1 rounded-2xl bg-gray-900/50 border border-gray-800 p-4" whileHover={{ scale: 1.05, zIndex: 10 }}><p className="text-xs text-gray-400">yourdomain.org</p><div className="my-1.5 px-3 py-1.5 bg-black rounded-lg border border-gray-600 text-white text-xs flex items-center gap-2"><Globe className="w-4 h-4" /> yourdomain.com</div><p className="text-xs text-gray-400">studiovibes.org</p></motion.div><motion.div className="flex-1 rounded-2xl bg-green-500/80 flex items-center justify-center" whileHover={{ scale: 1.05, zIndex: 10 }}><ShieldCheck className="w-10 h-10 text-white" /></motion.div></div>
+              <motion.div className="col-span-3 row-span-1 rounded-2xl bg-gray-900/50 border border-gray-800 overflow-hidden" whileHover={{ scale: 1.05, zIndex: 10 }}><img src={showcaseItems.bottom.image} alt="Bottom" className="w-full h-full object-cover" /></motion.div>
+            </div>
+            <motion.div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24" animate={{ y: ["-5%", "5%"] }} transition={{ duration: 2, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }} style={{ background: 'radial-gradient(circle, rgba(99,102,241,0.5) 0%, rgba(79,70,229,0) 70%)' }}><div className="w-full h-full rounded-full bg-gradient-to-br from-indigo-500 to-blue-500 flex items-center justify-center shadow-2xl shadow-indigo-500/50"><Sparkles className="w-10 h-10 text-white" /></div></motion.div>
+          </motion.div>
         </div>
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-gray-800/30 backdrop-blur-sm border-y border-gray-700/50">
+      <section className="py-16 border-y border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
-              <motion.div
-                key={stat.label}
-                className="text-center"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                viewport={{ once: true }}
-              >
-                <motion.div
-                  className={`${stat.color} mb-2`}
-                  whileHover={{ scale: 1.1 }}
-                >
-                  <stat.icon className="h-8 w-8 mx-auto" />
-                </motion.div>
-                <motion.div
-                  className="text-2xl lg:text-3xl font-bold text-white mb-1"
-                  initial={{ scale: 0 }}
-                  whileInView={{ scale: 1 }}
-                  transition={{ delay: index * 0.1 + 0.2, type: "spring" }}
-                  viewport={{ once: true }}
-                >
-                  {stat.value}
-                </motion.div>
-                <div className="text-sm text-gray-400">{stat.label}</div>
+              <motion.div key={stat.label} className="text-center" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.1 }} viewport={{ once: true }}>
+                <p className="text-3xl sm:text-4xl font-bold text-white">{stat.value}</p>
+                <p className="mt-1 text-sm text-gray-400">{stat.label}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+      
+      {/* "How It Works" Section */}
+      <section className="py-20 sm:py-28">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-3xl sm:text-4xl font-bold text-white">Generate your website in 3 simple steps.</motion.h2>
+          <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="mt-4 text-lg text-gray-400">Our AI makes website creation effortless. Just describe, customize, and launch.</motion.p>
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+            {features.map((feature, index) => (
+              <motion.div key={feature.title} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.15 }} viewport={{ once: true }}>
+                <div className={`inline-flex items-center justify-center p-3 rounded-xl bg-gray-800 border border-gray-700`}>
+                  <feature.icon className={`w-7 h-7 ${feature.color}`} />
+                </div>
+                <h3 className="mt-4 text-xl font-semibold text-white">{feature.title}</h3>
+                <p className="mt-2 text-gray-400">{feature.description}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-24">
+         <section className="py-20 sm:py-28">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
+                            <p className="text-indigo-400 font-semibold">See why customers love WebCraft</p>
+                            <h2 className="mt-2 text-3xl sm:text-4xl font-bold text-white">Kickstart your online business.</h2>
+                            <p className="mt-4 text-lg text-gray-400">Get everything you need to launch and manage a business—all in one place.</p>
+                        </motion.div>
+                        <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.1 }}>
+                            <div className="relative bg-gray-900 border border-gray-800 rounded-2xl p-8 min-h-[300px] flex flex-col justify-center">
+                                <MessageSquare className="absolute top-6 left-6 w-12 h-12 text-gray-700" />
+                                <AnimatePresence mode="wait">
+                                    <motion.div
+                                        key={currentTestimonial}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -20 }}
+                                        transition={{ duration: 0.3 }}
+                                        className="relative z-10"
+                                    >
+                                        <p className="text-lg text-gray-300">"{testimonials[currentTestimonial].quote}"</p>
+                                        <div className="flex items-center mt-6">
+                                            <img className="h-12 w-12 rounded-full object-cover" src={testimonials[currentTestimonial].avatar} alt={testimonials[currentTestimonial].name} />
+                                            <div className="ml-4">
+                                                <p className="font-semibold text-white">{testimonials[currentTestimonial].name}</p>
+                                                <p className="text-sm text-gray-400">{testimonials[currentTestimonial].role}</p>
+                                            </div>
+                                        </div>
+                                    </motion.div>
+                                </AnimatePresence>
+                            </div>
+                            <div className="flex items-center justify-center lg:justify-start mt-6 space-x-4">
+                                <div className="flex items-center space-x-2">
+                                    {testimonials.map((_, index) => (
+                                        <button key={index} onClick={() => setCurrentTestimonial(index)} className={`w-2 h-2 rounded-full transition-colors ${currentTestimonial === index ? 'bg-white' : 'bg-gray-600 hover:bg-gray-400'}`}></button>
+                                    ))}
+                                </div>
+                                <div className="flex items-center space-x-2">
+                                    <button onClick={prevTestimonial} className="p-2 rounded-full bg-gray-800 hover:bg-gray-700 text-gray-400 hover:text-white transition-colors">
+                                        <ChevronLeft className="w-5 h-5" />
+                                    </button>
+                                    <button onClick={nextTestimonial} className="p-2 rounded-full bg-gray-800 hover:bg-gray-700 text-gray-400 hover:text-white transition-colors">
+                                        <ChevronRight className="w-5 h-5" />
+                                    </button>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </div>
+                </div>
+            </section>
+
+            {/* NEW: API Section */}
+            <section className="py-20 sm:py-28">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <motion.div
+                        className="bg-gray-900 border border-gray-800 rounded-3xl grid grid-cols-1 lg:grid-cols-2 items-center overflow-hidden"
+                        initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}
+                    >
+                        <div className="p-8 lg:p-12">
+                            <h2 className="text-3xl sm:text-4xl font-bold text-white">Launch websites from your platform or hosting stack.</h2>
+                            <p className="mt-4 text-lg text-gray-400">Use the WebCraft Website Builder API to generate and manage full websites with AI — right from your own dashboard, SaaS, or hosting panel.</p>
+                            <div className="mt-6">
+                                <Button variant="secondary" className="!bg-black hover:!bg-gray-800 border-gray-700">Explore Website Builder API</Button>
+                            </div>
+                        </div>
+                        <div className="relative h-64 lg:h-full w-full">
+                            <img src="https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Code editor" className="absolute inset-0 w-full h-full object-cover opacity-20" />
+                            <motion.div
+                                className="absolute -bottom-4 right-4 sm:right-8 w-4/5 sm:w-3/5 max-w-sm rounded-xl overflow-hidden shadow-2xl border border-gray-700"
+                                whileHover={{ scale: 1.05, rotate: 1 }}
+                                transition={{ type: 'spring', stiffness: 300 }}
+                            >
+                                <img src="https://images.pexels.com/photos/3861964/pexels-photo-3861964.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Generated Website" className="w-full h-full object-cover"/>
+                                <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-blue-500 flex items-center justify-center shadow-lg"><Sparkles className="w-6 h-6 text-white"/></div>
+                            </motion.div>
+                        </div>
+                    </motion.div>
+                </div>
+            </section>
+
+      {/* CTA Section */}
+      <section className="py-20 sm:py-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            className="text-center mb-16"
+            className="relative bg-gray-900 border border-gray-800 rounded-3xl p-12 lg:p-16 text-center overflow-hidden"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
-              Everything you need to succeed online
-            </h2>
-            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-              Powerful features designed to help your business grow and thrive in the digital world.
-            </p>
-          </motion.div>
+            <div className="absolute -top-20 -right-20 w-60 h-60 bg-indigo-500/10 rounded-full blur-3xl"></div>
+            <div className="absolute -bottom-20 -left-20 w-60 h-60 bg-teal-500/10 rounded-full blur-3xl"></div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {features.map((feature, index) => (
-              <Card key={index} className="p-6 text-center group" hover delay={index * 0.1}>
-                <motion.div
-                  className={`bg-gradient-to-br ${feature.color} bg-opacity-20 rounded-2xl p-4 w-16 h-16 mx-auto mb-4 group-hover:bg-opacity-30 transition-all duration-300`}
-                  whileHover={{ rotate: 5, scale: 1.1 }}
-                >
-                  <feature.icon className="h-8 w-8 text-white mx-auto" />
-                </motion.div>
-                <h3 className="text-lg font-semibold text-white mb-2">
-                  {feature.title}
-                </h3>
-                <p className="text-gray-400 text-sm leading-relaxed">
-                  {feature.description}
-                </p>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-24">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            className="bg-gradient-to-r from-teal-500 to-blue-500 rounded-3xl p-12 relative overflow-hidden"
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-          >
-            {/* Animated background elements */}
-            <motion.div
-              className="absolute top-0 left-0 w-full h-full opacity-10"
-              animate={{
-                background: [
-                  'radial-gradient(circle at 20% 50%, white 0%, transparent 50%)',
-                  'radial-gradient(circle at 80% 50%, white 0%, transparent 50%)',
-                  'radial-gradient(circle at 20% 50%, white 0%, transparent 50%)',
-                ]
-              }}
-              transition={{ duration: 4, repeat: Infinity }}
-            />
-            
-            <motion.h2
-              className="text-3xl lg:text-4xl font-bold text-white mb-4"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              Ready to build your dream website?
-            </motion.h2>
-            <motion.p
-              className="text-xl text-teal-100 mb-8 max-w-2xl mx-auto"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              viewport={{ once: true }}
-            >
-              Join thousands of businesses that trust WebCraft to power their online presence.
-            </motion.p>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              viewport={{ once: true }}
-            >
-              <Button
-                size="lg"
-                variant="secondary"
-                onClick={handleGenerateWebsite}
-                icon={ArrowRight}
-                className="bg-white text-teal-600 hover:bg-gray-100 text-lg px-8 py-4 shadow-2xl"
-              >
-                Start Building Now
-              </Button>
-            </motion.div>
+            <div className="relative">
+              <h2 className="text-3xl sm:text-4xl font-bold text-white">Ready to build your dream website?</h2>
+              <p className="mt-4 text-lg text-gray-400 max-w-2xl mx-auto">Join thousands of businesses who trust WebCraft to bring their vision to life. Get started for free, no credit card required.</p>
+              <div className="mt-8">
+                <Button size="lg" onClick={handleGenerateWebsite} className="!bg-indigo-600 hover:!bg-indigo-500 !text-white !text-base !font-semibold !px-8 !py-4">
+                  Start Building Now <ArrowRight className="w-5 h-5 ml-2" />
+                </Button>
+              </div>
+            </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Video Modal */}
-      <Modal
-        isOpen={isVideoModalOpen}
-        onClose={() => setIsVideoModalOpen(false)}
-        title="WebCraft Platform Demo"
-        size="xl"
-      >
-        <div className="aspect-video bg-gradient-to-br from-gray-700 to-gray-800 rounded-xl flex items-center justify-center">
-          <div className="text-center">
-            <motion.div
-              animate={{ scale: [1, 1.1, 1] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
-              <Play className="h-16 w-16 text-teal-400 mx-auto mb-4" />
-            </motion.div>
-            <p className="text-gray-300">Demo video would be embedded here</p>
+      {/* Footer */}
+      <footer className="border-t border-gray-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="col-span-2 md:col-span-1">
+              <Logo />
+              <p className="mt-4 text-sm text-gray-400">The last website builder you'll ever need.</p>
+            </div>
+            <div>
+              <h3 className="text-sm font-semibold text-white tracking-wider uppercase">Product</h3>
+              <ul className="mt-4 space-y-2">
+                <li><a href="#" className="text-base text-gray-400 hover:text-white">Features</a></li>
+                <li><a href="#" className="text-base text-gray-400 hover:text-white">Templates</a></li>
+                <li><a href="#" className="text-base text-gray-400 hover:text-white">Pricing</a></li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-sm font-semibold text-white tracking-wider uppercase">Company</h3>
+              <ul className="mt-4 space-y-2">
+                <li><a href="#" className="text-base text-gray-400 hover:text-white">About Us</a></li>
+                <li><a href="#" className="text-base text-gray-400 hover:text-white">Careers</a></li>
+                <li><a href="#" className="text-base text-gray-400 hover:text-white">Contact</a></li>
+              </ul>
+            </div>
+          </div>
+          <div className="mt-8 border-t border-gray-800 pt-8 text-center text-sm text-gray-500">
+            <p>© {new Date().getFullYear()} WebCraft. All rights reserved.</p>
           </div>
         </div>
-      </Modal>
+      </footer>
     </div>
   );
 };
@@ -2593,8 +2611,42 @@ export default Templates;
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  darkMode: 'class', // Enable class-based dark mode
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        border: 'hsl(var(--border))',
+        input: 'hsl(var(--input))',
+        ring: 'hsl(var(--ring))',
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
+        primary: {
+          DEFAULT: 'hsl(var(--primary))',
+          foreground: 'hsl(var(--primary-foreground))',
+        },
+        secondary: {
+          DEFAULT: 'hsl(var(--secondary))',
+          foreground: 'hsl(var(--secondary-foreground))',
+        },
+        muted: {
+          DEFAULT: 'hsl(var(--muted))',
+          foreground: 'hsl(var(--muted-foreground))',
+        },
+        accent: {
+          DEFAULT: 'hsl(var(--accent))',
+          foreground: 'hsl(var(--accent-foreground))',
+        },
+        card: {
+          DEFAULT: 'hsl(var(--card))',
+          foreground: 'hsl(var(--card-foreground))',
+        },
+      },
+      borderRadius: {
+        lg: `var(--radius)`,
+        md: `calc(var(--radius) - 2px)`,
+        sm: 'calc(var(--radius) - 4px)',
+      },
+    },
   },
   plugins: [],
 };

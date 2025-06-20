@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Header from './Header';
 import Sidebar from './Sidebar';
+import Footer from './Footer'; // Import the new Footer
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -14,7 +15,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const showSidebar = location.pathname !== '/';
 
   return (
-    <div className="flex h-screen bg-gray-900">
+    <div className={`flex h-screen bg-background ${showSidebar ? 'lg:pl-64' : ''}`}>
       {showSidebar && (
         <Sidebar 
           isOpen={sidebarOpen} 
@@ -22,7 +23,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         />
       )}
       
-      <div className={`flex-1 flex flex-col overflow-hidden ${showSidebar ? 'lg:ml-64' : ''}`}>
+      <div className="flex-1 flex flex-col overflow-hidden">
         <Header 
           onMenuClick={() => setSidebarOpen(true)} 
           showMenuButton={showSidebar}
@@ -31,6 +32,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         <main className="flex-1 overflow-x-hidden overflow-y-auto">
           {children}
         </main>
+
+        <Footer /> {/* Add the footer here */}
       </div>
     </div>
   );
