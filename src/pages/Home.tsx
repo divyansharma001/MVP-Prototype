@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, Globe, Zap, Palette, ArrowRight, Award, Users, TrendingUp, ChevronLeft, ChevronRight, MessageSquare } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Sparkles, Globe, Zap, Palette, ArrowRight, Award, Users, TrendingUp } from 'lucide-react';
 import Button from '../components/UI/Button';
 import { useScroll } from 'framer-motion';
 import { useRef } from 'react';
+import { BoxReveal } from '../components/magicui/box-reveal';
 
 import Logo from '../components/UI/Logo';
 import { useToast } from '../components/UI/Toast';
@@ -14,6 +15,7 @@ import InteractiveHeroDemo from '../components/Home/InteractiveHeroDemo';
 import { BentoCard, BentoGrid } from '../components/magicui/bento-grid';
 import { BuilderAnimation, PaletteAnimation, ChartAnimation } from '../components/Home/BentoFeatures';
 import { BarChart3 } from 'lucide-react';
+import { HyperText } from '../components/magicui/hypertext';
 
 // A new, dedicated header for the marketing page
 const MarketingHeader = () => {
@@ -49,26 +51,6 @@ const MarketingHeader = () => {
 //   bottom: { image: 'https://images.pexels.com/photos/994523/pexels-photo-994523.jpeg?auto=compress&cs=tinysrgb&w=600' }
 // };
 
-const testimonials = [
-    {
-        quote: "I actually decided to not go with Shopify because it was just too daunting and complicated. I am not experienced at all with website building, but everything I needed help with was addressed pretty clearly and I didn't get discouraged.",
-        name: "Shannon Weitzel",
-        role: "WebCraft User",
-        avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=200",
-    },
-    {
-        quote: "The AI builder is a game-changer. What used to take me days of coding now takes minutes. The platform is intuitive, fast, and the results are incredibly professional. Highly recommended for any small business.",
-        name: "Marcus Holloway",
-        role: "Tech Entrepreneur",
-        avatar: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?q=80&w=200",
-    },
-    {
-        quote: "As a designer, I'm picky about aesthetics. WebCraft's AI generates such beautiful, well-balanced layouts that I can confidently use them for my clients. It's an essential tool in my workflow now.",
-        name: "Elena Rodriguez",
-        role: "Freelance Designer",
-        avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=200",
-    }
-];
 
 const bentoFeatures = [
   {
@@ -117,20 +99,13 @@ const Home: React.FC = () => {
   });
   const navigate = useNavigate();
   const { showToast } = useToast();
-   const [currentTestimonial, setCurrentTestimonial] = useState(0);
-
+   
   const handleGenerateWebsite = () => {
     showToast('success', 'Redirecting to the AI Website Builder!');
     setTimeout(() => navigate('/builder'), 1500);
   };
 
-   const nextTestimonial = () => {
-        setCurrentTestimonial((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1));
-    };
-
-      const prevTestimonial = () => {
-        setCurrentTestimonial((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
-    };
+   
 
 
   const containerVariants = {
@@ -185,19 +160,41 @@ const Home: React.FC = () => {
 
 
 
-      {/* Stats Section */}
-      <section className="py-16 border-y border-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
-              <motion.div key={stat.label} className="text-center" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.1 }} viewport={{ once: true }}>
-                <p className="text-3xl sm:text-4xl font-bold text-white">{stat.value}</p>
-                <p className="mt-1 text-sm text-gray-400">{stat.label}</p>
-              </motion.div>
-            ))}
+  <section className="py-20 sm:py-28 border-y border-gray-800">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      {stats.map((stat, index) => (
+        <motion.div
+          key={stat.label}
+          className="group relative text-center bg-black border border-gray-800 p-8 rounded-2xl overflow-hidden transition-all duration-300 hover:border-gray-700 hover:shadow-2xl hover:shadow-indigo-500/10"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: index * 0.1, duration: 0.5 }}
+          viewport={{ once: true }}
+        >
+          {/* Glowing border effect on hover */}
+          <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/30 to-teal-500/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-2xl"></div>
+          
+          {/* Subtle icon in the background, more ethereal */}
+          <stat.icon className="absolute -top-6 -right-6 w-28 h-28 text-gray-900 transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110" />
+          
+          <div className="relative z-10">
+            <HyperText
+              className="text-4xl sm:text-5xl font-bold text-white font-mono tracking-tighter"
+              delay={index * 200}
+            >
+              {stat.value}
+            </HyperText>
+            <p className="mt-2 text-sm text-gray-400">{stat.label}</p>
           </div>
-        </div>
-      </section>
+          
+          {/* Soft black gradient overlay for depth */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent"></div>
+        </motion.div>
+      ))}
+    </div>
+  </div>
+</section>
       
       {/* "How It Works" Section */}
 
@@ -217,57 +214,47 @@ const Home: React.FC = () => {
   </div>
 </section>
 
-         <section className="py-20 sm:py-28">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                        <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
-                            <p className="text-indigo-400 font-semibold">See why customers love WebCraft</p>
-                            <h2 className="mt-2 text-3xl sm:text-4xl font-bold text-white">Kickstart your online business.</h2>
-                            <p className="mt-4 text-lg text-gray-400">Get everything you need to launch and manage a business—all in one place.</p>
-                        </motion.div>
-                        <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.1 }}>
-                            <div className="relative bg-gray-900 border border-gray-800 rounded-2xl p-8 min-h-[300px] flex flex-col justify-center">
-                                <MessageSquare className="absolute top-6 left-6 w-12 h-12 text-gray-700" />
-                                <AnimatePresence mode="wait">
-                                    <motion.div
-                                        key={currentTestimonial}
-                                        initial={{ opacity: 0, y: 20 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        exit={{ opacity: 0, y: -20 }}
-                                        transition={{ duration: 0.3 }}
-                                        className="relative z-10"
-                                    >
-                                        <p className="text-lg text-gray-300">"{testimonials[currentTestimonial].quote}"</p>
-                                        <div className="flex items-center mt-6">
-                                            <img className="h-12 w-12 rounded-full object-cover" src={testimonials[currentTestimonial].avatar} alt={testimonials[currentTestimonial].name} />
-                                            <div className="ml-4">
-                                                <p className="font-semibold text-white">{testimonials[currentTestimonial].name}</p>
-                                                <p className="text-sm text-gray-400">{testimonials[currentTestimonial].role}</p>
-                                            </div>
-                                        </div>
-                                    </motion.div>
-                                </AnimatePresence>
-                            </div>
-                            <div className="flex items-center justify-center lg:justify-start mt-6 space-x-4">
-                                <div className="flex items-center space-x-2">
-                                    {testimonials.map((_, index) => (
-                                        <button key={index} onClick={() => setCurrentTestimonial(index)} className={`w-2 h-2 rounded-full transition-colors ${currentTestimonial === index ? 'bg-white' : 'bg-gray-600 hover:bg-gray-400'}`}></button>
-                                    ))}
-                                </div>
-                                <div className="flex items-center space-x-2">
-                                    <button onClick={prevTestimonial} className="p-2 rounded-full bg-gray-800 hover:bg-gray-700 text-gray-400 hover:text-white transition-colors">
-                                        <ChevronLeft className="w-5 h-5" />
-                                    </button>
-                                    <button onClick={nextTestimonial} className="p-2 rounded-full bg-gray-800 hover:bg-gray-700 text-gray-400 hover:text-white transition-colors">
-                                        <ChevronRight className="w-5 h-5" />
-                                    </button>
-                                </div>
-                            </div>
-                        </motion.div>
-                    </div>
-                </div>
-            </section>
+         <section className="py-20 sm:py-28 bg-black">
+  <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    
+    <BoxReveal boxColor={"#a855f7"} duration={0.5}>
+      <p className="text-3xl sm:text-4xl font-bold">
+        Loved by businesses worldwide<span className="text-indigo-500">.</span>
+      </p>
+    </BoxReveal>
 
+    <BoxReveal boxColor={"#38bdf8"} duration={0.5}>
+      <h2 className="mt-4 text-lg text-gray-400">
+        Our platform is trusted by entrepreneurs and designers to bring their visions to life, faster than ever before.
+      </h2>
+    </BoxReveal>
+
+    <div className="mt-12 flex justify-center">
+      <div className="relative max-w-2xl text-left bg-gray-900/50 border border-gray-800 rounded-2xl p-8">
+        <BoxReveal boxColor={"#34d399"} duration={0.5}>
+          <blockquote className="text-lg text-gray-300 italic">
+            "I actually decided to not go with Shopify because it was just too daunting and complicated. I am not experienced at all with website building, but everything I needed help with was addressed pretty clearly and I didn't get discouraged."
+          </blockquote>
+        </BoxReveal>
+        
+        <div className="mt-6 flex items-center space-x-4">
+          <BoxReveal boxColor={"#6366f1"} duration={0.5}>
+              <img className="h-14 w-14 rounded-full object-cover" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=200" alt="Shannon Weitzel" />
+          </BoxReveal>
+          <div className="flex-1">
+            <BoxReveal boxColor={"#6366f1"} duration={0.5}>
+              <p className="font-semibold text-white">Shannon Weitzel</p>
+            </BoxReveal>
+            <BoxReveal boxColor={"#6366f1"} duration={0.5}>
+              <p className="text-sm text-gray-400">WebCraft User</p>
+            </BoxReveal>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
             {/* NEW: API Section */}
             <section className="py-20 sm:py-28">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
