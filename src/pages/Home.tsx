@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles, Globe, Zap, Palette, ArrowRight, Award, Users, TrendingUp, ChevronLeft, ChevronRight, MessageSquare } from 'lucide-react';
 import Button from '../components/UI/Button';
-import { useScroll, useTransform } from 'framer-motion';
+import { useScroll } from 'framer-motion';
 import { useRef } from 'react';
 
 import Logo from '../components/UI/Logo';
@@ -11,6 +11,9 @@ import { useToast } from '../components/UI/Toast';
 import Footer from '../components/Layout/Footer';
 import InteractiveHeroDemo from '../components/Home/InteractiveHeroDemo';
 
+import { BentoCard, BentoGrid } from '../components/magicui/bento-grid';
+import { BuilderAnimation, PaletteAnimation, ChartAnimation } from '../components/Home/BentoFeatures';
+import { BarChart3 } from 'lucide-react';
 
 // A new, dedicated header for the marketing page
 const MarketingHeader = () => {
@@ -67,13 +70,51 @@ const testimonials = [
     }
 ];
 
+const bentoFeatures = [
+  {
+    Icon: Sparkles,
+    name: "AI-Powered Builder",
+    description: "Describe your business and watch our AI craft a stunning, unique website in minutes.",
+    href: "#",
+    cta: "Explore the Builder",
+    className: "md:col-span-2",
+    background: <BuilderAnimation />,
+  },
+  {
+    Icon: Palette,
+    name: "Effortless Customization",
+    description: "Fine-tune every detail. Change colors, fonts, and layouts with an intuitive editor.",
+    href: "#",
+    cta: "See Design Options",
+    className: "md:col-span-1",
+    background: <PaletteAnimation />,
+  },
+  {
+    Icon: BarChart3,
+    name: "Integrated Analytics",
+    description: "Track your success with a built-in dashboard. Monitor visits, growth, and engagement.",
+    href: "#",
+    cta: "View Dashboard",
+    className: "md:col-span-1",
+    background: <ChartAnimation />,
+  },
+  {
+    Icon: Zap,
+    name: "Blazing-Fast Hosting",
+    description: "Every site is automatically optimized for speed and reliability on a global CDN.",
+    href: "#",
+    cta: "Learn about Hosting",
+    className: "md:col-span-2",
+    background: <motion.div className="absolute inset-0 bg-gradient-to-br from-yellow-500/10 via-transparent to-transparent" />,
+  },
+];
+
 const Home: React.FC = () => {
   const ref = useRef(null);
-const { scrollYProgress } = useScroll({
-  target: ref,
-  offset: ["start end", "end start"]
-});
-const y = useTransform(scrollYProgress, [0, 1], [-100, 100]);
+  useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  });
   const navigate = useNavigate();
   const { showToast } = useToast();
    const [currentTestimonial, setCurrentTestimonial] = useState(0);
@@ -102,11 +143,6 @@ const y = useTransform(scrollYProgress, [0, 1], [-100, 100]);
     visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 100 } }
   };
 
-  const features = [
-    { icon: Sparkles, title: 'AI-Powered Content', description: 'Just provide a prompt, and our AI generates compelling text and finds the perfect images for you.', color: 'text-indigo-400' },
-    { icon: Palette, title: 'Intelligent Design', description: 'Our AI understands design principles, creating balanced, beautiful, and professional layouts automatically.', color: 'text-teal-400' },
-    { icon: Zap, title: 'Optimized for Speed', description: 'Every website generated is built for performance, ensuring lightning-fast load times and a great user experience.', color: 'text-yellow-400' },
-  ];
 
   const stats = [
     { icon: Users, value: '50K+', label: 'Happy Customers' },
@@ -184,31 +220,22 @@ const y = useTransform(scrollYProgress, [0, 1], [-100, 100]);
       </section>
       
       {/* "How It Works" Section */}
+
       <section className="py-20 sm:py-28">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-3xl sm:text-4xl font-bold text-white">Generate your website in 3 simple steps.</motion.h2>
-          <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="mt-4 text-lg text-gray-400">Our AI makes website creation effortless. Just describe, customize, and launch.</motion.p>
-        </div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
-          <div ref={ref} className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-            {features.map((feature, index) => (
-              <motion.div key={feature.title} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.15 }} viewport={{ once: true }}>
-                <div className={`inline-flex items-center justify-center p-3 rounded-xl bg-gray-800 border border-gray-700`}>
-                   <motion.div 
-                style={{ y }} // Apply the transform here!
-                className="inline-flex items-center justify-center p-3 rounded-xl bg-gray-800 border border-gray-700"
-              >
-                <feature.icon className={`w-7 h-7 ${feature.color}`} />
-              </motion.div>
-              
-                </div>
-                <h3 className="mt-4 text-xl font-semibold text-white">{feature.title}</h3>
-                <p className="mt-2 text-gray-400">{feature.description}</p>
-              </motion.div>
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="max-w-4xl mx-auto text-center">
+        <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-3xl sm:text-4xl font-bold text-white">More than a website builder.</motion.h2>
+        <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="mt-4 text-lg text-gray-400">An intelligent platform designed to handle everything from concept to customer.</motion.p>
+    </div>
+    <div className="mt-16">
+        <BentoGrid>
+            {bentoFeatures.map((feature, idx) => (
+                <BentoCard key={idx} {...feature} />
             ))}
-          </div>
-        </div>
-      </section>
+        </BentoGrid>
+    </div>
+  </div>
+</section>
 
          <section className="py-20 sm:py-28">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
