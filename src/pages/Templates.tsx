@@ -26,80 +26,79 @@ const Templates: React.FC = () => {
   const templates: Template[] = [
     {
       id: '1',
-      name: 'Modern Restaurant',
-      category: 'restaurant',
-      preview: 'https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=400',
-      tags: ['responsive', 'menu', 'booking'],
+      name: 'The Artisan Bakery',
+      category: 'food',
+      preview: 'https://images.pexels.com/photos/1721934/pexels-photo-1721934.jpeg?auto=compress&cs=tinysrgb&w=400',
+      tags: ['online-ordering', 'e-commerce', 'menu', 'bakery'],
+      isPremium: true,
+      rating: 4.9,
+      downloads: 2156,
+      isFavorite: false
+    },
+    {
+      id: '2',
+      name: 'Chic Nail & Beauty Bar',
+      category: 'salon',
+      preview: 'https://images.pexels.com/photos/3997388/pexels-photo-3997388.jpeg?auto=compress&cs=tinysrgb&w=400',
+      tags: ['services', 'appointments', 'booking', 'gallery'],
       isPremium: false,
       rating: 4.8,
       downloads: 1247,
       isFavorite: false
     },
     {
-      id: '2',
-      name: 'Tech Startup',
-      category: 'business',
-      preview: 'https://images.pexels.com/photos/3184306/pexels-photo-3184306.jpeg?auto=compress&cs=tinysrgb&w=400',
-      tags: ['modern', 'landing', 'corporate'],
-      isPremium: true,
-      rating: 4.9,
-      downloads: 2156,
-      isFavorite: true
-    },
-    {
       id: '3',
-      name: 'Fashion Store',
-      category: 'ecommerce',
-      preview: 'https://images.pexels.com/photos/356056/pexels-photo-356056.jpeg?auto=compress&cs=tinysrgb&w=400',
-      tags: ['ecommerce', 'fashion', 'gallery'],
-      isPremium: false,
+      name: 'The Modern Boutique',
+      category: 'retail',
+      preview: 'https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&w=400',
+      tags: ['e-commerce', 'inventory', 'fashion', 'shipping-api'],
+      isPremium: true,
       rating: 4.7,
-      downloads: 892,
+      downloads: 1892,
       isFavorite: false
     },
     {
       id: '4',
-      name: 'Fitness Center',
-      category: 'fitness',
-      preview: 'https://images.pexels.com/photos/416778/pexels-photo-416778.jpeg?auto=compress&cs=tinysrgb&w=400',
-      tags: ['fitness', 'classes', 'membership'],
-      isPremium: true,
-      rating: 4.6,
-      downloads: 634,
-      isFavorite: false
-    },
-    {
-      id: '5',
-      name: 'Creative Agency',
-      category: 'agency',
-      preview: 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=400',
-      tags: ['creative', 'portfolio', 'agency'],
-      isPremium: false,
-      rating: 4.8,
-      downloads: 1543,
-      isFavorite: true
-    },
-    {
-      id: '6',
-      name: 'Medical Practice',
-      category: 'healthcare',
-      preview: 'https://images.pexels.com/photos/305568/pexels-photo-305568.jpeg?auto=compress&cs=tinysrgb&w=400',
-      tags: ['medical', 'appointments', 'professional'],
+      name: 'Lakeside Cabin Rentals',
+      category: 'rentals',
+      preview: 'https://images.pexels.com/photos/2413837/pexels-photo-2413837.jpeg?auto=compress&cs=tinysrgb&w=400',
+      tags: ['rentals', 'availability', 'booking', 'retreat'],
       isPremium: true,
       rating: 4.9,
       downloads: 987,
       isFavorite: false
+    },
+    {
+      id: '5',
+      name: 'Local Coffee Roasters',
+      category: 'food',
+      preview: 'https://images.pexels.com/photos/312418/pexels-photo-312418.jpeg?auto=compress&cs=tinysrgb&w=400',
+      tags: ['e-commerce', 'menu', 'cafe', 'local'],
+      isPremium: false,
+      rating: 4.8,
+      downloads: 1543,
+      isFavorite: true // Note: Pre-favorited
+    },
+    {
+      id: '6',
+      name: 'City Fresh Florist',
+      category: 'retail',
+      preview: 'https://images.pexels.com/photos/1083822/pexels-photo-1083822.jpeg?auto=compress&cs=tinysrgb&w=400',
+      tags: ['delivery', 'online-ordering', 'e-commerce', 'gifts'],
+      isPremium: false,
+      rating: 4.6,
+      downloads: 634,
+      isFavorite: false
     }
   ];
 
+  // --- REVISED CATEGORIES ARRAY ---
   const categories = [
     { value: 'all', label: 'All Templates', count: templates.length },
-    { value: 'restaurant', label: 'Restaurant', count: templates.filter(t => t.category === 'restaurant').length },
-    { value: 'business', label: 'Business', count: templates.filter(t => t.category === 'business').length },
-    { value: 'ecommerce', label: 'E-commerce', count: templates.filter(t => t.category === 'ecommerce').length },
-    { value: 'fitness', label: 'Fitness', count: templates.filter(t => t.category === 'fitness').length },
-    { value: 'agency', label: 'Agency', count: templates.filter(t => t.category === 'agency').length },
-    { value: 'healthcare', label: 'Healthcare', count: templates.filter(t => t.category === 'healthcare').length }
+    { value: 'food', label: 'Restaurants & Cafes', count: templates.filter(t => t.category === 'food').length },
+    { value: 'salon', label: 'Salons & Beauty', count: templates.filter(t => t.category === 'salon').length },
+    { value: 'retail', label: 'Retail & E-commerce', count: templates.filter(t => t.category === 'retail').length },
+    { value: 'rentals', label: 'Rentals & Bookings', count: templates.filter(t => t.category === 'rentals').length }
   ];
 
   const filteredTemplates = templates.filter(template => {
@@ -194,7 +193,7 @@ const Templates: React.FC = () => {
                 transition={{ delay: index * 0.1 }}
                 layout
               >
-                <Card hover className="overflow-hidden group">
+                <Card className="overflow-hidden group hover-card">
                   <div className="relative aspect-video bg-gray-700 overflow-hidden">
                     <motion.img
                       src={template.preview}
