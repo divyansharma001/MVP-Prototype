@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Sparkles, Globe, Zap, Palette, ArrowRight, Award, Users, TrendingUp } from 'lucide-react';
+import { Sparkles, Globe, Zap, Palette, Award, Users, TrendingUp } from 'lucide-react';
 import Button from '../components/UI/Button';
 import { useScroll } from 'framer-motion';
 import { useRef } from 'react';
@@ -16,6 +16,8 @@ import { BentoCard, BentoGrid } from '../components/magicui/bento-grid';
 import { BuilderAnimation, PaletteAnimation, ChartAnimation } from '../components/Home/BentoFeatures';
 import { BarChart3 } from 'lucide-react';
 import { HyperText } from '../components/magicui/hypertext';
+
+import UniqueCTA from '../components/Home/CTA';
 
 // A new, dedicated header for the marketing page
 const MarketingHeader = () => {
@@ -256,59 +258,9 @@ const Home: React.FC = () => {
   </div>
 </section>
             {/* NEW: API Section */}
-            <section className="py-20 sm:py-28">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <motion.div
-                        className="bg-gray-900 border border-gray-800 rounded-3xl grid grid-cols-1 lg:grid-cols-2 items-center overflow-hidden"
-                        initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}
-                    >
-                        <div className="p-8 lg:p-12">
-                            <h2 className="text-3xl sm:text-4xl font-bold text-white">Launch websites from your platform or hosting stack.</h2>
-                            <p className="mt-4 text-lg text-gray-400">Use the WebCraft Website Builder API to generate and manage full websites with AI — right from your own dashboard, SaaS, or hosting panel.</p>
-                            <div className="mt-6">
-                                <Button variant="secondary" className="!bg-black hover:!bg-gray-800 border-gray-700">Explore Website Builder API</Button>
-                            </div>
-                        </div>
-                        <div className="relative h-64 lg:h-full w-full">
-                            <img src="https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Code editor" className="absolute inset-0 w-full h-full object-cover opacity-20" />
-                            <motion.div
-                                className="absolute -bottom-4 right-4 sm:right-8 w-4/5 sm:w-3/5 max-w-sm rounded-xl overflow-hidden shadow-2xl border border-gray-700"
-                                whileHover={{ scale: 1.05, rotate: 1 }}
-                                transition={{ type: 'spring', stiffness: 300 }}
-                            >
-                                <img src="https://images.pexels.com/photos/3861964/pexels-photo-3861964.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Generated Website" className="w-full h-full object-cover"/>
-                                <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-blue-500 flex items-center justify-center shadow-lg"><Sparkles className="w-6 h-6 text-white"/></div>
-                            </motion.div>
-                        </div>
-                    </motion.div>
-                </div>
-            </section>
-
+        
       {/* CTA Section */}
-      <section className="py-20 sm:py-28">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="relative bg-gray-900 border border-gray-800 rounded-3xl p-12 lg:p-16 text-center overflow-hidden"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <div className="absolute -top-20 -right-20 w-60 h-60 bg-indigo-500/10 rounded-full blur-3xl"></div>
-            <div className="absolute -bottom-20 -left-20 w-60 h-60 bg-teal-500/10 rounded-full blur-3xl"></div>
-
-            <div className="relative">
-              <h2 className="text-3xl sm:text-4xl font-bold text-white">Ready to build your dream website?</h2>
-              <p className="mt-4 text-lg text-gray-400 max-w-2xl mx-auto">Join thousands of businesses who trust WebCraft to bring their vision to life. Get started for free, no credit card required.</p>
-              <div className="mt-8">
-                <Button size="lg" onClick={handleGenerateWebsite} className="!bg-indigo-600 hover:!bg-indigo-500 !text-white !text-base !font-semibold !px-8 !py-4">
-                  Start Building Now <ArrowRight className="w-5 h-5 ml-2" />
-                </Button>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
+      <UniqueCTA/>
      <Footer/>
     </div>
   );
