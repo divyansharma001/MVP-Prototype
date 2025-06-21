@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { LayoutDashboard, BookTemplate as Template, Sparkles, Settings, HelpCircle, X, BarChart3, Users, ChevronRight } from 'lucide-react';
+import { LayoutDashboard, BookTemplate as Template, Layout, Settings, HelpCircle, X, BarChart3, Users, ChevronRight } from 'lucide-react';
 import Logo from '../UI/Logo';
 import Button from '../UI/Button';
 
@@ -12,7 +12,7 @@ interface SidebarProps {
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
-  { name: 'AI Builder', href: '/builder', icon: Sparkles },
+  { name: 'AI Builder', href: '/builder', icon: Layout },
   { name: 'Templates', href: '/templates', icon: Template },
   { name: 'Analytics', href: '/analytics', icon: BarChart3 },
   { name: 'Team', href: '/team', icon: Users },

@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, Sparkles, Globe, AlertTriangle } from 'lucide-react';
+import { Plus, Layout, Globe, AlertTriangle } from 'lucide-react';
 import Button from '../components/UI/Button';
 import Card from '../components/UI/Card';
 import Modal from '../components/UI/Modal';
@@ -68,7 +68,7 @@ const Dashboard: React.FC = () => {
                     <h3 className="text-lg font-medium text-white mb-2">Your space is empty!</h3>
                     <p className="text-gray-400 mb-6">Create your first website to get started.</p>
                     <Button onClick={handleCreateWebsite} variant="primary">
-                        Start with AI <Sparkles className="h-4 w-4 ml-2"/>
+                        Start with AI <Layout className="h-4 w-4 ml-2"/>
                     </Button>
                 </Card>
             ) : (

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Menu, User, Bell, Sparkles } from 'lucide-react';
+import { Menu, User, Bell, Layout } from 'lucide-react';
 import Button from '../UI/Button';
 import Logo from '../UI/Logo';
 
@@ -44,7 +44,7 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick, showMenuButton }) => {
             variant="gradient"
             size="sm"
             onClick={() => navigate('/builder')}
-            icon={Sparkles}
+            icon={Layout}
           >
             <span className="hidden sm:inline">AI Builder</span>
             <span className="inline sm:hidden">Build</span>

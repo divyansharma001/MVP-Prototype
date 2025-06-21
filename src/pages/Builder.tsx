@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, Wand2, MessageSquare, Palette, Settings, ArrowRight, CheckCircle, Lightbulb, Zap } from 'lucide-react';
+import { Layout, Wand2, MessageSquare, Sparkles, Settings, ArrowRight, CheckCircle, Lightbulb, Zap } from 'lucide-react';
 import Button from '../components/UI/Button';
 import Card from '../components/UI/Card';
 import { useToast } from '../components/UI/Toast';
@@ -21,9 +21,9 @@ const Builder: React.FC = () => {
 
   const steps = [
     { id: 1, title: 'Business Info', icon: MessageSquare, color: 'from-blue-500 to-cyan-500' },
-    { id: 2, title: 'Style & Design', icon: Palette, color: 'from-purple-500 to-pink-500' },
+    { id: 2, title: 'Style & Design', icon: Sparkles, color: 'from-purple-500 to-pink-500' },
     { id: 3, title: 'Features', icon: Settings, color: 'from-green-500 to-emerald-500' },
-    { id: 4, title: 'Generate', icon: Sparkles, color: 'from-teal-500 to-blue-500' }
+    { id: 4, title: 'Generate', icon: Layout, color: 'from-teal-500 to-blue-500' }
   ];
 
   const businessTypes = [
@@ -557,7 +557,7 @@ const Builder: React.FC = () => {
         <Button
           variant="gradient"
           onClick={handleNext}
-          icon={currentStep === 4 ? Sparkles : ArrowRight}
+          icon={currentStep === 4 ? Layout : ArrowRight}
           disabled={
             isGenerating ||
             (currentStep === 1 && (!formData.businessName || !formData.businessType)) ||

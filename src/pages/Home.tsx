@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Sparkles, Globe, Zap, Palette, Award, Users, TrendingUp } from 'lucide-react';
+import { Layout, Globe, Zap, Sparkles, Award, Users, TrendingUp } from 'lucide-react';
 import Button from '../components/UI/Button';
 import { useScroll } from 'framer-motion';
 import { useRef } from 'react';
@@ -13,7 +13,7 @@ import Footer from '../components/Layout/Footer';
 import InteractiveHeroDemo from '../components/Home/InteractiveHeroDemo';
 
 import { BentoCard, BentoGrid } from '../components/magicui/bento-grid';
-import { BuilderAnimation, PaletteAnimation, ChartAnimation } from '../components/Home/BentoFeatures';
+import { BuilderAnimation, SparklesAnimation, ChartAnimation } from '../components/Home/BentoFeatures';
 import { BarChart3 } from 'lucide-react';
 import { HyperText } from '../components/magicui/hypertext';
 
@@ -58,26 +58,26 @@ const MarketingHeader = () => {
 
 const bentoFeatures = [
   {
-    Icon: Sparkles,
-    name: "AI-Powered Builder",
-    description: "Describe your business and watch our AI craft a stunning, unique website in minutes.",
+    Icon: Layout,
+    name: "Beautiful, Professional Templates",
+    description: "Choose from dozens of mobile-ready templates designed for restaurants, salons, retail, and more. Customize in minutes.",
     href: "#",
-    cta: "Explore the Builder",
+    cta: "Browse Templates",
     className: "md:col-span-2",
     background: <BuilderAnimation />,
   },
   {
-    Icon: Palette,
-    name: "Effortless Customization",
-    description: "Fine-tune every detail. Change colors, fonts, and layouts with an intuitive editor.",
+    Icon: Sparkles,
+    name: "AI-Powered Assistants",
+    description: "Let our AI draft email replies and analyze customer feedback, saving you time so you can focus on your business.",
     href: "#",
-    cta: "See Design Options",
+    cta: "Discover AI Tools",
     className: "md:col-span-1",
-    background: <PaletteAnimation />,
+    background: <SparklesAnimation />,
   },
   {
     Icon: BarChart3,
-    name: "Integrated Analytics",
+    name: "Your Business Dashboard",
     description: "Track your success with a built-in dashboard. Monitor visits, growth, and engagement.",
     href: "#",
     cta: "View Dashboard",
@@ -86,10 +86,10 @@ const bentoFeatures = [
   },
   {
     Icon: Zap,
-    name: "Blazing-Fast Hosting",
-    description: "Every site is automatically optimized for speed and reliability on a global CDN.",
+    name: "Powerful E-commerce, Built-In",
+    description: "Sell products, manage inventory, offer discount codes, and integrate with shipping providers. Everything you need to start selling online.",
     href: "#",
-    cta: "Learn about Hosting",
+    cta: "Explore E-commerce Features",
     className: "md:col-span-2",
     background: <motion.div className="absolute inset-0 bg-gradient-to-br from-yellow-500/10 via-transparent to-transparent" />,
   },
@@ -106,7 +106,7 @@ const reviews = [
     name: "Marcus Holloway",
     username: "Tech Entrepreneur",
     img: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?q=80&w=200",
-    body: "The AI builder is a game-changer. What used to take me days of coding now takes minutes. The platform is intuitive, fast, and the results are incredibly professional.",
+    body: "The all-in-one platform is a game-changer. My online orders are automated, my marketing runs itself, and my site is incredibly professional. I'm saving hours every week.",
   },
   {
     name: "Elena Rodriguez",
@@ -118,7 +118,7 @@ const reviews = [
     name: "James Anderson",
     username: "Small Business Owner",
     img: "https://images.unsplash.com/photo-1557862921-37829c790f19?q=80&w=200",
-    body: "The uptime is incredible, and my site is faster than ever. The hosting solution included is top-notch and requires zero configuration from my end.",
+    body: "The abandoned cart emails alone have boosted my sales by 15%. This platform doesn't just give you a website, it gives you tools that actually make you money.",
   },
 ];
 
@@ -167,10 +167,10 @@ const Home: React.FC = () => {
           {/* Left Side: Hero Text */}
           <motion.div className="text-center lg:text-left" variants={containerVariants} initial="hidden" animate="visible">
             <motion.p variants={itemVariants} className="text-lg text-gray-400">From vision to growing business</motion.p>
-            <motion.h1 variants={itemVariants} className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight">One AI platform to build, host and scale your website.</motion.h1>
-            <motion.p variants={itemVariants} className="mt-6 text-lg text-gray-300 max-w-xl mx-auto lg:mx-0">Generate stunning websites, host them on the most reliable platform, and scale with one intelligent AI solution.</motion.p>
+            <motion.h1 variants={itemVariants} className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight">The All-In-One Platform to Run Your Business Online.</motion.h1>
+            <motion.p variants={itemVariants} className="mt-6 text-lg text-gray-300 max-w-xl mx-auto lg:mx-0">From online ordering and e-commerce to automated marketing and AI assistants, get all the tools you need to succeed, no technical skills required.</motion.p>
             <motion.div variants={itemVariants} className="mt-8">
-              <Button size="lg" onClick={handleGenerateWebsite} className="!bg-indigo-600 hover:!bg-indigo-500 !text-white !text-base !font-semibold !px-8 !py-4">Generate AI Website</Button>
+              <Button size="lg" onClick={handleGenerateWebsite} className="!bg-indigo-600 hover:!bg-indigo-500 !text-white !text-base !font-semibold !px-8 !py-4">Get Started For Free</Button>
             </motion.div>
           </motion.div>
 
@@ -182,7 +182,7 @@ const Home: React.FC = () => {
               <div className="col-span-2 row-span-1 flex flex-col gap-4"><motion.div className="flex-1 rounded-2xl bg-gray-900/50 border border-gray-800 p-4" whileHover={{ scale: 1.05, zIndex: 10 }}><p className="text-xs text-gray-400">yourdomain.org</p><div className="my-1.5 px-3 py-1.5 bg-black rounded-lg border border-gray-600 text-white text-xs flex items-center gap-2"><Globe className="w-4 h-4" /> yourdomain.com</div><p className="text-xs text-gray-400">studiovibes.org</p></motion.div><motion.div className="flex-1 rounded-2xl bg-green-500/80 flex items-center justify-center" whileHover={{ scale: 1.05, zIndex: 10 }}><ShieldCheck className="w-10 h-10 text-white" /></motion.div></div>
               <motion.div className="col-span-3 row-span-1 rounded-2xl bg-gray-900/50 border border-gray-800 overflow-hidden" whileHover={{ scale: 1.05, zIndex: 10 }}><img src={showcaseItems.bottom.image} alt="Bottom" className="w-full h-full object-cover" /></motion.div>
             </div>
-            <motion.div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24" animate={{ y: ["-5%", "5%"] }} transition={{ duration: 2, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }} style={{ background: 'radial-gradient(circle, rgba(99,102,241,0.5) 0%, rgba(79,70,229,0) 70%)' }}><div className="w-full h-full rounded-full bg-gradient-to-br from-indigo-500 to-blue-500 flex items-center justify-center shadow-2xl shadow-indigo-500/50"><Sparkles className="w-10 h-10 text-white" /></div></motion.div>
+            <motion.div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24" animate={{ y: ["-5%", "5%"] }} transition={{ duration: 2, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }} style={{ background: 'radial-gradient(circle, rgba(99,102,241,0.5) 0%, rgba(79,70,229,0) 70%)' }}><div className="w-full h-full rounded-full bg-gradient-to-br from-indigo-500 to-blue-500 flex items-center justify-center shadow-2xl shadow-indigo-500/50"><Layout className="w-10 h-10 text-white" /></div></motion.div>
           </motion.div> */}
 
           <InteractiveHeroDemo/>

@@ -48,11 +48,18 @@ postcss.config.js
 src/App.tsx
 src/components/Dashboard/OverviewStats.tsx
 src/components/Dashboard/WebsiteCard.tsx
+src/components/Home/BentoFeatures.tsx
+src/components/Home/CTA.tsx
 src/components/Home/InteractiveHeroDemo.tsx
+src/components/Home/ReviewCard.tsx
 src/components/Layout/Footer.tsx
 src/components/Layout/Header.tsx
 src/components/Layout/Layout.tsx
 src/components/Layout/Sidebar.tsx
+src/components/magicui/bento-grid.tsx
+src/components/magicui/box-reveal.tsx
+src/components/magicui/hypertext.tsx
+src/components/magicui/marquee.tsx
 src/components/magicui/pointer.tsx
 src/components/UI/Button.tsx
 src/components/UI/Card.tsx
@@ -305,6 +312,282 @@ const WebsiteCard: React.FC<WebsiteCardProps> = ({ website, onDelete }) => {
 export default WebsiteCard;
 </file>
 
+<file path="src/components/Home/BentoFeatures.tsx">
+// src/components/Home/BentoFeatures.tsx
+
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { CheckCircle, Globe, Layout, Sparkles } from 'lucide-react'; // Using icons you have
+
+// For the "AI Builder" card -> Replaces AnimatedBeam
+export const BuilderAnimation = () => {
+    const items = [
+        { Icon: Layout, text: "Generating Layout" },
+        { Icon: Sparkles, text: "Choosing Colors" },
+        { Icon: Globe, text: "Deploying Globally" },
+        { Icon: CheckCircle, text: "Website Ready!" },
+    ];
+
+    const [index, setIndex] = useState(0);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setIndex((prevIndex) => (prevIndex + 1) % items.length);
+        }, 2500);
+        return () => clearInterval(interval);
+    }, []);
+
+    const item = items[index];
+
+    return (
+        <div className="absolute inset-0 flex items-center justify-center p-4 bg-black/10 transition-all duration-300 ease-out [mask-image:linear-gradient(to_top,transparent_10%,#000_100%)] group-hover:scale-105">
+            <AnimatePresence mode="wait">
+                <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.5 }}
+                    className="flex flex-col items-center text-center text-gray-400"
+                >
+                    <item.Icon className={`w-16 h-16 mb-4 ${item.text === 'Website Ready!' ? 'text-green-400' : 'text-indigo-400'}`} />
+                    <p className="font-mono text-sm">{item.text}</p>
+                </motion.div>
+            </AnimatePresence>
+        </div>
+    );
+};
+
+
+// For the "Customization" card -> Cleaned up
+export const SparklesAnimation = () => (
+    <div className="absolute inset-0 flex items-center justify-center -z-10 opacity-50 [mask-image:radial-gradient(ellipse_at_center,white_20%,transparent_70%)]">
+        <div className="grid grid-cols-4 gap-2">
+            {['#6366f1', '#38bdf8', '#34d399', '#f59e0b', '#a855f7', '#ec4899', '#ef4444', '#f9fafb'].map((color, i) => (
+                <motion.div
+                    key={color}
+                    className="w-10 h-10 rounded-full"
+                    style={{ backgroundColor: color }}
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: i * 0.1, duration: 0.5, ease: 'easeOut' }}
+                />
+            ))}
+        </div>
+    </div>
+);
+
+
+// For the "Analytics" card -> Cleaned up
+export const ChartAnimation = () => {
+    const data = [12, 19, 3, 5, 2, 3, 9, 15, 6];
+    const max = Math.max(...data);
+    return (
+        <div className="absolute bottom-0 left-0 right-0 h-1/2 flex items-end justify-center space-x-2 p-4 [mask-image:linear-gradient(to_top,white_50%,transparent_100%)]">
+            {data.map((value, i) => (
+                <motion.div
+                    key={i}
+                    className="w-full bg-teal-500 rounded-t-sm"
+                    initial={{ height: 0 }}
+                    animate={{ height: `${(value / max) * 100}%` }}
+                    transition={{ duration: 0.5, delay: i * 0.1 + 0.5, type: 'spring', stiffness: 150 }}
+                />
+            ))}
+        </div>
+    );
+};
+</file>
+
+<file path="src/components/Home/CTA.tsx">
+import React, { useState, useEffect } from 'react';
+import { ArrowRight, Code, Zap, Globe, Rocket } from 'lucide-react';
+
+const UniqueCTA = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const [activeStep, setActiveStep] = useState(0);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsVisible(true), 200);
+    const stepTimer = setInterval(() => {
+      setActiveStep(prev => (prev + 1) % 3);
+    }, 2000);
+    
+    return () => {
+      clearTimeout(timer);
+      clearInterval(stepTimer);
+    };
+  }, []);
+
+  const handleGenerateWebsite = () => {
+    console.log('Starting website generation...');
+  };
+
+  const steps = [
+    { icon: Code, text: "Pick Your Template", color: "text-blue-400" },
+    { icon: Zap, text: "AI builds instantly", color: "text-yellow-400" },
+    { icon: Globe, text: "Launch & scale", color: "text-green-400" }
+  ];
+
+  return (
+    <section className="py-16 bg-black relative overflow-hidden">
+      {/* Dynamic background elements */}
+      <div className="absolute inset-0">
+        <div className="absolute top-10 left-1/4 w-2 h-2 bg-indigo-400 rounded-full animate-ping"></div>
+        <div className="absolute bottom-20 right-1/3 w-1 h-1 bg-teal-400 rounded-full animate-pulse"></div>
+        <div className="absolute top-1/2 right-1/4 w-1.5 h-1.5 bg-purple-400 rounded-full animate-bounce"></div>
+      </div>
+      
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div className={`transition-all duration-1000 transform ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        }`}>
+          
+          {/* Asymmetric layout */}
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            
+            {/* Left side - Interactive process */}
+            <div className="relative">
+              <div className="absolute -inset-4 bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-teal-500/20 rounded-2xl blur-xl"></div>
+              
+              <div className="relative bg-gray-900/60 backdrop-blur-md border border-gray-700/50 rounded-2xl p-8">
+                <h3 className="text-lg font-semibold text-gray-300 mb-6">How it works</h3>
+                
+                <div className="space-y-4">
+                  {steps.map((step, index) => (
+                    <div 
+                      key={index}
+                      className={`flex items-center gap-4 p-4 rounded-xl transition-all duration-500 ${
+                        activeStep === index 
+                          ? 'bg-gray-800/80 border border-gray-600' 
+                          : 'bg-gray-800/40 border border-transparent'
+                      }`}
+                    >
+                      <div className={`p-2 rounded-lg ${
+                        activeStep === index 
+                          ? 'bg-indigo-500/20' 
+                          : 'bg-gray-700/50'
+                      }`}>
+                        <step.icon className={`w-5 h-5 ${
+                          activeStep === index ? step.color : 'text-gray-400'
+                        }`} />
+                      </div>
+                      <span className={`font-medium ${
+                        activeStep === index ? 'text-white' : 'text-gray-400'
+                      }`}>
+                        {step.text}
+                      </span>
+                      {activeStep === index && (
+                        <div className="ml-auto">
+                          <div className="w-2 h-2 bg-indigo-400 rounded-full animate-pulse"></div>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Right side - CTA */}
+            <div className="text-left">
+              <div className="inline-flex items-center gap-2 bg-indigo-500/10 border border-indigo-500/20 rounded-full px-4 py-2 mb-6">
+                <Rocket className="w-4 h-4 text-indigo-400" />
+                <span className="text-sm font-medium text-indigo-300">Launch Today</span>
+              </div>
+
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+                Stop juggling apps.
+                <br />
+                <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-teal-400 bg-clip-text text-transparent">
+                  Start growing.
+                </span>
+              </h2>
+
+              <p className="text-lg text-gray-400 mb-8 max-w-md">
+                Transform your ideas into stunning websites in minutes, not months. 
+                No coding, no complexity—just pure creativity.
+              </p>
+
+              {/* Unique button design */}
+              <div className="flex flex-col sm:flex-row gap-4">
+                <button
+                  onClick={handleGenerateWebsite}
+                  className="group relative bg-white text-black font-semibold px-8 py-4 rounded-xl transition-all duration-300 hover:bg-gray-100 hover:scale-105 active:scale-95 overflow-hidden"
+                >
+                  <span className="relative z-10 flex items-center justify-center gap-2">
+                    Generate Website
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                </button>
+
+                <button className="text-gray-400 hover:text-white font-medium px-4 py-4 border border-gray-700 hover:border-gray-600 rounded-xl transition-all duration-300">
+                  View Examples
+                </button>
+              </div>
+
+              {/* Social proof ticker */}
+              <div className="mt-8 flex items-center gap-6 text-sm text-gray-500">
+                <div className="flex items-center gap-2">
+                  <div className="flex -space-x-2">
+                    <div className="w-6 h-6 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full border-2 border-black"></div>
+                    <div className="w-6 h-6 bg-gradient-to-r from-purple-500 to-teal-500 rounded-full border-2 border-black"></div>
+                    <div className="w-6 h-6 bg-gradient-to-r from-teal-500 to-indigo-500 rounded-full border-2 border-black"></div>
+                  </div>
+                  <span>10,000+ creators</span>
+                </div>
+                <div className="w-1 h-1 bg-gray-600 rounded-full"></div>
+                <span>Free to start</span>
+                <div className="w-1 h-1 bg-gray-600 rounded-full"></div>
+                <span>No credit card</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default UniqueCTA;
+</file>
+
+<file path="src/components/Home/ReviewCard.tsx">
+// src/components/Home/ReviewCard.tsx
+
+import { cn } from '../../lib/utils';
+
+interface ReviewCardProps {
+  img: string;
+  name: string;
+  username: string;
+  body: string;
+}
+
+const ReviewCard = ({ img, name, username, body }: ReviewCardProps) => {
+  return (
+    <figure
+      className={cn(
+        "relative w-full h-full cursor-pointer overflow-hidden rounded-2xl border p-6", // changed w-80 to w-full and added h-full
+        "border-gray-800 bg-gray-900/50 hover:bg-gray-800/50 transition-colors duration-300"
+      )}
+    >
+      <div className="flex flex-row items-center gap-4">
+        <img className="size-12 rounded-full object-cover" alt={name} src={img} />
+        <div className="flex flex-col">
+          <figcaption className="text-base font-medium text-white">
+            {name}
+          </figcaption>
+          <p className="text-sm font-medium text-gray-400">{username}</p>
+        </div>
+      </div>
+      <blockquote className="mt-4 text-base text-gray-300">{body}</blockquote>
+    </figure>
+  );
+};
+
+export default ReviewCard;
+</file>
+
 <file path="src/components/Layout/Footer.tsx">
 import React from 'react';
 import { motion } from 'framer-motion';
@@ -420,7 +703,7 @@ export default Footer;
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Menu, User, Bell, Sparkles } from 'lucide-react';
+import { Menu, User, Bell, Layout } from 'lucide-react';
 import Button from '../UI/Button';
 import Logo from '../UI/Logo';
 
@@ -463,7 +746,7 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick, showMenuButton }) => {
             variant="gradient"
             size="sm"
             onClick={() => navigate('/builder')}
-            icon={Sparkles}
+            icon={Layout}
           >
             <span className="hidden sm:inline">AI Builder</span>
             <span className="inline sm:hidden">Build</span>
@@ -508,7 +791,7 @@ export default Header;
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { LayoutDashboard, BookTemplate as Template, Sparkles, Settings, HelpCircle, X, BarChart3, Users, ChevronRight } from 'lucide-react';
+import { LayoutDashboard, BookTemplate as Template, Layout, Settings, HelpCircle, X, BarChart3, Users, ChevronRight } from 'lucide-react';
 import Logo from '../UI/Logo';
 import Button from '../UI/Button';
 
@@ -519,7 +802,7 @@ interface SidebarProps {
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
-  { name: 'AI Builder', href: '/builder', icon: Sparkles },
+  { name: 'AI Builder', href: '/builder', icon: Layout },
   { name: 'Templates', href: '/templates', icon: Template },
   { name: 'Analytics', href: '/analytics', icon: BarChart3 },
   { name: 'Team', href: '/team', icon: Users },
@@ -628,6 +911,368 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
 };
 
 export default Sidebar;
+</file>
+
+<file path="src/components/magicui/bento-grid.tsx">
+// src/components/magicui/bento-grid.tsx
+
+import React, { ReactNode } from "react";
+import { ArrowRight } from "lucide-react"; // CORRECTED IMPORT
+import { motion, HTMLMotionProps } from "framer-motion";
+
+import { cn } from "../../lib/utils";
+import Button from "../UI/Button";
+
+interface BentoGridProps extends HTMLMotionProps<"div"> {
+  children: ReactNode;
+  className?: string;
+}
+
+interface BentoCardProps extends React.ComponentPropsWithoutRef<"div"> {
+  name: string;
+  className: string;
+  background: ReactNode;
+  Icon: React.ElementType;
+  description: string;
+  href: string;
+  cta: string;
+}
+
+const BentoGrid = ({ children, className, ...props }: BentoGridProps) => {
+  return (
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      transition={{ staggerChildren: 0.1 }}
+      viewport={{ once: true }}
+      className={cn(
+        "grid w-full auto-rows-[22rem] grid-cols-1 md:grid-cols-3 gap-4",
+        className,
+      )}
+      {...props}
+    >
+      {children}
+    </motion.div>
+  );
+};
+
+const BentoCard = ({
+  name,
+  className,
+  background,
+  Icon,
+  description,
+  href,
+  cta,
+}: BentoCardProps) => (
+  <motion.div
+    variants={{
+      hidden: { opacity: 0, y: 20 },
+      visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 100 } }
+    }}
+    key={name}
+    className={cn(
+      "group relative flex flex-col justify-between overflow-hidden rounded-xl",
+      // Custom styling to match your app's theme
+      "bg-card/80 border border-border transform-gpu backdrop-blur-sm",
+      "[box-shadow:0_0_0_1px_rgba(0,0,0,.03),0_2px_4px_rgba(0,0,0,.05),0_12px_24px_rgba(0,0,0,.05)]",
+      className,
+    )}
+  >
+    <div className="absolute inset-0 z-0">{background}</div>
+    <div className="pointer-events-none z-10 flex transform-gpu flex-col gap-1 p-6 transition-all duration-300 group-hover:-translate-y-10">
+      <Icon className="h-12 w-12 origin-left transform-gpu text-foreground/70 transition-all duration-300 ease-in-out group-hover:scale-75" />
+      <h3 className="text-xl font-semibold text-foreground">
+        {name}
+      </h3>
+      <p className="max-w-lg text-muted-foreground">{description}</p>
+    </div>
+
+    <div
+      className={cn(
+        "pointer-events-none absolute bottom-0 flex w-full translate-y-10 transform-gpu flex-row items-center p-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100",
+      )}
+    >
+      <a href={href} className="pointer-events-auto">
+        <Button variant="ghost" size="sm">
+            {cta}
+            <ArrowRight className="ms-2 h-4 w-4" /> {/* CORRECTED COMPONENT */}
+        </Button>
+      </a>
+    </div>
+    <div className="pointer-events-none absolute inset-0 transform-gpu transition-all duration-300 group-hover:bg-black/[.03] dark:group-hover:bg-neutral-800/10" />
+  </motion.div>
+);
+
+export { BentoCard, BentoGrid };
+</file>
+
+<file path="src/components/magicui/box-reveal.tsx">
+// src/components/magicui/box-reveal.tsx
+
+import { motion, useInView } from "framer-motion";
+import { cn } from "../../lib/utils"; // Adjusted import
+import { ReactNode, useRef } from "react";
+
+interface BoxRevealProps {
+  children: ReactNode;
+  className?: string;
+  boxColor?: string;
+  duration?: number;
+}
+
+export const BoxReveal = ({
+  children,
+  className,
+  boxColor,
+  duration = 0.5,
+}: BoxRevealProps) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+
+  return (
+    <div ref={ref} className={cn("relative overflow-hidden", className)}>
+      <motion.div
+        variants={{
+          hidden: { opacity: 0, y: 75 },
+          visible: { opacity: 1, y: 0 },
+        }}
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
+        transition={{ duration, delay: 0.25 }}
+      >
+        {children}
+      </motion.div>
+
+      <motion.div
+        variants={{
+          hidden: { left: 0 },
+          visible: { left: "100%" },
+        }}
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
+        transition={{ duration, ease: "easeIn" }}
+        style={{
+          position: "absolute",
+          top: 4,
+          bottom: 4,
+          left: 0,
+          right: 0,
+          zIndex: 20,
+          backgroundColor: boxColor || "#6366f1", // Using your project's indigo
+        }}
+      />
+    </div>
+  );
+};
+</file>
+
+<file path="src/components/magicui/hypertext.tsx">
+"use client";
+
+
+import { AnimatePresence, motion, MotionProps } from "motion/react";
+import { useEffect, useRef, useState } from "react";
+import { cn } from "../../lib/utils";
+
+type CharacterSet = string[] | readonly string[];
+
+interface HyperTextProps extends MotionProps {
+  /** The text content to be animated */
+  children: string;
+  /** Optional className for styling */
+  className?: string;
+  /** Duration of the animation in milliseconds */
+  duration?: number;
+  /** Delay before animation starts in milliseconds */
+  delay?: number;
+  /** Component to render as - defaults to div */
+  as?: React.ElementType;
+  /** Whether to start animation when element comes into view */
+  startOnView?: boolean;
+  /** Whether to trigger animation on hover */
+  animateOnHover?: boolean;
+  /** Custom character set for scramble effect. Defaults to uppercase alphabet */
+  characterSet?: CharacterSet;
+}
+
+const DEFAULT_CHARACTER_SET = Object.freeze(
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split(""),
+) as readonly string[];
+
+const getRandomInt = (max: number): number => Math.floor(Math.random() * max);
+
+export function HyperText({
+  children,
+  className,
+  duration = 800,
+  delay = 0,
+  as: Component = "div",
+  startOnView = false,
+  animateOnHover = true,
+  characterSet = DEFAULT_CHARACTER_SET,
+  ...props
+}: HyperTextProps) {
+  const MotionComponent = motion.create(Component, {
+    forwardMotionProps: true,
+  });
+
+  const [displayText, setDisplayText] = useState<string[]>(() =>
+    children.split(""),
+  );
+  const [isAnimating, setIsAnimating] = useState(false);
+  const iterationCount = useRef(0);
+  const elementRef = useRef<HTMLElement>(null);
+
+  const handleAnimationTrigger = () => {
+    if (animateOnHover && !isAnimating) {
+      iterationCount.current = 0;
+      setIsAnimating(true);
+    }
+  };
+
+  // Handle animation start based on view or delay
+  useEffect(() => {
+    if (!startOnView) {
+      const startTimeout = setTimeout(() => {
+        setIsAnimating(true);
+      }, delay);
+      return () => clearTimeout(startTimeout);
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            setIsAnimating(true);
+          }, delay);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1, rootMargin: "-30% 0px -30% 0px" },
+    );
+
+    if (elementRef.current) {
+      observer.observe(elementRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [delay, startOnView]);
+
+  // Handle scramble animation
+  useEffect(() => {
+    if (!isAnimating) return;
+
+    const maxIterations = children.length;
+    const startTime = performance.now();
+    let animationFrameId: number;
+
+    const animate = (currentTime: number) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      iterationCount.current = progress * maxIterations;
+
+      setDisplayText((currentText) =>
+        currentText.map((letter, index) =>
+          letter === " "
+            ? letter
+            : index <= iterationCount.current
+              ? children[index]
+              : characterSet[getRandomInt(characterSet.length)],
+        ),
+      );
+
+      if (progress < 1) {
+        animationFrameId = requestAnimationFrame(animate);
+      } else {
+        setIsAnimating(false);
+      }
+    };
+
+    animationFrameId = requestAnimationFrame(animate);
+
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [children, duration, isAnimating, characterSet]);
+
+  return (
+    <MotionComponent
+      ref={elementRef}
+      className={cn("overflow-hidden py-2 text-4xl font-bold", className)}
+      onMouseEnter={handleAnimationTrigger}
+      {...props}
+    >
+      <AnimatePresence>
+        {displayText.map((letter, index) => (
+          <motion.span
+            key={index}
+            className={cn("font-mono", letter === " " ? "w-3" : "")}
+          >
+            {letter.toUpperCase()}
+          </motion.span>
+        ))}
+      </AnimatePresence>
+    </MotionComponent>
+  );
+}
+</file>
+
+<file path="src/components/magicui/marquee.tsx">
+// src/components/magicui/marquee.tsx
+
+import { cn } from "../../lib/utils";
+import { ReactNode } from "react";
+
+interface MarqueeProps {
+  className?: string;
+  reverse?: boolean;
+  pauseOnHover?: boolean;
+  children: ReactNode;
+  vertical?: boolean;
+  repeat?: number;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [key: string]: any;
+}
+
+export const Marquee = ({
+  className,
+  reverse,
+  pauseOnHover = false,
+  children,
+  vertical = false,
+  repeat = 4,
+  ...props
+}: MarqueeProps) => {
+  return (
+    <div
+      {...props}
+      className={cn(
+        "group flex overflow-hidden p-2 [--gap:1rem] [--duration:20s] [--scroll-start:0] [--scroll-end:calc(-100%_-_var(--gap))]",
+        {
+          "flex-row": !vertical,
+          "flex-col": vertical,
+        },
+        className,
+      )}
+    >
+      {Array(repeat)
+        .fill(0)
+        .map((_, i) => (
+          <div
+            key={i}
+            className={cn("flex shrink-0 justify-around [gap:var(--gap)]", {
+              "animate-marquee-horizontal flex-row": !vertical,
+              "animate-marquee-vertical flex-col": vertical,
+              "group-hover:[animation-play-state:paused]": pauseOnHover,
+              "[animation-direction:reverse]": reverse,
+            })}
+          >
+            {children}
+          </div>
+        ))}
+    </div>
+  );
+};
 </file>
 
 <file path="src/components/magicui/pointer.tsx">
@@ -1194,7 +1839,7 @@ createRoot(document.getElementById('root')!).render(
 <file path="src/pages/Builder.tsx">
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, Wand2, MessageSquare, Palette, Settings, ArrowRight, CheckCircle, Lightbulb, Zap } from 'lucide-react';
+import { Layout, Wand2, MessageSquare, Sparkles, Settings, ArrowRight, CheckCircle, Lightbulb, Zap } from 'lucide-react';
 import Button from '../components/UI/Button';
 import Card from '../components/UI/Card';
 import { useToast } from '../components/UI/Toast';
@@ -1215,9 +1860,9 @@ const Builder: React.FC = () => {
 
   const steps = [
     { id: 1, title: 'Business Info', icon: MessageSquare, color: 'from-blue-500 to-cyan-500' },
-    { id: 2, title: 'Style & Design', icon: Palette, color: 'from-purple-500 to-pink-500' },
+    { id: 2, title: 'Style & Design', icon: Sparkles, color: 'from-purple-500 to-pink-500' },
     { id: 3, title: 'Features', icon: Settings, color: 'from-green-500 to-emerald-500' },
-    { id: 4, title: 'Generate', icon: Sparkles, color: 'from-teal-500 to-blue-500' }
+    { id: 4, title: 'Generate', icon: Layout, color: 'from-teal-500 to-blue-500' }
   ];
 
   const businessTypes = [
@@ -1751,7 +2396,7 @@ const Builder: React.FC = () => {
         <Button
           variant="gradient"
           onClick={handleNext}
-          icon={currentStep === 4 ? Sparkles : ArrowRight}
+          icon={currentStep === 4 ? Layout : ArrowRight}
           disabled={
             isGenerating ||
             (currentStep === 1 && (!formData.businessName || !formData.businessType)) ||
@@ -2185,46 +2830,6 @@ export default defineConfig({
 });
 </file>
 
-<file path="package.json">
-{
-  "name": "vite-react-typescript-starter",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "clsx": "^2.1.1",
-    "framer-motion": "^10.18.0",
-    "lucide-react": "^0.344.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-router-dom": "^6.8.1",
-    "tailwind-merge": "^3.3.1"
-  },
-  "devDependencies": {
-    "@eslint/js": "^9.9.1",
-    "@types/react": "^18.3.5",
-    "@types/react-dom": "^18.3.0",
-    "@vitejs/plugin-react": "^4.3.1",
-    "autoprefixer": "^10.4.18",
-    "eslint": "^9.9.1",
-    "eslint-plugin-react-hooks": "^5.1.0-rc.0",
-    "eslint-plugin-react-refresh": "^0.4.11",
-    "globals": "^15.9.0",
-    "postcss": "^8.4.35",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^5.5.3",
-    "typescript-eslint": "^8.3.0",
-    "vite": "^5.4.2"
-  }
-}
-</file>
-
 <file path="src/components/Home/InteractiveHeroDemo.tsx">
 import React, { useEffect, useRef, useState, CSSProperties, ReactNode } from 'react';
 import { motion, AnimatePresence, useMotionValue } from 'framer-motion';
@@ -2568,49 +3173,45 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children, size = 
 export default Modal;
 </file>
 
-<file path="tailwind.config.js">
-/** @type {import('tailwindcss').Config} */
-export default {
-  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
-  darkMode: 'class', // Enable class-based dark mode
-  theme: {
-    extend: {
-      colors: {
-        border: 'hsl(var(--border))',
-        input: 'hsl(var(--input))',
-        ring: 'hsl(var(--ring))',
-        background: 'hsl(var(--background))',
-        foreground: 'hsl(var(--foreground))',
-        primary: {
-          DEFAULT: 'hsl(var(--primary))',
-          foreground: 'hsl(var(--primary-foreground))',
-        },
-        secondary: {
-          DEFAULT: 'hsl(var(--secondary))',
-          foreground: 'hsl(var(--secondary-foreground))',
-        },
-        muted: {
-          DEFAULT: 'hsl(var(--muted))',
-          foreground: 'hsl(var(--muted-foreground))',
-        },
-        accent: {
-          DEFAULT: 'hsl(var(--accent))',
-          foreground: 'hsl(var(--accent-foreground))',
-        },
-        card: {
-          DEFAULT: 'hsl(var(--card))',
-          foreground: 'hsl(var(--card-foreground))',
-        },
-      },
-      borderRadius: {
-        lg: `var(--radius)`,
-        md: `calc(var(--radius) - 2px)`,
-        sm: 'calc(var(--radius) - 4px)',
-      },
-    },
+<file path="package.json">
+{
+  "name": "vite-react-typescript-starter",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
   },
-  plugins: [],
-};
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "framer-motion": "^10.18.0",
+    "lucide-react": "^0.344.0",
+    "motion": "^12.18.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.8.1",
+    "tailwind-merge": "^3.3.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.9.1",
+    "@types/react": "^18.3.5",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.18",
+    "eslint": "^9.9.1",
+    "eslint-plugin-react-hooks": "^5.1.0-rc.0",
+    "eslint-plugin-react-refresh": "^0.4.11",
+    "globals": "^15.9.0",
+    "postcss": "^8.4.35",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.5.3",
+    "typescript-eslint": "^8.3.0",
+    "vite": "^5.4.2"
+  }
+}
 </file>
 
 <file path="src/App.tsx">
@@ -2780,7 +3381,7 @@ export default Layout;
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, Sparkles, Globe, AlertTriangle } from 'lucide-react';
+import { Plus, Layout, Globe, AlertTriangle } from 'lucide-react';
 import Button from '../components/UI/Button';
 import Card from '../components/UI/Card';
 import Modal from '../components/UI/Modal';
@@ -2846,7 +3447,7 @@ const Dashboard: React.FC = () => {
                     <h3 className="text-lg font-medium text-white mb-2">Your space is empty!</h3>
                     <p className="text-gray-400 mb-6">Create your first website to get started.</p>
                     <Button onClick={handleCreateWebsite} variant="primary">
-                        Start with AI <Sparkles className="h-4 w-4 ml-2"/>
+                        Start with AI <Layout className="h-4 w-4 ml-2"/>
                     </Button>
                 </Card>
             ) : (
@@ -2894,20 +3495,88 @@ const Dashboard: React.FC = () => {
 export default Dashboard;
 </file>
 
+<file path="tailwind.config.js">
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  darkMode: 'class', // Enable class-based dark mode
+  theme: {
+    extend: { 
+      animation: { // ADD THIS
+        "marquee-horizontal": "marquee-horizontal var(--duration) linear infinite",
+        "marquee-vertical": "marquee-vertical var(--duration) linear infinite",
+      },
+      keyframes: { // ADD THIS
+        "marquee-horizontal": {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(calc(-100% - var(--gap)))" },
+        },
+        "marquee-vertical": {
+          from: { transform: "translateY(0)" },
+          to: { transform: "translateY(calc(-100% - var(--gap)))" },
+        },
+      },
+      colors: {
+        border: 'hsl(var(--border))',
+        input: 'hsl(var(--input))',
+        ring: 'hsl(var(--ring))',
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
+        primary: {
+          DEFAULT: 'hsl(var(--primary))',
+          foreground: 'hsl(var(--primary-foreground))',
+        },
+        secondary: {
+          DEFAULT: 'hsl(var(--secondary))',
+          foreground: 'hsl(var(--secondary-foreground))',
+        },
+        muted: {
+          DEFAULT: 'hsl(var(--muted))',
+          foreground: 'hsl(var(--muted-foreground))',
+        },
+        accent: {
+          DEFAULT: 'hsl(var(--accent))',
+          foreground: 'hsl(var(--accent-foreground))',
+        },
+        card: {
+          DEFAULT: 'hsl(var(--card))',
+          foreground: 'hsl(var(--card-foreground))',
+        },
+      },
+      borderRadius: {
+        lg: `var(--radius)`,
+        md: `calc(var(--radius) - 2px)`,
+        sm: 'calc(var(--radius) - 4px)',
+      },
+    },
+  },
+  plugins: [],
+};
+</file>
+
 <file path="src/pages/Home.tsx">
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, Globe, Zap, Palette, ArrowRight, Award, Users, TrendingUp, ChevronLeft, ChevronRight, MessageSquare } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Layout, Globe, Zap, Sparkles, Award, Users, TrendingUp } from 'lucide-react';
 import Button from '../components/UI/Button';
-import { useScroll, useTransform } from 'framer-motion';
+import { useScroll } from 'framer-motion';
 import { useRef } from 'react';
+import { BoxReveal } from '../components/magicui/box-reveal';
 
 import Logo from '../components/UI/Logo';
 import { useToast } from '../components/UI/Toast';
 import Footer from '../components/Layout/Footer';
 import InteractiveHeroDemo from '../components/Home/InteractiveHeroDemo';
 
+import { BentoCard, BentoGrid } from '../components/magicui/bento-grid';
+import { BuilderAnimation, SparklesAnimation, ChartAnimation } from '../components/Home/BentoFeatures';
+import { BarChart3 } from 'lucide-react';
+import { HyperText } from '../components/magicui/hypertext';
+
+import UniqueCTA from '../components/Home/CTA';
+import { Marquee } from '../components/magicui/marquee';
+import ReviewCard from '../components/Home/ReviewCard';
 
 // A new, dedicated header for the marketing page
 const MarketingHeader = () => {
@@ -2943,50 +3612,88 @@ const MarketingHeader = () => {
 //   bottom: { image: 'https://images.pexels.com/photos/994523/pexels-photo-994523.jpeg?auto=compress&cs=tinysrgb&w=600' }
 // };
 
-const testimonials = [
-    {
-        quote: "I actually decided to not go with Shopify because it was just too daunting and complicated. I am not experienced at all with website building, but everything I needed help with was addressed pretty clearly and I didn't get discouraged.",
-        name: "Shannon Weitzel",
-        role: "WebCraft User",
-        avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=200",
-    },
-    {
-        quote: "The AI builder is a game-changer. What used to take me days of coding now takes minutes. The platform is intuitive, fast, and the results are incredibly professional. Highly recommended for any small business.",
-        name: "Marcus Holloway",
-        role: "Tech Entrepreneur",
-        avatar: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?q=80&w=200",
-    },
-    {
-        quote: "As a designer, I'm picky about aesthetics. WebCraft's AI generates such beautiful, well-balanced layouts that I can confidently use them for my clients. It's an essential tool in my workflow now.",
-        name: "Elena Rodriguez",
-        role: "Freelance Designer",
-        avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=200",
-    }
+
+const bentoFeatures = [
+  {
+    Icon: Layout,
+    name: "Beautiful, Professional Templates",
+    description: "Choose from dozens of mobile-ready templates designed for restaurants, salons, retail, and more. Customize in minutes.",
+    href: "#",
+    cta: "Browse Templates",
+    className: "md:col-span-2",
+    background: <BuilderAnimation />,
+  },
+  {
+    Icon: Sparkles,
+    name: "AI-Powered Assistants",
+    description: "Let our AI draft email replies and analyze customer feedback, saving you time so you can focus on your business.",
+    href: "#",
+    cta: "Discover AI Tools",
+    className: "md:col-span-1",
+    background: <SparklesAnimation />,
+  },
+  {
+    Icon: BarChart3,
+    name: "Your Business Dashboard",
+    description: "Track your success with a built-in dashboard. Monitor visits, growth, and engagement.",
+    href: "#",
+    cta: "View Dashboard",
+    className: "md:col-span-1",
+    background: <ChartAnimation />,
+  },
+  {
+    Icon: Zap,
+    name: "Powerful E-commerce, Built-In",
+    description: "Sell products, manage inventory, offer discount codes, and integrate with shipping providers. Everything you need to start selling online.",
+    href: "#",
+    cta: "Explore E-commerce Features",
+    className: "md:col-span-2",
+    background: <motion.div className="absolute inset-0 bg-gradient-to-br from-yellow-500/10 via-transparent to-transparent" />,
+  },
+];
+
+const reviews = [
+  {
+    name: "Shannon Weitzel",
+    username: "WebCraft User",
+    img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=200",
+    body: "I actually decided to not go with Shopify because it was just too daunting... everything I needed help with was addressed pretty clearly.",
+  },
+  {
+    name: "Marcus Holloway",
+    username: "Tech Entrepreneur",
+    img: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?q=80&w=200",
+    body: "The AI builder is a game-changer. What used to take me days of coding now takes minutes. The platform is intuitive, fast, and the results are incredibly professional.",
+  },
+  {
+    name: "Elena Rodriguez",
+    username: "Freelance Designer",
+    img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=200",
+    body: "As a designer, I'm picky about aesthetics. WebCraft's AI generates such beautiful, well-balanced layouts that I can confidently use them for my clients.",
+  },
+   {
+    name: "James Anderson",
+    username: "Small Business Owner",
+    img: "https://images.unsplash.com/photo-1557862921-37829c790f19?q=80&w=200",
+    body: "The uptime is incredible, and my site is faster than ever. The hosting solution included is top-notch and requires zero configuration from my end.",
+  },
 ];
 
 const Home: React.FC = () => {
   const ref = useRef(null);
-const { scrollYProgress } = useScroll({
-  target: ref,
-  offset: ["start end", "end start"]
-});
-const y = useTransform(scrollYProgress, [0, 1], [-100, 100]);
+  useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  });
   const navigate = useNavigate();
   const { showToast } = useToast();
-   const [currentTestimonial, setCurrentTestimonial] = useState(0);
-
+   
   const handleGenerateWebsite = () => {
     showToast('success', 'Redirecting to the AI Website Builder!');
     setTimeout(() => navigate('/builder'), 1500);
   };
 
-   const nextTestimonial = () => {
-        setCurrentTestimonial((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1));
-    };
-
-      const prevTestimonial = () => {
-        setCurrentTestimonial((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
-    };
+   
 
 
   const containerVariants = {
@@ -2999,11 +3706,6 @@ const y = useTransform(scrollYProgress, [0, 1], [-100, 100]);
     visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 100 } }
   };
 
-  const features = [
-    { icon: Sparkles, title: 'AI-Powered Content', description: 'Just provide a prompt, and our AI generates compelling text and finds the perfect images for you.', color: 'text-indigo-400' },
-    { icon: Palette, title: 'Intelligent Design', description: 'Our AI understands design principles, creating balanced, beautiful, and professional layouts automatically.', color: 'text-teal-400' },
-    { icon: Zap, title: 'Optimized for Speed', description: 'Every website generated is built for performance, ensuring lightning-fast load times and a great user experience.', color: 'text-yellow-400' },
-  ];
 
   const stats = [
     { icon: Users, value: '50K+', label: 'Happy Customers' },
@@ -3022,10 +3724,10 @@ const y = useTransform(scrollYProgress, [0, 1], [-100, 100]);
           {/* Left Side: Hero Text */}
           <motion.div className="text-center lg:text-left" variants={containerVariants} initial="hidden" animate="visible">
             <motion.p variants={itemVariants} className="text-lg text-gray-400">From vision to growing business</motion.p>
-            <motion.h1 variants={itemVariants} className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight">One AI platform to build, host and scale your website.</motion.h1>
-            <motion.p variants={itemVariants} className="mt-6 text-lg text-gray-300 max-w-xl mx-auto lg:mx-0">Generate stunning websites, host them on the most reliable platform, and scale with one intelligent AI solution.</motion.p>
+            <motion.h1 variants={itemVariants} className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight">The All-In-One Platform to Run Your Business Online.</motion.h1>
+            <motion.p variants={itemVariants} className="mt-6 text-lg text-gray-300 max-w-xl mx-auto lg:mx-0">From online ordering and e-commerce to automated marketing and AI assistants, get all the tools you need to succeed, no technical skills required.</motion.p>
             <motion.div variants={itemVariants} className="mt-8">
-              <Button size="lg" onClick={handleGenerateWebsite} className="!bg-indigo-600 hover:!bg-indigo-500 !text-white !text-base !font-semibold !px-8 !py-4">Generate AI Website</Button>
+              <Button size="lg" onClick={handleGenerateWebsite} className="!bg-indigo-600 hover:!bg-indigo-500 !text-white !text-base !font-semibold !px-8 !py-4">Get Started For Free</Button>
             </motion.div>
           </motion.div>
 
@@ -3037,181 +3739,112 @@ const y = useTransform(scrollYProgress, [0, 1], [-100, 100]);
               <div className="col-span-2 row-span-1 flex flex-col gap-4"><motion.div className="flex-1 rounded-2xl bg-gray-900/50 border border-gray-800 p-4" whileHover={{ scale: 1.05, zIndex: 10 }}><p className="text-xs text-gray-400">yourdomain.org</p><div className="my-1.5 px-3 py-1.5 bg-black rounded-lg border border-gray-600 text-white text-xs flex items-center gap-2"><Globe className="w-4 h-4" /> yourdomain.com</div><p className="text-xs text-gray-400">studiovibes.org</p></motion.div><motion.div className="flex-1 rounded-2xl bg-green-500/80 flex items-center justify-center" whileHover={{ scale: 1.05, zIndex: 10 }}><ShieldCheck className="w-10 h-10 text-white" /></motion.div></div>
               <motion.div className="col-span-3 row-span-1 rounded-2xl bg-gray-900/50 border border-gray-800 overflow-hidden" whileHover={{ scale: 1.05, zIndex: 10 }}><img src={showcaseItems.bottom.image} alt="Bottom" className="w-full h-full object-cover" /></motion.div>
             </div>
-            <motion.div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24" animate={{ y: ["-5%", "5%"] }} transition={{ duration: 2, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }} style={{ background: 'radial-gradient(circle, rgba(99,102,241,0.5) 0%, rgba(79,70,229,0) 70%)' }}><div className="w-full h-full rounded-full bg-gradient-to-br from-indigo-500 to-blue-500 flex items-center justify-center shadow-2xl shadow-indigo-500/50"><Sparkles className="w-10 h-10 text-white" /></div></motion.div>
+            <motion.div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24" animate={{ y: ["-5%", "5%"] }} transition={{ duration: 2, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }} style={{ background: 'radial-gradient(circle, rgba(99,102,241,0.5) 0%, rgba(79,70,229,0) 70%)' }}><div className="w-full h-full rounded-full bg-gradient-to-br from-indigo-500 to-blue-500 flex items-center justify-center shadow-2xl shadow-indigo-500/50"><Layout className="w-10 h-10 text-white" /></div></motion.div>
           </motion.div> */}
 
           <InteractiveHeroDemo/>
         </div>
       </section>
 
-      <section className="py-12">
+
+
+  <section className="py-20 sm:py-28 border-y border-gray-800">
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <p className="text-center text-sm font-semibold text-gray-400 tracking-wider uppercase">
-      Trusted by leading small businesses
-    </p>
-    <motion.div 
-      className="mt-6 flex justify-center items-center flex-wrap gap-x-8 gap-y-4"
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      viewport={{ once: true }}
-    >
-      {/* Replace with actual or aspirational logos */}
-      <img className="h-8 opacity-60" src="/logo-placeholder-1.svg" alt="Company 1" />
-      <img className="h-8 opacity-60" src="/logo-placeholder-2.svg" alt="Company 2" />
-      <img className="h-8 opacity-60" src="/logo-placeholder-3.svg" alt="Company 3" />
-      <img className="h-8 opacity-60" src="/logo-placeholder-4.svg" alt="Company 4" />
-      <img className="h-8 opacity-60" src="/logo-placeholder-5.svg" alt="Company 5" />
-    </motion.div>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      {stats.map((stat, index) => (
+        <motion.div
+          key={stat.label}
+          className="group relative text-center bg-black border border-gray-800 p-8 rounded-2xl overflow-hidden transition-all duration-300 hover:border-gray-700 hover:shadow-2xl hover:shadow-indigo-500/10"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: index * 0.1, duration: 0.5 }}
+          viewport={{ once: true }}
+        >
+          {/* Glowing border effect on hover */}
+          <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/30 to-teal-500/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-2xl"></div>
+          
+          {/* Subtle icon in the background, more ethereal */}
+          <stat.icon className="absolute -top-6 -right-6 w-28 h-28 text-gray-900 transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110" />
+          
+          <div className="relative z-10">
+            <HyperText
+              className="text-4xl sm:text-5xl font-bold text-white font-mono tracking-tighter"
+              delay={index * 200}
+            >
+              {stat.value}
+            </HyperText>
+            <p className="mt-2 text-sm text-gray-400">{stat.label}</p>
+          </div>
+          
+          {/* Soft black gradient overlay for depth */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent"></div>
+        </motion.div>
+      ))}
+    </div>
+  </div>
+</section>
+      
+      {/* "How It Works" Section */}
+
+      <section className="py-20 sm:py-28">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="max-w-4xl mx-auto text-center">
+        <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-3xl sm:text-4xl font-bold text-white">More than a website builder.</motion.h2>
+        <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="mt-4 text-lg text-gray-400">An intelligent platform designed to handle everything from concept to customer.</motion.p>
+    </div>
+    <div className="mt-16">
+        <BentoGrid>
+            {bentoFeatures.map((feature, idx) => (
+                <BentoCard key={idx} {...feature} />
+            ))}
+        </BentoGrid>
+    </div>
   </div>
 </section>
 
-      {/* Stats Section */}
-      <section className="py-16 border-y border-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
-              <motion.div key={stat.label} className="text-center" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.1 }} viewport={{ once: true }}>
-                <p className="text-3xl sm:text-4xl font-bold text-white">{stat.value}</p>
-                <p className="mt-1 text-sm text-gray-400">{stat.label}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
       
-      {/* "How It Works" Section */}
-      <section className="py-20 sm:py-28">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-3xl sm:text-4xl font-bold text-white">Generate your website in 3 simple steps.</motion.h2>
-          <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="mt-4 text-lg text-gray-400">Our AI makes website creation effortless. Just describe, customize, and launch.</motion.p>
-        </div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
-          <div ref={ref} className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-            {features.map((feature, index) => (
-              <motion.div key={feature.title} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.15 }} viewport={{ once: true }}>
-                <div className={`inline-flex items-center justify-center p-3 rounded-xl bg-gray-800 border border-gray-700`}>
-                   <motion.div 
-                style={{ y }} // Apply the transform here!
-                className="inline-flex items-center justify-center p-3 rounded-xl bg-gray-800 border border-gray-700"
-              >
-                <feature.icon className={`w-7 h-7 ${feature.color}`} />
-              </motion.div>
-              
-                </div>
-                <h3 className="mt-4 text-xl font-semibold text-white">{feature.title}</h3>
-                <p className="mt-2 text-gray-400">{feature.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-         <section className="py-20 sm:py-28">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                        <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
-                            <p className="text-indigo-400 font-semibold">See why customers love WebCraft</p>
-                            <h2 className="mt-2 text-3xl sm:text-4xl font-bold text-white">Kickstart your online business.</h2>
-                            <p className="mt-4 text-lg text-gray-400">Get everything you need to launch and manage a business—all in one place.</p>
-                        </motion.div>
-                        <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5, delay: 0.1 }}>
-                            <div className="relative bg-gray-900 border border-gray-800 rounded-2xl p-8 min-h-[300px] flex flex-col justify-center">
-                                <MessageSquare className="absolute top-6 left-6 w-12 h-12 text-gray-700" />
-                                <AnimatePresence mode="wait">
-                                    <motion.div
-                                        key={currentTestimonial}
-                                        initial={{ opacity: 0, y: 20 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        exit={{ opacity: 0, y: -20 }}
-                                        transition={{ duration: 0.3 }}
-                                        className="relative z-10"
-                                    >
-                                        <p className="text-lg text-gray-300">"{testimonials[currentTestimonial].quote}"</p>
-                                        <div className="flex items-center mt-6">
-                                            <img className="h-12 w-12 rounded-full object-cover" src={testimonials[currentTestimonial].avatar} alt={testimonials[currentTestimonial].name} />
-                                            <div className="ml-4">
-                                                <p className="font-semibold text-white">{testimonials[currentTestimonial].name}</p>
-                                                <p className="text-sm text-gray-400">{testimonials[currentTestimonial].role}</p>
-                                            </div>
-                                        </div>
-                                    </motion.div>
-                                </AnimatePresence>
-                            </div>
-                            <div className="flex items-center justify-center lg:justify-start mt-6 space-x-4">
-                                <div className="flex items-center space-x-2">
-                                    {testimonials.map((_, index) => (
-                                        <button key={index} onClick={() => setCurrentTestimonial(index)} className={`w-2 h-2 rounded-full transition-colors ${currentTestimonial === index ? 'bg-white' : 'bg-gray-600 hover:bg-gray-400'}`}></button>
-                                    ))}
-                                </div>
-                                <div className="flex items-center space-x-2">
-                                    <button onClick={prevTestimonial} className="p-2 rounded-full bg-gray-800 hover:bg-gray-700 text-gray-400 hover:text-white transition-colors">
-                                        <ChevronLeft className="w-5 h-5" />
-                                    </button>
-                                    <button onClick={nextTestimonial} className="p-2 rounded-full bg-gray-800 hover:bg-gray-700 text-gray-400 hover:text-white transition-colors">
-                                        <ChevronRight className="w-5 h-5" />
-                                    </button>
-                                </div>
-                            </div>
-                        </motion.div>
-                    </div>
-                </div>
-            </section>
 
             {/* NEW: API Section */}
-            <section className="py-20 sm:py-28">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <motion.div
-                        className="bg-gray-900 border border-gray-800 rounded-3xl grid grid-cols-1 lg:grid-cols-2 items-center overflow-hidden"
-                        initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}
-                    >
-                        <div className="p-8 lg:p-12">
-                            <h2 className="text-3xl sm:text-4xl font-bold text-white">Launch websites from your platform or hosting stack.</h2>
-                            <p className="mt-4 text-lg text-gray-400">Use the WebCraft Website Builder API to generate and manage full websites with AI — right from your own dashboard, SaaS, or hosting panel.</p>
-                            <div className="mt-6">
-                                <Button variant="secondary" className="!bg-black hover:!bg-gray-800 border-gray-700">Explore Website Builder API</Button>
-                            </div>
-                        </div>
-                        <div className="relative h-64 lg:h-full w-full">
-                            <img src="https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Code editor" className="absolute inset-0 w-full h-full object-cover opacity-20" />
-                            <motion.div
-                                className="absolute -bottom-4 right-4 sm:right-8 w-4/5 sm:w-3/5 max-w-sm rounded-xl overflow-hidden shadow-2xl border border-gray-700"
-                                whileHover={{ scale: 1.05, rotate: 1 }}
-                                transition={{ type: 'spring', stiffness: 300 }}
-                            >
-                                <img src="https://images.pexels.com/photos/3861964/pexels-photo-3861964.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Generated Website" className="w-full h-full object-cover"/>
-                                <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-blue-500 flex items-center justify-center shadow-lg"><Sparkles className="w-6 h-6 text-white"/></div>
-                            </motion.div>
-                        </div>
-                    </motion.div>
-                </div>
-            </section>
 
+            <section className="py-20 sm:py-28 bg-black">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-16 items-center">
+      
+      {/* Left Column: Heading & Text */}
+      <div className="lg:max-w-lg">
+        <BoxReveal boxColor={"#a855f7"} duration={0.5}>
+          <p className="text-3xl sm:text-4xl font-bold">
+            Loved by businesses worldwide<span className="text-indigo-500">.</span>
+          </p>
+        </BoxReveal>
+        <BoxReveal boxColor={"#38bdf8"} duration={0.5}>
+          <p className="mt-4 text-lg text-gray-400">
+            Our platform is trusted by entrepreneurs and designers to bring their visions to life, faster than ever before. We're not just a tool; we're a partner in your success.
+          </p>
+        </BoxReveal>
+        <BoxReveal boxColor={"#34d399"} duration={0.5}>
+            <Button size="lg" onClick={() => navigate('/dashboard')} className="mt-8 !bg-indigo-600 hover:!bg-indigo-500 !text-white">
+                Start Your Free Trial
+            </Button>
+        </BoxReveal>
+      </div>
+      
+      {/* Right Column: Scrolling Reviews */}
+      <div className="relative h-[450px] overflow-hidden [mask-image:linear-gradient(to_bottom,transparent_0%,black_15%,black_85%,transparent_100%)]">
+          <Marquee pauseOnHover vertical className="[--duration:60s]">
+            {reviews.map((review) => (
+              <ReviewCard key={review.username} {...review} />
+            ))}
+          </Marquee>
+      </div>
+
+    </div>
+  </div>
+</section>
+        
       {/* CTA Section */}
-      <section className="py-20 sm:py-28">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="relative bg-gray-900 border border-gray-800 rounded-3xl p-12 lg:p-16 text-center overflow-hidden"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <div className="absolute -top-20 -right-20 w-60 h-60 bg-indigo-500/10 rounded-full blur-3xl"></div>
-            <div className="absolute -bottom-20 -left-20 w-60 h-60 bg-teal-500/10 rounded-full blur-3xl"></div>
-
-            <div className="relative">
-              <h2 className="text-3xl sm:text-4xl font-bold text-white">Ready to build your dream website?</h2>
-              <p className="mt-4 text-lg text-gray-400 max-w-2xl mx-auto">Join thousands of businesses who trust WebCraft to bring their vision to life. Get started for free, no credit card required.</p>
-              <div className="mt-8">
-                <Button size="lg" onClick={handleGenerateWebsite} className="!bg-indigo-600 hover:!bg-indigo-500 !text-white !text-base !font-semibold !px-8 !py-4">
-                  Start Building Now <ArrowRight className="w-5 h-5 ml-2" />
-                </Button>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
+      <UniqueCTA/>
      <Footer/>
     </div>
   );

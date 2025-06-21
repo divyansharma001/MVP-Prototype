@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { ArrowRight, Code, Zap, Globe, Rocket } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { ArrowRight, Rocket, Layout, ShoppingCart, Mail } from 'lucide-react';
 
 const UniqueCTA = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -22,9 +22,9 @@ const UniqueCTA = () => {
   };
 
   const steps = [
-    { icon: Code, text: "Describe your vision", color: "text-blue-400" },
-    { icon: Zap, text: "AI builds instantly", color: "text-yellow-400" },
-    { icon: Globe, text: "Launch & scale", color: "text-green-400" }
+    { icon: Layout, text: "Pick Your Template", color: "text-blue-400" },
+    { icon: ShoppingCart, text: "Add Your Products & Services", color: "text-yellow-400" },
+    { icon: Mail, text: "Automate Your Marketing", color: "text-green-400" }
   ];
 
   return (
@@ -94,16 +94,15 @@ const UniqueCTA = () => {
               </div>
 
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
-                Stop dreaming.
+                Stop juggling apps.
                 <br />
                 <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-teal-400 bg-clip-text text-transparent">
-                  Start building.
+                  Start growing.
                 </span>
               </h2>
 
               <p className="text-lg text-gray-400 mb-8 max-w-md">
-                Transform your ideas into stunning websites in minutes, not months. 
-                No coding, no complexity—just pure creativity.
+               Launch your online store, manage reservations, and automate your marketing from a single, powerful platform. It's everything your business needs to thrive online.
               </p>
 
               {/* Unique button design */}

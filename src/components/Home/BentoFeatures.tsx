@@ -2,13 +2,13 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { CheckCircle, Globe, Layout, Palette } from 'lucide-react'; // Using icons you have
+import { CheckCircle, Globe, Layout, Sparkles } from 'lucide-react'; // Using icons you have
 
 // For the "AI Builder" card -> Replaces AnimatedBeam
 export const BuilderAnimation = () => {
     const items = [
         { Icon: Layout, text: "Generating Layout" },
-        { Icon: Palette, text: "Choosing Colors" },
+        { Icon: Sparkles, text: "Choosing Colors" },
         { Icon: Globe, text: "Deploying Globally" },
         { Icon: CheckCircle, text: "Website Ready!" },
     ];
@@ -45,7 +45,7 @@ export const BuilderAnimation = () => {
 
 
 // For the "Customization" card -> Cleaned up
-export const PaletteAnimation = () => (
+export const SparklesAnimation = () => (
     <div className="absolute inset-0 flex items-center justify-center -z-10 opacity-50 [mask-image:radial-gradient(ellipse_at_center,white_20%,transparent_70%)]">
         <div className="grid grid-cols-4 gap-2">
             {['#6366f1', '#38bdf8', '#34d399', '#f59e0b', '#a855f7', '#ec4899', '#ef4444', '#f9fafb'].map((color, i) => (
