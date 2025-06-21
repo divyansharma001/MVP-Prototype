@@ -18,6 +18,8 @@ import { BarChart3 } from 'lucide-react';
 import { HyperText } from '../components/magicui/hypertext';
 
 import UniqueCTA from '../components/Home/CTA';
+import { Marquee } from '../components/magicui/marquee';
+import ReviewCard from '../components/Home/ReviewCard';
 
 // A new, dedicated header for the marketing page
 const MarketingHeader = () => {
@@ -90,6 +92,33 @@ const bentoFeatures = [
     cta: "Learn about Hosting",
     className: "md:col-span-2",
     background: <motion.div className="absolute inset-0 bg-gradient-to-br from-yellow-500/10 via-transparent to-transparent" />,
+  },
+];
+
+const reviews = [
+  {
+    name: "Shannon Weitzel",
+    username: "WebCraft User",
+    img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=200",
+    body: "I actually decided to not go with Shopify because it was just too daunting... everything I needed help with was addressed pretty clearly.",
+  },
+  {
+    name: "Marcus Holloway",
+    username: "Tech Entrepreneur",
+    img: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?q=80&w=200",
+    body: "The AI builder is a game-changer. What used to take me days of coding now takes minutes. The platform is intuitive, fast, and the results are incredibly professional.",
+  },
+  {
+    name: "Elena Rodriguez",
+    username: "Freelance Designer",
+    img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=200",
+    body: "As a designer, I'm picky about aesthetics. WebCraft's AI generates such beautiful, well-balanced layouts that I can confidently use them for my clients.",
+  },
+   {
+    name: "James Anderson",
+    username: "Small Business Owner",
+    img: "https://images.unsplash.com/photo-1557862921-37829c790f19?q=80&w=200",
+    body: "The uptime is incredible, and my site is faster than ever. The hosting solution included is top-notch and requires zero configuration from my end.",
   },
 ];
 
@@ -216,48 +245,46 @@ const Home: React.FC = () => {
   </div>
 </section>
 
-         <section className="py-20 sm:py-28 bg-black">
-  <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-    
-    <BoxReveal boxColor={"#a855f7"} duration={0.5}>
-      <p className="text-3xl sm:text-4xl font-bold">
-        Loved by businesses worldwide<span className="text-indigo-500">.</span>
-      </p>
-    </BoxReveal>
+      
 
-    <BoxReveal boxColor={"#38bdf8"} duration={0.5}>
-      <h2 className="mt-4 text-lg text-gray-400">
-        Our platform is trusted by entrepreneurs and designers to bring their visions to life, faster than ever before.
-      </h2>
-    </BoxReveal>
 
-    <div className="mt-12 flex justify-center">
-      <div className="relative max-w-2xl text-left bg-gray-900/50 border border-gray-800 rounded-2xl p-8">
-        <BoxReveal boxColor={"#34d399"} duration={0.5}>
-          <blockquote className="text-lg text-gray-300 italic">
-            "I actually decided to not go with Shopify because it was just too daunting and complicated. I am not experienced at all with website building, but everything I needed help with was addressed pretty clearly and I didn't get discouraged."
-          </blockquote>
+            {/* NEW: API Section */}
+
+            <section className="py-20 sm:py-28 bg-black">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-16 items-center">
+      
+      {/* Left Column: Heading & Text */}
+      <div className="lg:max-w-lg">
+        <BoxReveal boxColor={"#a855f7"} duration={0.5}>
+          <p className="text-3xl sm:text-4xl font-bold">
+            Loved by businesses worldwide<span className="text-indigo-500">.</span>
+          </p>
         </BoxReveal>
-        
-        <div className="mt-6 flex items-center space-x-4">
-          <BoxReveal boxColor={"#6366f1"} duration={0.5}>
-              <img className="h-14 w-14 rounded-full object-cover" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=200" alt="Shannon Weitzel" />
-          </BoxReveal>
-          <div className="flex-1">
-            <BoxReveal boxColor={"#6366f1"} duration={0.5}>
-              <p className="font-semibold text-white">Shannon Weitzel</p>
-            </BoxReveal>
-            <BoxReveal boxColor={"#6366f1"} duration={0.5}>
-              <p className="text-sm text-gray-400">WebCraft User</p>
-            </BoxReveal>
-          </div>
-        </div>
+        <BoxReveal boxColor={"#38bdf8"} duration={0.5}>
+          <p className="mt-4 text-lg text-gray-400">
+            Our platform is trusted by entrepreneurs and designers to bring their visions to life, faster than ever before. We're not just a tool; we're a partner in your success.
+          </p>
+        </BoxReveal>
+        <BoxReveal boxColor={"#34d399"} duration={0.5}>
+            <Button size="lg" onClick={() => navigate('/dashboard')} className="mt-8 !bg-indigo-600 hover:!bg-indigo-500 !text-white">
+                Start Your Free Trial
+            </Button>
+        </BoxReveal>
       </div>
-    </div>
+      
+      {/* Right Column: Scrolling Reviews */}
+      <div className="relative h-[450px] overflow-hidden [mask-image:linear-gradient(to_bottom,transparent_0%,black_15%,black_85%,transparent_100%)]">
+          <Marquee pauseOnHover vertical className="[--duration:60s]">
+            {reviews.map((review) => (
+              <ReviewCard key={review.username} {...review} />
+            ))}
+          </Marquee>
+      </div>
 
+    </div>
   </div>
 </section>
-            {/* NEW: API Section */}
         
       {/* CTA Section */}
       <UniqueCTA/>
