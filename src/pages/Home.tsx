@@ -183,27 +183,7 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      <section className="py-12">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <p className="text-center text-sm font-semibold text-gray-400 tracking-wider uppercase">
-      Trusted by leading small businesses
-    </p>
-    <motion.div 
-      className="mt-6 flex justify-center items-center flex-wrap gap-x-8 gap-y-4"
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      viewport={{ once: true }}
-    >
-      {/* Replace with actual or aspirational logos */}
-      <img className="h-8 opacity-60" src="/logo-placeholder-1.svg" alt="Company 1" />
-      <img className="h-8 opacity-60" src="/logo-placeholder-2.svg" alt="Company 2" />
-      <img className="h-8 opacity-60" src="/logo-placeholder-3.svg" alt="Company 3" />
-      <img className="h-8 opacity-60" src="/logo-placeholder-4.svg" alt="Company 4" />
-      <img className="h-8 opacity-60" src="/logo-placeholder-5.svg" alt="Company 5" />
-    </motion.div>
-  </div>
-</section>
+
 
       {/* Stats Section */}
       <section className="py-16 border-y border-gray-800">
