@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, ShieldCheck, Globe, Zap, Palette, ArrowRight, Award, Users, TrendingUp, ChevronLeft, ChevronRight, MessageSquare } from 'lucide-react';
+import { Sparkles, Globe, Zap, Palette, ArrowRight, Award, Users, TrendingUp, ChevronLeft, ChevronRight, MessageSquare } from 'lucide-react';
 import Button from '../components/UI/Button';
+import { useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
 
 import Logo from '../components/UI/Logo';
 import { useToast } from '../components/UI/Toast';
 import Footer from '../components/Layout/Footer';
+import InteractiveHeroDemo from '../components/Home/InteractiveHeroDemo';
 
 
 // A new, dedicated header for the marketing page
@@ -37,11 +40,11 @@ const MarketingHeader = () => {
 };
 
 // Data for the showcase grid on the right
-const showcaseItems = {
-  main: { image: 'https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?auto=compress&cs=tinysrgb&w=600', title: 'Look good, feel amazing', cta: 'SHOP NOW' },
-  sideTop: { image: 'https://images.pexels.com/photos/1287145/pexels-photo-1287145.jpeg?auto=compress&cs=tinysrgb&w=600' },
-  bottom: { image: 'https://images.pexels.com/photos/994523/pexels-photo-994523.jpeg?auto=compress&cs=tinysrgb&w=600' }
-};
+// const showcaseItems = {
+//   main: { image: 'https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?auto=compress&cs=tinysrgb&w=600', title: 'Look good, feel amazing', cta: 'SHOP NOW' },
+//   sideTop: { image: 'https://images.pexels.com/photos/1287145/pexels-photo-1287145.jpeg?auto=compress&cs=tinysrgb&w=600' },
+//   bottom: { image: 'https://images.pexels.com/photos/994523/pexels-photo-994523.jpeg?auto=compress&cs=tinysrgb&w=600' }
+// };
 
 const testimonials = [
     {
@@ -65,6 +68,12 @@ const testimonials = [
 ];
 
 const Home: React.FC = () => {
+  const ref = useRef(null);
+const { scrollYProgress } = useScroll({
+  target: ref,
+  offset: ["start end", "end start"]
+});
+const y = useTransform(scrollYProgress, [0, 1], [-100, 100]);
   const navigate = useNavigate();
   const { showToast } = useToast();
    const [currentTestimonial, setCurrentTestimonial] = useState(0);
@@ -124,7 +133,7 @@ const Home: React.FC = () => {
           </motion.div>
 
           {/* Right Side: Showcase Grid */}
-          <motion.div className="relative h-[500px]" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.7, delay: 0.3, ease: 'easeOut' }}>
+          {/* <motion.div className="relative h-[500px]" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.7, delay: 0.3, ease: 'easeOut' }}>
             <div className="absolute inset-0 grid grid-cols-5 grid-rows-3 gap-4">
               <motion.div className="col-span-2 row-span-2 rounded-2xl bg-gray-900/50 border border-gray-800 overflow-hidden" whileHover={{ scale: 1.05, zIndex: 10 }}><img src={showcaseItems.sideTop.image} alt="Side Top" className="w-full h-full object-cover" /></motion.div>
               <motion.div className="col-span-3 row-span-2 rounded-2xl bg-gray-900/50 border border-gray-800 overflow-hidden relative" whileHover={{ scale: 1.05, zIndex: 10 }}><img src={showcaseItems.main.image} alt="Main" className="w-full h-full object-cover" /><div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex flex-col justify-end p-4"><h3 className="text-white font-bold text-lg">{showcaseItems.main.title}</h3><button className="mt-2 text-xs font-bold bg-white/90 text-black px-4 py-2 rounded-md self-start">{showcaseItems.main.cta}</button></div></motion.div>
@@ -132,9 +141,33 @@ const Home: React.FC = () => {
               <motion.div className="col-span-3 row-span-1 rounded-2xl bg-gray-900/50 border border-gray-800 overflow-hidden" whileHover={{ scale: 1.05, zIndex: 10 }}><img src={showcaseItems.bottom.image} alt="Bottom" className="w-full h-full object-cover" /></motion.div>
             </div>
             <motion.div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24" animate={{ y: ["-5%", "5%"] }} transition={{ duration: 2, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }} style={{ background: 'radial-gradient(circle, rgba(99,102,241,0.5) 0%, rgba(79,70,229,0) 70%)' }}><div className="w-full h-full rounded-full bg-gradient-to-br from-indigo-500 to-blue-500 flex items-center justify-center shadow-2xl shadow-indigo-500/50"><Sparkles className="w-10 h-10 text-white" /></div></motion.div>
-          </motion.div>
+          </motion.div> */}
+
+          <InteractiveHeroDemo/>
         </div>
       </section>
+
+      <section className="py-12">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <p className="text-center text-sm font-semibold text-gray-400 tracking-wider uppercase">
+      Trusted by leading small businesses
+    </p>
+    <motion.div 
+      className="mt-6 flex justify-center items-center flex-wrap gap-x-8 gap-y-4"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      viewport={{ once: true }}
+    >
+      {/* Replace with actual or aspirational logos */}
+      <img className="h-8 opacity-60" src="/logo-placeholder-1.svg" alt="Company 1" />
+      <img className="h-8 opacity-60" src="/logo-placeholder-2.svg" alt="Company 2" />
+      <img className="h-8 opacity-60" src="/logo-placeholder-3.svg" alt="Company 3" />
+      <img className="h-8 opacity-60" src="/logo-placeholder-4.svg" alt="Company 4" />
+      <img className="h-8 opacity-60" src="/logo-placeholder-5.svg" alt="Company 5" />
+    </motion.div>
+  </div>
+</section>
 
       {/* Stats Section */}
       <section className="py-16 border-y border-gray-800">
@@ -157,11 +190,17 @@ const Home: React.FC = () => {
           <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="mt-4 text-lg text-gray-400">Our AI makes website creation effortless. Just describe, customize, and launch.</motion.p>
         </div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+          <div ref={ref} className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
             {features.map((feature, index) => (
               <motion.div key={feature.title} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.15 }} viewport={{ once: true }}>
                 <div className={`inline-flex items-center justify-center p-3 rounded-xl bg-gray-800 border border-gray-700`}>
-                  <feature.icon className={`w-7 h-7 ${feature.color}`} />
+                   <motion.div 
+                style={{ y }} // Apply the transform here!
+                className="inline-flex items-center justify-center p-3 rounded-xl bg-gray-800 border border-gray-700"
+              >
+                <feature.icon className={`w-7 h-7 ${feature.color}`} />
+              </motion.div>
+              
                 </div>
                 <h3 className="mt-4 text-xl font-semibold text-white">{feature.title}</h3>
                 <p className="mt-2 text-gray-400">{feature.description}</p>

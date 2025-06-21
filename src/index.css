@@ -59,3 +59,8 @@
     @apply bg-background text-foreground;
   }
 }
+.gradient-text {
+  background: linear-gradient(to right, #a855f7, #6366f1, #38bdf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
