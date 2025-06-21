@@ -1,21 +1,123 @@
-// src/components/Home/InteractiveHeroDemo.tsx (or CleanHeroDemo.tsx)
-import { motion, AnimatePresence } from 'framer-motion';
-import { Type, Layout, ImageIcon, Zap, CheckCircle } from 'lucide-react';
-import React from 'react';
+import React, { useEffect, useRef, useState, CSSProperties, ReactNode } from 'react';
+import { motion, AnimatePresence, useMotionValue } from 'framer-motion';
+import { Type, Layout, Image, Zap, CheckCircle } from 'lucide-react';
 
-// Step 1: Define steps with more descriptive icons and curated images
+// Pointer Component (Fixed)
+import type { HTMLMotionProps } from 'framer-motion';
+
+interface PointerProps extends Omit<HTMLMotionProps<"div">, "style"> {
+  className?: string;
+  style?: CSSProperties;
+  children?: ReactNode;
+}
+
+function Pointer({ className, style, children, ...props }: PointerProps) {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const [isActive, setIsActive] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && containerRef.current) {
+      const parentElement = containerRef.current.parentElement;
+
+      if (parentElement) {
+        parentElement.style.cursor = "none";
+
+        const handleMouseMove = (e: { clientX: number; clientY: number; }) => {
+          // Get the bounding rect of the parent to calculate relative position
+          const rect = parentElement.getBoundingClientRect();
+          x.set(e.clientX - rect.left);
+          y.set(e.clientY - rect.top);
+        };
+
+        const handleMouseEnter = () => {
+          setIsActive(true);
+        };
+
+        const handleMouseLeave = () => {
+          setIsActive(false);
+        };
+
+        parentElement.addEventListener("mousemove", handleMouseMove);
+        parentElement.addEventListener("mouseenter", handleMouseEnter);
+        parentElement.addEventListener("mouseleave", handleMouseLeave);
+
+        return () => {
+          parentElement.style.cursor = "";
+          parentElement.removeEventListener("mousemove", handleMouseMove);
+          parentElement.removeEventListener("mouseenter", handleMouseEnter);
+          parentElement.removeEventListener("mouseleave", handleMouseLeave);
+        };
+      }
+    }
+  }, [x, y]);
+
+  return (
+    <>
+      <div ref={containerRef} className="absolute inset-0 pointer-events-none" />
+      <AnimatePresence>
+        {isActive && (
+          <motion.div
+            className="absolute pointer-events-none z-50 transform -translate-x-1/2 -translate-y-1/2"
+            style={{
+              top: y,
+              left: x,
+              ...style,
+            }}
+            initial={{
+              scale: 0,
+              opacity: 0,
+            }}
+            animate={{
+              scale: 1,
+              opacity: 1,
+            }}
+            exit={{
+              scale: 0,
+              opacity: 0,
+            }}
+            transition={{
+              type: "spring",
+              stiffness: 400,
+              damping: 30,
+            }}
+            {...props}
+          >
+            {children || (
+              <svg
+                stroke="currentColor"
+                fill="currentColor"
+                strokeWidth="1"
+                viewBox="0 0 16 16"
+                height="24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+                className={`rotate-[-70deg] stroke-white text-blue-500 drop-shadow-lg ${className || ''}`}
+              >
+                <path d="M14.082 2.182a.5.5 0 0 1 .103.557L8.528 15.467a.5.5 0 0 1-.917-.007L5.57 10.694.803 8.652a.5.5 0 0 1-.006-.916l12.728-5.657a.5.5 0 0 1 .556.103z" />
+              </svg>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}
+
+// Define steps with more descriptive icons and placeholder images
 const steps = [
-  { text: 'Describe your business...', icon: Type, image: '/home01.png' },
-  { text: 'AI generates a unique layout...', icon: Layout, image: '/home02.png' },
-  { text: 'AI curates stunning visuals...', icon: ImageIcon, image: '/home03.png' },
-  { text: 'Optimizing for performance...', icon: Zap, image: '/home04.png' },
-  { text: 'Your website is ready!', icon: CheckCircle, image: '/home05.png' },
+  { text: 'Describe your business...', icon: Type, image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=400&fit=crop' },
+  { text: 'AI generates a unique layout...', icon: Layout, image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=400&fit=crop' },
+  { text: 'AI curates stunning visuals...', icon: Image, image: 'https://images.unsplash.com/photo-1522542550221-31fd19575a2d?w=800&h=400&fit=crop' },
+  { text: 'Optimizing for performance...', icon: Zap, image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=400&fit=crop' },
+  { text: 'Your website is ready!', icon: CheckCircle, image: 'https://images.unsplash.com/photo-1556075798-4825dfaaf498?w=800&h=400&fit=crop' },
 ];
 
 const InteractiveHeroDemo = () => {
-  const [currentStep, setCurrentStep] = React.useState(0);
+  const [currentStep, setCurrentStep] = useState(0);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const interval = setInterval(() => {
       setCurrentStep((prev) => (prev + 1) % steps.length);
     }, 2500);
@@ -26,7 +128,7 @@ const InteractiveHeroDemo = () => {
 
   return (
     <motion.div 
-      className="bg-gray-900/50 border border-gray-800 rounded-2xl p-4 h-[500px] shadow-2xl shadow-indigo-500/10 backdrop-blur-sm"
+      className="bg-gray-900/50 border border-gray-800 rounded-2xl p-4 h-[500px] shadow-2xl shadow-indigo-500/10 backdrop-blur-sm relative overflow-hidden"
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.7, ease: 'easeOut' }}
@@ -110,6 +212,9 @@ const InteractiveHeroDemo = () => {
           </motion.div>
         )}
       </div>
+      
+      {/* Custom Pointer Component */}
+      <Pointer className="fill-blue-500" />
     </motion.div>
   );
 };
