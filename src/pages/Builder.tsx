@@ -73,16 +73,16 @@ const Builder: React.FC = () => {
   ];
 
   const availableFeatures = [
-    { name: 'Contact Form', description: 'Let customers reach you easily' },
-    { name: 'Image Gallery', description: 'Showcase your work beautifully' },
-    { name: 'Testimonials', description: 'Build trust with customer reviews' },
-    { name: 'Social Media Links', description: 'Connect all your social profiles' },
-    { name: 'Blog Section', description: 'Share updates and insights' },
-    { name: 'Online Booking', description: 'Accept appointments online' },
-    { name: 'E-commerce', description: 'Sell products directly' },
-    { name: 'Live Chat', description: 'Support customers in real-time' }
+    { name: 'Online Ordering', description: 'For pickup and delivery orders' },
+    { name: 'Reservation System', description: 'Manage bookings and waitlists' },
+    { name: 'E-commerce Store', description: 'Sell products with inventory tracking' },
+    { name: 'Marketing Automation', description: 'Send automated emails to customers' },
+    { name: 'Customer Reviews', description: 'Display testimonials and feedback' },
+    { name: 'Service Menu / List', description: 'Showcase what you offer' },
+    { name: 'Contact Form & AI Replies', description: 'Let AI help you respond faster' },
+    { name: 'Availability Calendar', description: 'Perfect for rentals and appointments' }
   ];
-
+  
   const availablePages = [
     { name: 'About Us', description: 'Tell your story', essential: true },
     { name: 'Services', description: 'What you offer', essential: true },
@@ -480,8 +480,8 @@ const Builder: React.FC = () => {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <h1 className="text-3xl font-bold text-white mb-2">AI Website Builder</h1>
-        <p className="text-gray-400">Let our AI create a perfect website for your business</p>
+        <h1 className="text-3xl font-bold text-white mb-2">Launch Your Business Website</h1>
+        <p className="text-gray-400">Get online in just a few minutes with our guided setup.</p>
       </motion.div>
 
       {/* Progress Steps */}

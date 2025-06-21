@@ -2319,8 +2319,8 @@ const Builder: React.FC = () => {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <h1 className="text-3xl font-bold text-white mb-2">AI Website Builder</h1>
-        <p className="text-gray-400">Let our AI create a perfect website for your business</p>
+        <h1 className="text-3xl font-bold text-white mb-2">Launch Your Business Website</h1>
+        <p className="text-gray-400">Get online in just a few minutes with our guided setup.</p>
       </motion.div>
 
       {/* Progress Steps */}
@@ -3400,7 +3400,7 @@ const Dashboard: React.FC = () => {
   const [siteToDelete, setSiteToDelete] = useState<Website | null>(null);
 
   const handleCreateWebsite = () => {
-    showToast('info', 'Redirecting to the AI website builder...');
+    showToast('info', 'Redirecting to the Launch Your Business Website...');
     setTimeout(() => navigate('/builder'), 1000);
   };
 
@@ -3689,7 +3689,7 @@ const Home: React.FC = () => {
   const { showToast } = useToast();
    
   const handleGenerateWebsite = () => {
-    showToast('success', 'Redirecting to the AI Website Builder!');
+    showToast('success', 'Redirecting to the Launch Your Business Website!');
     setTimeout(() => navigate('/builder'), 1500);
   };
 

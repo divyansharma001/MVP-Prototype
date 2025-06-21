@@ -132,7 +132,7 @@ const Home: React.FC = () => {
   const { showToast } = useToast();
    
   const handleGenerateWebsite = () => {
-    showToast('success', 'Redirecting to the AI Website Builder!');
+    showToast('success', 'Redirecting to the Launch Your Business Website!');
     setTimeout(() => navigate('/builder'), 1500);
   };
 

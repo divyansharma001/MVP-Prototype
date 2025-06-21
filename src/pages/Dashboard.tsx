@@ -21,7 +21,7 @@ const Dashboard: React.FC = () => {
   const [siteToDelete, setSiteToDelete] = useState<Website | null>(null);
 
   const handleCreateWebsite = () => {
-    showToast('info', 'Redirecting to the AI website builder...');
+    showToast('info', 'Redirecting to the Launch Your Business Website...');
     setTimeout(() => navigate('/builder'), 1000);
   };
 
