@@ -514,7 +514,7 @@ const UniqueCTA = () => {
                   className="group relative bg-white text-black font-semibold px-8 py-4 rounded-xl transition-all duration-300 hover:bg-gray-100 hover:scale-105 active:scale-95 overflow-hidden"
                 >
                   <span className="relative z-10 flex items-center justify-center gap-2">
-                    Generate Website
+                    Launch My Website
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </span>
                   <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
@@ -2249,12 +2249,12 @@ const Builder: React.FC = () => {
             
             <div>
               <h3 className="text-2xl font-bold text-white mb-2">
-                {isGenerating ? 'Generating Your Website...' : 'Ready to Generate!'}
+                {isGenerating ? 'Generating Your Website...' : 'Ready to Launch!'}
               </h3>
               <p className="text-gray-400 mb-6">
                 {isGenerating 
                   ? 'Our AI is crafting your perfect website. This may take a few moments.'
-                  : 'Our AI will create a custom website based on your preferences'
+                  : 'We're putting everything together. Your new business hub is almost ready!'
                 }
               </p>
             </div>
@@ -2404,7 +2404,7 @@ const Builder: React.FC = () => {
           }
           loading={isGenerating}
         >
-          {currentStep === 4 ? 'Generate Website' : 'Next'}
+          {currentStep === 4 ? 'Launch My Website' : 'Next'}
         </Button>
       </motion.div>
     </div>

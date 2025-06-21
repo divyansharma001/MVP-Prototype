@@ -112,7 +112,7 @@ const UniqueCTA = () => {
                   className="group relative bg-white text-black font-semibold px-8 py-4 rounded-xl transition-all duration-300 hover:bg-gray-100 hover:scale-105 active:scale-95 overflow-hidden"
                 >
                   <span className="relative z-10 flex items-center justify-center gap-2">
-                    Generate Website
+                    Launch My Website
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </span>
                   <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>

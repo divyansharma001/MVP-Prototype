@@ -410,12 +410,12 @@ const Builder: React.FC = () => {
             
             <div>
               <h3 className="text-2xl font-bold text-white mb-2">
-                {isGenerating ? 'Generating Your Website...' : 'Ready to Generate!'}
+                {isGenerating ? 'Generating Your Website...' : 'Ready to Launch!'}
               </h3>
               <p className="text-gray-400 mb-6">
                 {isGenerating 
                   ? 'Our AI is crafting your perfect website. This may take a few moments.'
-                  : 'Our AI will create a custom website based on your preferences'
+                  : "We're putting everything together. Your new business hub is almost ready!"
                 }
               </p>
             </div>
@@ -565,7 +565,7 @@ const Builder: React.FC = () => {
           }
           loading={isGenerating}
         >
-          {currentStep === 4 ? 'Generate Website' : 'Next'}
+          {currentStep === 4 ? 'Launch My Website' : 'Next'}
         </Button>
       </motion.div>
     </div>
