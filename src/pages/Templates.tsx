@@ -4,6 +4,7 @@ import { Search, Filter, Eye, Zap, Star, Heart, Download } from 'lucide-react';
 import Button from '../components/UI/Button';
 import Card from '../components/UI/Card';
 import { useToast } from '../components/UI/Toast';
+import { useNavigate } from 'react-router-dom';
 
 interface Template {
   id: string;
@@ -20,6 +21,7 @@ interface Template {
 
 const Templates: React.FC = () => {
   const { showToast } = useToast();
+  const navigate = useNavigate(); 
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [favorites, setFavorites] = useState<string[]>([]);
@@ -30,7 +32,7 @@ const Templates: React.FC = () => {
       name: 'The Artisan Bakery',
       category: 'food',
       preview: 'https://images.pexels.com/photos/1721934/pexels-photo-1721934.jpeg?auto=compress&cs=tinysrgb&w=400',
-      tags: ['online-ordering', 'e-commerce', 'menu', 'bakery'],
+      tags: ['Online-ordering', 'Food-Delivery', 'Menu', 'Bakery'],
       isPremium: false,
       rating: 4.9,
       downloads: 2156,
@@ -114,16 +116,24 @@ const Templates: React.FC = () => {
     return matchesSearch && matchesCategory;
   });
 
-  const handleUseTemplate = (template: Template) => {
+   const handleUseTemplate = (template: Template) => {
+    if (!template.isAvailable) {
+      showToast('info', 'This template is coming soon!');
+      return;
+    }
     if (template.isPremium) {
       showToast('warning', 'This is a premium template. Upgrade to use it.');
-    } else {
-      showToast('success', `Starting with ${template.name} template...`);
+      return;
     }
+
+    showToast('success', `Loading the ${template.name} editor...`);
+    navigate('/editor');
   };
 
+
   const handlePreview = (template: Template) => {
-    showToast('info', `Opening preview for ${template.name}`);
+     // For now, Preview and Use Template will do the same thing.
+     handleUseTemplate(template);
   };
 
   const toggleFavorite = (templateId: string) => {

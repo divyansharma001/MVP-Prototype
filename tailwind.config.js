@@ -1,14 +1,19 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
-  darkMode: 'class', // Enable class-based dark mode
+  darkMode: 'class', 
   theme: {
     extend: { 
-      animation: { // ADD THIS
+      fontFamily: { 
+        'lato': ['Lato', 'sans-serif'],
+        'playfair': ['"Playfair Display"', 'serif'],
+        'dancing': ['"Dancing Script"', 'cursive'],
+      },
+      animation: {
         "marquee-horizontal": "marquee-horizontal var(--duration) linear infinite",
         "marquee-vertical": "marquee-vertical var(--duration) linear infinite",
       },
-      keyframes: { // ADD THIS
+      keyframes: { 
         "marquee-horizontal": {
           from: { transform: "translateX(0)" },
           to: { transform: "translateX(calc(-100% - var(--gap)))" },
