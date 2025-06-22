@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import Templates from './pages/Templates';
 import Builder from './pages/Builder';
+import Preview from './pages/Preview';
 import { ToastProvider } from './components/UI/Toast';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { WebsiteProvider } from './contexts/WebsiteContext'; 
@@ -19,6 +20,7 @@ function App() {
           <Routes>
             {/* Route for the homepage, which does not use the main layout */}
             <Route path="/" element={<Home />} />
+            <Route path="/preview" element={<Preview />} /> 
             
             {/* Routes for the rest of the app, which use the main layout */}
             <Route
@@ -28,8 +30,7 @@ function App() {
                   <Routes>
                     <Route path="/dashboard" element={<Dashboard />} />
                     <Route path="/templates" element={<Templates />} />
-                    <Route path="/builder" element={<Builder />} />
-                    {/* Add other dashboard-related routes here */}
+                    <Route path="/builder" element={<Builder />} />                                                            
                   </Routes>
                 </Layout>
               }

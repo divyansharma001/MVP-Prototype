@@ -4,8 +4,10 @@ import { Layout, Wand2, MessageSquare, Sparkles, Settings, ArrowRight, CheckCirc
 import Button from '../components/UI/Button';
 import Card from '../components/UI/Card';
 import { useToast } from '../components/UI/Toast';
+import { useNavigate } from 'react-router-dom';
 
 const Builder: React.FC = () => {
+  const navigate = useNavigate();
   const { showToast } = useToast();
   const [currentStep, setCurrentStep] = useState(1);
   const [isGenerating, setIsGenerating] = useState(false);
@@ -17,7 +19,7 @@ const Builder: React.FC = () => {
     colors: '',
     features: [] as string[],
     pages: [] as string[]
-  });
+  }); 
 
   const steps = [
     { id: 1, title: 'Business Info', icon: MessageSquare, color: 'from-blue-500 to-cyan-500' },
@@ -107,28 +109,15 @@ const Builder: React.FC = () => {
       setCurrentStep(currentStep - 1);
     }
   };
-
-  const handleGenerate = async () => {
+   const handleGenerate = async () => {
     setIsGenerating(true);
-    showToast('info', 'AI is analyzing your requirements...');
-    
-    // Simulate AI generation process
-    setTimeout(() => {
-      showToast('success', 'Generating website structure...');
-    }, 1000);
-    
-    setTimeout(() => {
-      showToast('success', 'Creating design elements...');
-    }, 2000);
-    
-    setTimeout(() => {
-      showToast('success', 'Optimizing for your industry...');
-    }, 3000);
+    showToast('info', 'Generating your website preview...');
     
     setTimeout(() => {
       setIsGenerating(false);
-      showToast('success', 'Website generated successfully! 🎉');
-    }, 4000);
+      showToast('success', 'Preview generated successfully! 🎉');
+      navigate('/preview', { state: { formData } });
+    }, 1500);
   };
 
   const toggleFeature = (feature: string) => {
