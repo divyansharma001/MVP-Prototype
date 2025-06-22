@@ -1,18 +1,30 @@
 import React from 'react';
-
+import HeroSection from './components/HeroSection';
+import MenuSection from './components/MenuSection';
 
 export interface BakeryTemplateData {
   businessName: string;
-  businessType: string; 
+  businessType: string;
   description: string;
-  style: string; 
-  colors: string; 
+  style: string;
+  colors: string;
   features: string[];
   pages: string[];
+  hero: {
+    title: string;
+    subtitle: string;
+    image: string;
+  };
+  menu: {
+    title: string;
+    items: { name: string; description: string; price: string; }[]
+  };
 }
 
-import HeroSection from './components/HeroSection';
-import MenuSection from './components/MenuSection';
+interface BakeryTemplateProps {
+  data: BakeryTemplateData;
+  onSelectElement: (id: string) => void;
+}
 
 const colorMap: { [key: string]: string } = {
   'Ocean Blue': 'blue-500',
@@ -21,18 +33,17 @@ const colorMap: { [key: string]: string } = {
   'Royal Purple': 'purple-500',
   'Classic Gray': 'gray-500',
 };
-
-const BakeryTemplate: React.FC<{ data: BakeryTemplateData }> = ({ data }) => {
+const BakeryTemplate: React.FC<BakeryTemplateProps> = ({ data, onSelectElement }) => {
   const primaryColor = colorMap[data.colors] || 'teal-500';
-  const heroImage = 'https://images.pexels.com/photos/808941/pexels-photo-808941.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2';
 
   return (
     <div className="font-sans">
       <HeroSection 
-        businessName={data.businessName} 
-        heroImage={heroImage} 
+        data={data.hero}
         primaryColor={primaryColor} 
+        onSelectElement={onSelectElement}
       />
+
 
       <MenuSection primaryColor={primaryColor} menuItems={[]} />
     </div>

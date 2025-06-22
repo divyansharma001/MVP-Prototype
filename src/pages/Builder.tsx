@@ -116,7 +116,7 @@ const Builder: React.FC = () => {
     setTimeout(() => {
       setIsGenerating(false);
       showToast('success', 'Preview generated successfully! 🎉');
-      navigate('/preview', { state: { formData } });
+      navigate('/editor', { state: { formData } });
     }, 1500);
   };
 

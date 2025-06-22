@@ -4,10 +4,10 @@ import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import Templates from './pages/Templates';
 import Builder from './pages/Builder';
-import Preview from './pages/Preview';
 import { ToastProvider } from './components/UI/Toast';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { WebsiteProvider } from './contexts/WebsiteContext'; 
+import Editor from './pages/Editor';
 
 function App() {
   return (
@@ -20,7 +20,8 @@ function App() {
           <Routes>
             {/* Route for the homepage, which does not use the main layout */}
             <Route path="/" element={<Home />} />
-            <Route path="/preview" element={<Preview />} /> 
+            {/* <Route path="/preview" element={<Preview />} />  */}
+            <Route path="/editor" element={<Editor />} />
             
             {/* Routes for the rest of the app, which use the main layout */}
             <Route
