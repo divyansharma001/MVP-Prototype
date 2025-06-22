@@ -7,6 +7,7 @@ import Builder from './pages/Builder';
 import { ToastProvider } from './components/UI/Toast';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { WebsiteProvider } from './contexts/WebsiteContext'; 
+import Editor from './pages/Editor';
 
 function App() {
   return (
@@ -19,6 +20,8 @@ function App() {
           <Routes>
             {/* Route for the homepage, which does not use the main layout */}
             <Route path="/" element={<Home />} />
+            {/* <Route path="/preview" element={<Preview />} />  */}
+            <Route path="/editor" element={<Editor />} />
             
             {/* Routes for the rest of the app, which use the main layout */}
             <Route
@@ -28,8 +31,7 @@ function App() {
                   <Routes>
                     <Route path="/dashboard" element={<Dashboard />} />
                     <Route path="/templates" element={<Templates />} />
-                    <Route path="/builder" element={<Builder />} />
-                    {/* Add other dashboard-related routes here */}
+                    <Route path="/builder" element={<Builder />} />                                                            
                   </Routes>
                 </Layout>
               }

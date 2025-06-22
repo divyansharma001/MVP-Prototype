@@ -4,6 +4,7 @@ import { Search, Filter, Eye, Zap, Star, Heart, Download } from 'lucide-react';
 import Button from '../components/UI/Button';
 import Card from '../components/UI/Card';
 import { useToast } from '../components/UI/Toast';
+import { useNavigate } from 'react-router-dom';
 
 interface Template {
   id: string;
@@ -15,10 +16,12 @@ interface Template {
   rating: number;
   downloads: number;
   isFavorite: boolean;
+  isAvailable: boolean;
 }
 
 const Templates: React.FC = () => {
   const { showToast } = useToast();
+  const navigate = useNavigate(); 
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [favorites, setFavorites] = useState<string[]>([]);
@@ -29,11 +32,12 @@ const Templates: React.FC = () => {
       name: 'The Artisan Bakery',
       category: 'food',
       preview: 'https://images.pexels.com/photos/1721934/pexels-photo-1721934.jpeg?auto=compress&cs=tinysrgb&w=400',
-      tags: ['online-ordering', 'e-commerce', 'menu', 'bakery'],
-      isPremium: true,
+      tags: ['Online-ordering', 'Food-Delivery', 'Menu', 'Bakery'],
+      isPremium: false,
       rating: 4.9,
       downloads: 2156,
-      isFavorite: false
+      isFavorite: false,
+      isAvailable: true
     },
     {
       id: '2',
@@ -44,7 +48,8 @@ const Templates: React.FC = () => {
       isPremium: false,
       rating: 4.8,
       downloads: 1247,
-      isFavorite: false
+      isFavorite: false,
+      isAvailable: false
     },
     {
       id: '3',
@@ -55,7 +60,8 @@ const Templates: React.FC = () => {
       isPremium: true,
       rating: 4.7,
       downloads: 1892,
-      isFavorite: false
+      isFavorite: false,
+      isAvailable: false
     },
     {
       id: '4',
@@ -66,7 +72,8 @@ const Templates: React.FC = () => {
       isPremium: true,
       rating: 4.9,
       downloads: 987,
-      isFavorite: false
+      isFavorite: false,
+      isAvailable: false
     },
     {
       id: '5',
@@ -77,7 +84,8 @@ const Templates: React.FC = () => {
       isPremium: false,
       rating: 4.8,
       downloads: 1543,
-      isFavorite: true // Note: Pre-favorited
+      isFavorite: true,
+      isAvailable: false
     },
     {
       id: '6',
@@ -88,11 +96,11 @@ const Templates: React.FC = () => {
       isPremium: false,
       rating: 4.6,
       downloads: 634,
-      isFavorite: false
+      isFavorite: false,
+      isAvailable: false
     }
   ];
 
-  // --- REVISED CATEGORIES ARRAY ---
   const categories = [
     { value: 'all', label: 'All Templates', count: templates.length },
     { value: 'food', label: 'Restaurants & Cafes', count: templates.filter(t => t.category === 'food').length },
@@ -108,16 +116,24 @@ const Templates: React.FC = () => {
     return matchesSearch && matchesCategory;
   });
 
-  const handleUseTemplate = (template: Template) => {
+   const handleUseTemplate = (template: Template) => {
+    if (!template.isAvailable) {
+      showToast('info', 'This template is coming soon!');
+      return;
+    }
     if (template.isPremium) {
       showToast('warning', 'This is a premium template. Upgrade to use it.');
-    } else {
-      showToast('success', `Starting with ${template.name} template...`);
+      return;
     }
+
+    showToast('success', `Loading the ${template.name} editor...`);
+    navigate('/editor');
   };
 
+
   const handlePreview = (template: Template) => {
-    showToast('info', `Opening preview for ${template.name}`);
+     // For now, Preview and Use Template will do the same thing.
+     handleUseTemplate(template);
   };
 
   const toggleFavorite = (templateId: string) => {
@@ -193,6 +209,14 @@ const Templates: React.FC = () => {
                 transition={{ delay: index * 0.1 }}
                 layout
               >
+                <div className={`relative ${!template.isAvailable ? 'opacity-60' : ''}`}>
+            {!template.isAvailable && (
+              <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/50 rounded-lg">
+                <span className="bg-gray-800 text-white px-4 py-2 rounded-full text-sm font-semibold border border-gray-600">
+                  Coming Soon
+                </span>
+              </div>
+            )}
                 <Card className="overflow-hidden group hover-card">
                   <div className="relative aspect-video bg-gray-700 overflow-hidden">
                     <motion.img
@@ -213,6 +237,7 @@ const Templates: React.FC = () => {
                           variant="secondary"
                           size="sm"
                           onClick={() => handlePreview(template)}
+                          disabled={!template.isAvailable || template.isPremium} 
                           icon={Eye}
                         >
                           Preview
@@ -221,6 +246,7 @@ const Templates: React.FC = () => {
                           variant="gradient"
                           size="sm"
                           onClick={() => handleUseTemplate(template)}
+                          disabled={!template.isAvailable || template.isPremium} 
                         >
                           Use Template
                         </Button>
@@ -309,6 +335,7 @@ const Templates: React.FC = () => {
                     </div>
                   </div>
                 </Card>
+              </div>
               </motion.div>
             ))}
           </motion.div>
