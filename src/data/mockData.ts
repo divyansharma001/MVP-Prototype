@@ -1,5 +1,3 @@
-// src/data/mockData.ts
-
 import { Website } from '../contexts/WebsiteContext';
 
 export const initialWebsites: Website[] = [

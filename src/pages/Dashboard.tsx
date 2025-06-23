@@ -1,5 +1,3 @@
-// src/pages/Dashboard.tsx
-
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Layout, Globe, AlertTriangle } from 'lucide-react';
@@ -8,7 +6,7 @@ import Card from '../components/UI/Card';
 import Modal from '../components/UI/Modal';
 import { useToast } from '../components/UI/Toast';
 import { useWebsites, Website } from '../contexts/WebsiteContext';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 import OverviewStats from '../components/Dashboard/OverviewStats';
 import WebsiteCard from '../components/Dashboard/WebsiteCard';
@@ -25,7 +23,6 @@ const Dashboard: React.FC = () => {
     setTimeout(() => navigate('/builder'), 1000);
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleDeleteRequest = (id: string, name: string) => {
       const site = websites.find(s => s.id === id);
       if (site) {
@@ -75,7 +72,9 @@ const Dashboard: React.FC = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     <AnimatePresence>
                         {websites.map((website) => (
-                            <WebsiteCard key={website.id} website={website} onDelete={handleDeleteRequest} />
+                            <motion.div key={website.id} onClick={() => navigate('/editor')} className="cursor-pointer">
+                                <WebsiteCard website={website} onDelete={handleDeleteRequest} />
+                            </motion.div>
                         ))}
                     </AnimatePresence>
                 </div>
@@ -83,7 +82,6 @@ const Dashboard: React.FC = () => {
         </div>
       </div>
 
-      {/* Delete Confirmation Modal */}
       <Modal
         isOpen={!!siteToDelete}
         onClose={() => setSiteToDelete(null)}

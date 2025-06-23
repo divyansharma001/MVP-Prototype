@@ -1,9 +1,9 @@
 import React from 'react';
-import type { BakeryTemplateData } from '..';
+import type { HeroData, GlobalSettings } from '../../../types/page-builder';
 
 interface HeroSectionProps {
-  data: BakeryTemplateData['hero'];
-  globalData: BakeryTemplateData['global'];
+  data: HeroData;
+  globalData: GlobalSettings;
   onSelectElement: (id: string) => void;
 }
 

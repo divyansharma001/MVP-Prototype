@@ -48,12 +48,12 @@ const WebsiteCard: React.FC<WebsiteCardProps> = ({ website, onDelete }) => {
                         )}
                     </div>
                 </div>
-                <div className="flex items-center space-x-2 text-xs text-muted-foreground">
-                    <div className={`w-2 h-2 rounded-full ${status.dot}`}></div>
-                    <span className={status.text}>{website.status.charAt(0).toUpperCase() + website.status.slice(1)}</span>
-                    <span className="text-gray-600">•</span>
-                    <a href={`//${website.url}`} target="_blank" rel="noopener noreferrer" className="hover:text-primary flex items-center"><Globe className="h-3 w-3 mr-1"/>{website.url}</a>
-                </div>
+                {/* <div className="flex items-center space-x-2 text-xs text-muted-foreground"> */}
+                    {/* <div className={`w-2 h-2 rounded-full ${status.dot}`}></div> */}
+                    {/* <span className={status.text}>{website.status.charAt(0).toUpperCase() + website.status.slice(1)}</span> */}
+                    {/* <span className="text-gray-600">•</span> */}
+                    {/* <a href={`//${website.url}`} target="_blank" rel="noopener noreferrer" className="hover:text-primary flex items-center"><Globe className="h-3 w-3 mr-1"/>{website.url}</a> */}
+                {/* </div> */}
             </div>
             <div className="flex items-center justify-between text-xs text-muted-foreground mt-2">
                 <div className="flex items-center" title="Visits"><BarChart3 className="h-3 w-3 mr-1" /> {website.visits.toLocaleString()}</div>

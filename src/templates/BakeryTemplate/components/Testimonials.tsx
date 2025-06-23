@@ -1,9 +1,9 @@
 import React from 'react';
 import { Star } from 'lucide-react';
-import type { BakeryTemplateData } from '..';
+import type { TestimonialsData } from '../../../types/page-builder';
 
 interface Props {
-  data: BakeryTemplateData['testimonials'];
+  data: TestimonialsData;
   onSelectElement: (id: string) => void;
 }
 
@@ -11,11 +11,12 @@ const Testimonials: React.FC<Props> = ({ data, onSelectElement }) => {
   return (
     <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-6">
-        <h2 className="text-center text-4xl font-bold text-gray-900">
-          We Care About Our Customers <span className="text-orange-500">Experience Too</span>
-        </h2>
+        <div className="text-center">
+            <p className="font-dancing text-3xl text-[#F9A229]">{data.preHeading}</p>
+            <h2 className="text-5xl font-playfair font-bold text-gray-900 mt-1">{data.heading}</h2>
+        </div>
         <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
-          {data.map((testimonial, index) => (
+          {data.testimonials.map((testimonial, index) => (
             <div key={index} className="text-center cursor-pointer" onClick={() => onSelectElement(`testimonials.${index}`)}>
               <img src={testimonial.image} alt={testimonial.name} className="w-24 h-24 rounded-full mx-auto mb-4 object-cover" />
               <h3 className="font-bold text-lg">{testimonial.name}</h3>
@@ -31,5 +32,4 @@ const Testimonials: React.FC<Props> = ({ data, onSelectElement }) => {
     </section>
   );
 };
-
 export default Testimonials;
