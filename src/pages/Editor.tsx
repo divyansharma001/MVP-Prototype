@@ -9,7 +9,7 @@ import { useWebsites } from '../contexts/WebsiteContext';
 import Button from '../components/UI/Button';
 import EditorSidebar from '../components/Editor/EditorSidebar';
 import AddComponentPanel from '../components/Editor/AddComponentPanel';
-import IframePreview from '../components/Editor/IFramePreview';
+import IframePreview from '../components/Editor/IframePreview';
 
 type Viewport = 'desktop' | 'tablet' | 'mobile';
 
