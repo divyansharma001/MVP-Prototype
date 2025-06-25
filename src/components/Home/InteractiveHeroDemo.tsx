@@ -79,10 +79,10 @@ function Pointer({ className, style, children, ...props }: PointerProps) {
 
 // --- NEW REVISED STEPS FOR THE DEMO ---
 const steps = [
-  { text: 'Choose your business template...', icon: Layout, image: 'https://images.pexels.com/photos/1092671/pexels-photo-1092671.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop' },
-  { text: 'Add your products & services...', icon: ShoppingCart, image: 'https://images.pexels.com/photos/7974/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop' },
-  { text: 'Receive online orders & bookings...', icon: Bell, image: 'https://images.pexels.com/photos/6633923/pexels-photo-6633923.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop' },
-  { text: 'Automate your customer emails...', icon: Mail, image: 'https://images.pexels.com/photos/5926382/pexels-photo-5926382.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop' },
+  { text: 'Choose your business template...', icon: Layout, image: '/home001.png' },
+  { text: 'Add your products & services...', icon: ShoppingCart, image: '/home002.png' },
+  { text: 'Receive online orders & bookings...', icon: Bell, image: '/home003.png' },
+  { text: 'Automate your customer emails...', icon: Mail, image: '/home004.png' },
   { text: 'Watch your business grow!', icon: TrendingUp, image: 'https://images.pexels.com/photos/262978/pexels-photo-262978.jpeg?auto=compress&cs=tinysrgb&w=800&h=400&fit=crop' },
 ];
 
